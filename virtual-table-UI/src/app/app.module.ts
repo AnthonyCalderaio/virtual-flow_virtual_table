@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SecondLevelComponent } from './second-level/second-level.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { FirstLevelComponent } from './first-level/first-level.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SecondLevelComponent
+    FirstLevelComponent,
+    SecondLevelComponent,
   ],
   imports: [
     BrowserModule,

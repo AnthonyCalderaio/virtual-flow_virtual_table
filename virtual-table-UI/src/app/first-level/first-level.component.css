@@ -1,0 +1,26 @@
+.container {
+    height: 700px;
+    width: 1000px;
+    /* background-color: blue; */
+    border: 2px;
+    border-color: black;
+    border-width: 10px;
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .level1Image {
+    height: 300px;
+    width: 300px;
+  }
+  
+  .level1Unit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  
