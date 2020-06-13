@@ -1,12 +1,12 @@
 .container {
-    background-color: lightgray;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* width:50% */
-    /* justify-content: center; */
+  background-color: lightgray;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* width:50% */
+  /* justify-content: center; */
 }
 
 .backButton {
@@ -17,25 +17,38 @@
 }
 
 .secondLevelHeaderName {
-    font-size: 55px;
-    margin-bottom: 25px;
+  font-size: 55px;
+  margin-bottom: 25px;
+}
+
+.dockedCard {
+  width: 60%;
+}
+
+.dockedInfoHeader {
+}
+
+.dockedInfo {
+  display: flex;
+  flex-direction: row;
+  height: 400px;
 }
 
 .proteinCard {
-    width: 60%;
-    /* padding: 0px; */
-    /* border-radius: 20px; */
-    margin-bottom: 10px;
+  width: 60%;
+  /* padding: 0px; */
+  /* border-radius: 20px; */
+  margin-bottom: 10px;
 }
 
 .proteinInfoHeader {
-    background-size: cover;
-    /* height: 30px; */
-    /* background-color: lightpink; */
+  background-size: cover;
+  /* height: 30px; */
+  /* background-color: lightpink; */
 }
 
 .proteinInfo {
-    display: flex;
-    flex-direction: row;
-    height: 100px;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
 }
