@@ -21,8 +21,9 @@ export class FirstLevelComponent implements OnInit {
       "name": "protease2",
       "image_path": "./assets/protease2_image.png",
       "level2": {
+        "level2_image":"./assets/level2_example_protein.png",
         "Calculations": 821004,
-        "Compounds with docking data": 821004,
+        "Compounds_with_docking_data": 821004,
         "docked_compounds": {
           "0": {
             "coupound_identifier": "CHEMBL3814036",
@@ -47,6 +48,10 @@ export class FirstLevelComponent implements OnInit {
 
   level1Click(item: any) {
     console.log('Clicked level 1', item);
-    this.router.navigate(['/second-level']);
+    // Object.keys(this.proteinData).forEach(item => {
+    //   console.log()
+    // })
+    console.log(this.proteinData[item.key])
+    this.router.navigate(['/second-level'],this.proteinData[item.key]);
   }
 }

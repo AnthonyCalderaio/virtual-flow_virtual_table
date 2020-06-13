@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-second-level',
@@ -8,7 +9,14 @@ import { Location } from '@angular/common';
 })
 export class SecondLevelComponent implements OnInit {
 
-  constructor(private _location: Location) { }
+  constructor(
+    private _location: Location,
+    private router: Router
+  ) {
+    // console.log(this.router.getCurrentNavigation().extras)
+  }
+
+  secondLevelData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
 
   ngOnInit(): void {
   }
