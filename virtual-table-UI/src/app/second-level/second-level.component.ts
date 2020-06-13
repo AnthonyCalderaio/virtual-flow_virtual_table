@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-second-level',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SecondLevelComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _location: Location) { }
 
   ngOnInit(): void {
+  }
+
+  backClicked() {
+    console.log('Clicked back')
+    this._location.back();
   }
 
 }

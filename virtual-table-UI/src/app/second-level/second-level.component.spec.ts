@@ -2,15 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SecondLevelComponent } from './second-level.component';
 
+
 describe('SecondLevelComponent', () => {
   let component: SecondLevelComponent;
   let fixture: ComponentFixture<SecondLevelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SecondLevelComponent ]
+      declarations: [SecondLevelComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
