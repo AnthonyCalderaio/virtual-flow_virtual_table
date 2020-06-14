@@ -1,6 +1,6 @@
 .container {
-    height: 700px;
-    width: 1000px;
+    height: 100%;
+    width: 100%;
     /* background-color: blue; */
     border: 2px;
     border-color: black;

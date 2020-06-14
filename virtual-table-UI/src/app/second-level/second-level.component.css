@@ -1,12 +1,14 @@
 .container {
   background-color: lightgray;
-  height: 100%;
-  width: 100%;
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 0;
+  position: relative;
   /* width:50% */
-  /* justify-content: center; */
+  justify-content: center;
 }
 
 .backButton {
@@ -20,6 +22,7 @@
   justify-content: center;
   align-items: center;
   /* float: left; */
+  z-index: 2;
 }
 
 .secondLevelHeaderName {
@@ -78,7 +81,7 @@
 .compoundUnitFirstColumn {
     display:flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
