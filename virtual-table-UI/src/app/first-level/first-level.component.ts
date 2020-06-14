@@ -26,8 +26,14 @@ export class FirstLevelComponent implements OnInit {
         "Compounds_with_docking_data": 821004,
         "docked_compounds": {
           "0": {
-            "coupound_identifier": "CHEMBL3814036",
-            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,"
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          },
+          "1": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
           }
         }
       }

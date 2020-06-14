@@ -32,6 +32,7 @@
 }
 
 .dockedInfoHeader {
+    height: 35px;
 }
 
 .dockedInfo {
@@ -58,3 +59,29 @@
   flex-direction: row;
   height: 100px;
 }
+
+.compoundScroller {
+    height: 100%;
+    width: 100%;
+    /* background-color: lightseagreen; */
+    overflow: auto;
+}
+
+.compoundCard {
+    height: 267px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lightgray;
+    margin-bottom: 5px;
+}
+.compoundUnitFirstColumn {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.compoundUnitLinkBlock{
+    color: blue;
+} 
