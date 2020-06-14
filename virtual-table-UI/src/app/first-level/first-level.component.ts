@@ -40,15 +40,66 @@ export class FirstLevelComponent implements OnInit {
     },
     "1": {
       "name": "spike",
-      "image_path": "./assets/spike_image.png"
+      "image_path": "./assets/spike_image.png",
+      "level2": {
+        "level2_image":"./assets/level2_example_protein.png",
+        "Calculations": 821004,
+        "Compounds_with_docking_data": 821004,
+        "docked_compounds": {
+          "0": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          },
+          "1": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          }
+        }
+      }
     },
     "2": {
       "name": "protease",
-      "image_path": "./assets/protease_image.png"
+      "image_path": "./assets/protease_image.png",
+      "level2": {
+        "level2_image":"./assets/level2_example_protein.png",
+        "Calculations": 821004,
+        "Compounds_with_docking_data": 821004,
+        "docked_compounds": {
+          "0": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          },
+          "1": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          }
+        }
+      }
     },
     "3": {
       "name": "spike1",
-      "image_path": "./assets/spike1_image.png"
+      "image_path": "./assets/spike1_image.png",
+      "level2": {
+        "level2_image":"./assets/level2_example_protein.png",
+        "Calculations": 821004,
+        "Compounds_with_docking_data": 821004,
+        "docked_compounds": {
+          "0": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          },
+          "1": {
+            "compound_identifier": "CHEMBL3814036",
+            "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+            "compound_image":"./assets/compound_image_1.png"
+          }
+        }
+      }
     }
   }
 
