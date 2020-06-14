@@ -1,0 +1,51 @@
+<div class="container">
+    <!-- <p>second-level works!</p> -->
+    <div (click)="backClicked()" class="backButton">
+        <mat-icon>keyboard_backspace</mat-icon>
+    </div>
+    <div class="secondLevelHeaderName">{{secondLevelData.name}}</div>
+    <mat-card class="proteinCard">
+        <mat-card-header class="proteinInfoHeader">Protein Information</mat-card-header>
+        <mat-card-content class="proteinInfo">
+            <img [src]="secondLevelData.level2.level2_image" alt="">
+            <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                <span>Calculations: {{secondLevelData.level2.Calculations}}</span>
+                <br>
+                <span>Compounds with docking data: {{secondLevelData.level2.Compounds_with_docking_data}}</span>
+                <br>
+                <button mat-raised-button color="primary">Download Structure</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="dockedCard">
+        <mat-card-header class="dockedInfoHeader">Docked Compounds</mat-card-header>
+        <mat-card-content class="dockedInfo">
+            <div class="compoundScroller">
+                <mat-card style="background-color: darkgrey;">
+                    <mat-card-header>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                            <ng-container>
+                                <span>Compound Identifier</span><span>Top Scores</span><span> </span>
+                            </ng-container>
+                        </div>
+                    </mat-card-header>
+                </mat-card>
+                <div *ngFor="let item of secondLevelData.level2.docked_compounds | keyvalue; let i = index">
+                    <mat-card class="compoundCard">
+                        <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
+                            {{item.value.compound_identifier}}
+                        </div>
+                        <div name="scoreBlock"> {{item.value.top_scores}}
+                        </div>
+                        <div class="compoundUnitLinkBlock">
+                            See More
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card-content>
+
+
+    </mat-card>
+    <router-outlet></router-outlet>
+</div>
