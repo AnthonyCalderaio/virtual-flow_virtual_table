@@ -36,6 +36,21 @@ export class FirstLevelComponent implements OnInit {
             "compound_image":"./assets/compound_image_1.png"
           }
         }
+      },
+      "level3":{
+        "compound_identifier": "CHEMBL3814036",
+        "compound_image":"./assets/compound_image_1.png",
+        "SMILES_string":"C[C@@H]1[C@H]2C3=CC[C@@H]4[C@@]5(C)CC[C@H](O)C(C)(C)[C@@H]5CC[C@@]4(C)[C@]3(C)CC[C@@]2(C(=O)OCc2cn(CC(O)=N[C@@H](CCCNC(=[NH2+])[NH3+])C(O)=N[C@@H](CCCNC(=N)N)C(O)=N[C@@H](CCCNC(=N)N)C(=O)O)nn2)CC[C@H]1C",
+        "InChl_Key":"GKNSMGFXTBNLAT-HKSIVZNOSA-P",
+        "Calculations":4,
+        "Receptor with docking data":4,
+        "Groupings":"ChEMBL",
+        "Chemical Descriptors": 
+        {
+          "PEOE_PC+":10.154663,
+          "PEOE_PC-_per_atom":-0.0202
+        }
+
       }
     },
     "1": {

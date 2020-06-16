@@ -11,6 +11,7 @@ import { MatCardModule, } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ThirdLevelComponent } from './third-level/third-level.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     AppComponent,
     FirstLevelComponent,
     SecondLevelComponent,
+    ThirdLevelComponent,
   ],
   imports: [
     BrowserModule,

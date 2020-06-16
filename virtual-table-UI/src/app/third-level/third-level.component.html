@@ -1,23 +1,22 @@
 <div class="container">
-    <!-- <p>second-level works!</p> -->
     <div (click)="backClicked()" class="backButton">
         <mat-icon>keyboard_backspace</mat-icon>
     </div>
-    <div class="secondLevelHeaderName">{{secondLevelData.name}}</div>
+    <div class="secondLevelHeaderName">{{thirdLevelData.compound_identifier}}</div>
     <mat-card class="proteinCard">
         <mat-card-header class="proteinInfoHeader">Protein Information</mat-card-header>
         <mat-card-content class="proteinInfo">
-            <img [src]="secondLevelData.compound_image" alt="">
+            <img [src]="thirdLevelData.compound_image" alt="">
             <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                <span>SMILES string: {{secondLevelData.level2.Calculations}}</span>
+                <span>SMILES String: {{thirdLevelData.SMILES_string}}</span>
                 <br>
-                <span>Compounds with docking data: {{secondLevelData.level2.Compounds_with_docking_data}}</span>
+                <span>InChI Key: {{thirdLevelData.InChl_Key}}</span>
                 <br>
                 <button mat-raised-button color="primary">Download Structure</button>
             </div>
         </mat-card-content>
     </mat-card>
-    <mat-card class="dockedCard">
+    <!-- <mat-card class="dockedCard">
         <mat-card-header class="dockedInfoHeader">Docked Compounds</mat-card-header>
         <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
@@ -44,6 +43,6 @@
                 </div>
             </div>
         </mat-card-content>
-    </mat-card>
+    </mat-card> -->
     <router-outlet></router-outlet>
 </div>
