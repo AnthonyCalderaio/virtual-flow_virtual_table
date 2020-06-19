@@ -24,7 +24,7 @@ export class SecondLevelComponent implements OnInit {
 
   backClicked() {
     console.log('Clicked back')
-    this._location.back();
+    this.router.navigate(['/first-level'], this.wholeData);
   }
 
   clickedDockCompound(index: any) {

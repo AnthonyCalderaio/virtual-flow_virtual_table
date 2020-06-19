@@ -14,15 +14,15 @@ export class ThirdLevelComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log('thirdLevelData: ', this.thirdLevelData);
+    console.log('thirdLevelData(thirdLevel): ', this.thirdLevelData);
   }
 
   wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
-  thirdLevelData = this.wholeData.this.secondLevelData.level3
+  thirdLevelData = this.wholeData.level3
 
   backClicked() {
     console.log('Clicked back')
-    this._location.back();
+    this.router.navigate(['/second-level'], this.wholeData );
   }
 
 }
