@@ -15,11 +15,11 @@ export class SecondLevelComponent implements OnInit {
   ) {
     // console.log(this.router.getCurrentNavigation().extras)
   }
-  secondLevelData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
+  wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
 
 
   ngOnInit(): void {
-    console.log('secondLevelData: ', this.secondLevelData);
+    console.log('wholeData(secondLevel): ', this.wholeData);
   }
 
   backClicked() {
@@ -29,8 +29,8 @@ export class SecondLevelComponent implements OnInit {
 
   clickedDockCompound(index: any) {
     console.log('Index clicked:', index)
-    console.log(this.secondLevelData.level2.docked_compounds[index])
-    this.router.navigate(['/third-level'], this.secondLevelData.level3);
+    console.log(this.wholeData.level2.docked_compounds[index])
+    this.router.navigate(['/third-level'], this.wholeData);
   }
 
 }

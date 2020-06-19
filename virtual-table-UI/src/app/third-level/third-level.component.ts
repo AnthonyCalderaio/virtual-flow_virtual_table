@@ -17,7 +17,8 @@ export class ThirdLevelComponent implements OnInit {
     console.log('thirdLevelData: ', this.thirdLevelData);
   }
 
-  thirdLevelData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
+  wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
+  thirdLevelData = this.wholeData.this.secondLevelData.level3
 
   backClicked() {
     console.log('Clicked back')
