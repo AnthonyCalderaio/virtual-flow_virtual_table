@@ -17,5 +17,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     this.router.navigate(['/first-level'])
+    // this.router.navigate(['/third-level'], )
   }
 }

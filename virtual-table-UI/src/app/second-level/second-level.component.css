@@ -31,7 +31,7 @@
 }
 
 .dockedCard {
-  width: 60%;
+  width: 90%;
 }
 
 .dockedInfoHeader {
@@ -45,7 +45,7 @@
 }
 
 .proteinCard {
-  width: 60%;
+  width: 90%;
   /* padding: 0px; */
   /* border-radius: 20px; */
   margin-bottom: 10px;
