@@ -36,8 +36,10 @@
     }
   },
   "1": {
-    "name": "spike",
-    "image_path": "./assets/spike_image.png",
+    "level1": {
+      "name": "spike",
+      "image_path": "./assets/spike_image.png"
+    },
     "level2": {
       "level2_image": "./assets/level2_example_protein.png",
       "Calculations": 821004,
@@ -57,8 +59,10 @@
     }
   },
   "2": {
-    "name": "protease",
-    "image_path": "./assets/protease_image.png",
+    "level1": {
+      "name": "protease",
+      "image_path": "./assets/protease_image.png"
+    },
     "level2": {
       "level2_image": "./assets/level2_example_protein.png",
       "Calculations": 821004,
@@ -78,8 +82,10 @@
     }
   },
   "3": {
-    "name": "spike1",
-    "image_path": "./assets/spike1_image.png",
+    "level1": {
+      "name": "spike1",
+      "image_path": "./assets/spike1_image.png"
+    },
     "level2": {
       "level2_image": "./assets/level2_example_protein.png",
       "Calculations": 821004,
