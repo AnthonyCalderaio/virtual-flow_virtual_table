@@ -16,42 +16,25 @@ export class FirstLevelComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('WholeDataJson: ', this.testData);
+    this.populateMoleculeViewports()
 
-    setTimeout(() => {
-      Object.keys(this.testData).forEach(item => {
-        // console.log('Key: ', item);
-        // setTimeout(() => {
-        var stage = new NGL.Stage("viewport"+item);
-        // Handle window resizing
-        window.addEventListener("resize", function (event) {
-          stage.handleResize();
-        }, false);
-
-
-        // Load PDB entry 1CRN
-        stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
-      // }, 1000);
-      })
-    }, 1000);
-
-
-
-
-
-
-
-    // console.log('proteinData: ',this.proteinData)
   }
   testData: any = testData
 
 
+  populateMoleculeViewports() {
+    setTimeout(() => {
+      Object.keys(this.testData).forEach(item => {
+        var stage = new NGL.Stage("viewport" + item);
+        window.addEventListener("resize", function (event) {
+          stage.handleResize();
+        }, true);
+        stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
+      })
+    }, 1);
+  }
 
   level1Click(item: any) {
-
-    // console.log('Clicked level 1', item);
-    // Object.keys(this.proteinData).forEach(item => {
-    //   console.log()
-    // })
     console.log(this.testData[item.key])
     this.router.navigate(['/second-level'], this.testData[item.key]);
   }

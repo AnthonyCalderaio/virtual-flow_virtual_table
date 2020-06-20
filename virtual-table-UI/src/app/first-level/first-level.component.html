@@ -1,17 +1,9 @@
 <div class="container">
     <div *ngFor="let item of testData | keyvalue; let i = index">
       <div class="level1Unit" (click)="level1Click(item)" >
-        <!-- <img [src]="item.value.level1.image_path" alt="image" class="level1Image"> -->
-        <!-- <div [id]="'viewport'+i" style="width:100%; height:100%;"></div> -->
         <div [id]="'viewport'+i" class="level1Image"></div>
-        <!-- {{item.value}} -->
-        <!-- {{i}} -->
         {{item.value.level1.name}}
       </div>
     </div>
-    <!-- <div [id]="'viewport0'" style="width:10%; height:10%;"></div> -->
-    <!-- <div id="viewport1" style="width:10%; height:10%;"></div>
-    <div id="viewport2" style="width:10%; height:10%;"></div>
-    <div id="viewport3" style="width:10%; height:10%;"></div> -->
   </div>
   <router-outlet></router-outlet>
