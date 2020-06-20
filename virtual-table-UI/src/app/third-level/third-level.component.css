@@ -13,8 +13,8 @@
   
   .backButton {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 5%;
+    left: 5%;
     height: 50px;
     width: 50px;
     /* background-color: blue; */
@@ -87,3 +87,7 @@
   .compoundUnitLinkBlock{
       color: blue;
   } 
+
+  .compoundInfo {
+    display: flex;
+  }

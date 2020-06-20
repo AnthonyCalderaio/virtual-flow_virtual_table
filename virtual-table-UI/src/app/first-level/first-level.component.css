@@ -1,8 +1,8 @@
 .container {
-    height: 98vh;
-    width: 98vw;
+    height: 100vh;
+    width: 100vw;
     /* background-color: blue; */
-    border: 2px;
+    border: 5px;
     border-color: black;
     border-width: 10px;
     border-style: solid;

@@ -8,13 +8,17 @@
         <mat-card-content class="compoundInfo">
             <img [src]="thirdLevelData.compound_image" alt="">
             <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                <span>SMILES String: {{thirdLevelData.SMILES_string}}</span>
+                <span>
+                    <strong>SMILES String:</strong> {{thirdLevelData.SMILES_string}}</span>
                 <br>
-                <span>InChI Key: {{thirdLevelData.InChl_Key}}</span>
+                <span>
+                    <strong>InChI Key:</strong> {{thirdLevelData.InChl_Key}}</span>
                 <br>
-                <span>Calculations: {{thirdLevelData.Calculations}}</span>
+                <span>
+                    <strong>Calculations:</strong> {{thirdLevelData.Calculations}}</span>
                 <br>
-                <span>Receptor with docking data: {{thirdLevelData.receptor_with_docking_data}}</span>
+                <span>
+                    <strong>Receptor with docking data:</strong> {{thirdLevelData.receptor_with_docking_data}}</span>
                 <br>
                 <button mat-raised-button color="primary">Download Structure</button>
             </div>
@@ -29,9 +33,9 @@
                 <div *ngFor="let item of thirdLevelData.chemical_descriptors | keyvalue; let i = index">
                     <mat-card class="descriptorCardInfo" (click)="clickedDockCompound(i)">
                         <!-- <span class="compoundUnitRow"> <img [src]="item.value.compound_image" alt=""> -->
-                            <span *ngFor="let item2 of item.value | keyvalue" >
-                                <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
-                            </span>
+                        <span *ngFor="let item2 of item.value | keyvalue">
+                            <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
+                        </span>
                         <!-- </span> -->
 
                     </mat-card>
