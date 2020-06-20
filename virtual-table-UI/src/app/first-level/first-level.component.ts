@@ -16,18 +16,29 @@ export class FirstLevelComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('WholeDataJson: ', this.testData);
-    
-      var stage = new NGL.Stage("viewport");
 
-      // Handle window resizing
-      window.addEventListener("resize", function (event) {
-        stage.handleResize();
-      }, false);
+    setTimeout(() => {
+      Object.keys(this.testData).forEach(item => {
+        // console.log('Key: ', item);
+        // setTimeout(() => {
+        var stage = new NGL.Stage("viewport"+item);
+        // Handle window resizing
+        window.addEventListener("resize", function (event) {
+          stage.handleResize();
+        }, false);
 
 
-      // Load PDB entry 1CRN
-      stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
-    
+        // Load PDB entry 1CRN
+        stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
+      // }, 1000);
+      })
+    }, 1000);
+
+
+
+
+
+
 
     // console.log('proteinData: ',this.proteinData)
   }
