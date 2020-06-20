@@ -1,5 +1,5 @@
 .container {
-    background-color: lightgray;
+    background-color: purple;
     max-height: 100%;
     max-width: 100%;
     display: flex;
@@ -33,6 +33,7 @@
   .chemicalDescriptorCard {
     width: 80%;
     margin-bottom: 10px;
+    background-color: darkgray;
   }
   
   .dockedInfoHeader {
@@ -48,9 +49,8 @@
   
   .compoundCard {
     width: 80%;
-    /* padding: 0px; */
-    /* border-radius: 20px; */
-    margin-bottom: 10px;
+    background-color: darkgray;
+    margin-bottom: 20px;
   }
   
   .chemicalDescriptorsHeader {
@@ -62,7 +62,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border-radius: 0px;
+    border-radius: 5px;
+    margin: 10px;
   }
   
   .compoundScroller {
@@ -81,4 +82,6 @@
 
   .compoundInfo {
     display: flex;
+    
   }
+

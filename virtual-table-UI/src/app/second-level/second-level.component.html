@@ -5,9 +5,18 @@
     </div>
     <div class="secondLevelHeaderName">{{wholeData.level1.name}}</div>
     <mat-card class="proteinCard">
-        <mat-card-header class="proteinInfoHeader">Protein Information</mat-card-header>
+        <!-- <mat-card-header class="proteinInfoHeader">Protein Information</mat-card-header> -->
+        <mat-card style="background-color: darkgrey; margin-bottom: 5px;">
+            <mat-card-header>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                    <ng-container>
+                        <span>Protein Information</span>
+                    </ng-container>
+                </div>
+            </mat-card-header>
+        </mat-card>
         <mat-card-content class="proteinInfo">
-            <img [src]="wholeData.level2.level2_image" alt="">
+            <img [src]="wholeData.level2.level2_image" alt="" style=" margin-right: 10px;">
             <div style="display: flex;flex-direction: column;justify-content: space-between;">
                 <span>SMILES string: {{wholeData.level2.Calculations}}</span>
                 <br>
