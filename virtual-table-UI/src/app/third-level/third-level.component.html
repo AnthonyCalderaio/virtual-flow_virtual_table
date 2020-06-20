@@ -31,7 +31,7 @@
         <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
                 <div *ngFor="let item of thirdLevelData.chemical_descriptors | keyvalue; let i = index">
-                    <mat-card class="descriptorCardInfo" (click)="clickedDockCompound(i)">
+                    <mat-card class="descriptorCardInfo" >
                         <span *ngFor="let item2 of item.value | keyvalue">
                             <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
                         </span>
@@ -57,7 +57,7 @@
                             </div>
                         </mat-card-header>
                     </mat-card>
-                    <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
+                    <!-- <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
                         <mat-card class="compoundCard" (click)="clickedDockCompound(i)">
                             <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
                                 {{item.value.compound_identifier}}
@@ -68,7 +68,7 @@
                                 See More
                             </div>
                         </mat-card>
-                    </div>
+                    </div> -->
                 </div>
             </mat-card-content>
         </mat-card>
