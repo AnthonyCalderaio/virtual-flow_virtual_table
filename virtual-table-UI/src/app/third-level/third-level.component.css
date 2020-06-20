@@ -51,16 +51,14 @@
     margin-bottom: 10px;
   }
   
-  .proteinInfoHeader {
+  .chemicalDescriptorsHeader {
     background-size: cover;
-    /* height: 30px; */
-    /* background-color: lightpink; */
+
   }
   
-  .proteinInfo {
+  .compoundInfo {
     display: flex;
     flex-direction: row;
-    height: 100px;
   }
   
   .compoundScroller {

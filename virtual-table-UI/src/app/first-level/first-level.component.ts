@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as wholeData2 from '../wholeData.json'
+import testData from '../testData.json'
 
 @Component({
   selector: 'app-first-level',
@@ -17,13 +17,14 @@ export class FirstLevelComponent implements OnInit {
     console.log('WholeDataJson: ', this.testData);
     // console.log('proteinData: ',this.proteinData)
   }
-  testData: any = (wholeData2 as any).default
+  testData: any = testData
 
-  
-  
+
+
 
   level1Click(item: any) {
-    console.log('Clicked level 1', item);
+    
+    // console.log('Clicked level 1', item);
     // Object.keys(this.proteinData).forEach(item => {
     //   console.log()
     // })
