@@ -3,10 +3,10 @@
         <mat-icon>keyboard_backspace</mat-icon>
     </div>
     <div class="secondLevelHeaderName">{{thirdLevelData.compound_identifier}}</div>
-    <mat-card class="proteinCard">
-        <mat-card-header class="compoundInfoHeader">Compound Information</mat-card-header>
+    <mat-card class="compoundCard">
+        <mat-card-header style="margin-bottom: 10px;">Compound Information</mat-card-header>
         <mat-card-content class="compoundInfo">
-            <img [src]="thirdLevelData.compound_image" alt="">
+            <img [src]="thirdLevelData.compound_image" alt="" style="margin-right: 10px;">
             <div style="display: flex;flex-direction: column;justify-content: space-between;">
                 <span>
                     <strong>SMILES String:</strong> {{thirdLevelData.SMILES_string}}</span>
@@ -26,22 +26,51 @@
     </mat-card>
 
 
-    <mat-card class="dockedCard">
+    <mat-card class="chemicalDescriptorCard">
         <mat-card-header class="chemicalDescriptorsHeader">Chemical Descriptors</mat-card-header>
         <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
                 <div *ngFor="let item of thirdLevelData.chemical_descriptors | keyvalue; let i = index">
                     <mat-card class="descriptorCardInfo" (click)="clickedDockCompound(i)">
-                        <!-- <span class="compoundUnitRow"> <img [src]="item.value.compound_image" alt=""> -->
                         <span *ngFor="let item2 of item.value | keyvalue">
                             <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
                         </span>
-                        <!-- </span> -->
-
                     </mat-card>
                 </div>
             </div>
         </mat-card-content>
     </mat-card>
     <router-outlet></router-outlet>
+
+
+    <mat-card class="chemicalDescriptorCard">
+        <mat-card class="dockedCard">
+            <mat-card-header class="dockedInfoHeader">Docking Instances</mat-card-header>
+            <mat-card-content class="dockedInfo">
+                <div class="compoundScroller">
+                    <mat-card style="background-color: darkgrey;">
+                        <mat-card-header>
+                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                                <ng-container>
+                                    <span>Protein Identifier</span><span>Top Scores</span><span> </span>
+                                </ng-container>
+                            </div>
+                        </mat-card-header>
+                    </mat-card>
+                    <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
+                        <mat-card class="compoundCard" (click)="clickedDockCompound(i)">
+                            <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
+                                {{item.value.compound_identifier}}
+                            </div>
+                            <div name="scoreBlock"> {{item.value.top_scores}}
+                            </div>
+                            <div class="compoundUnitLinkBlock">
+                                See More
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </mat-card>
 </div>
