@@ -56,9 +56,10 @@
 
   }
   
-  .compoundInfo {
+  .descriptorCardInfo {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
   }
   
   .compoundScroller {
@@ -76,9 +77,9 @@
       background-color: lightgray;
       margin-bottom: 5px;
   }
-  .compoundUnitFirstColumn {
+  .compoundUnitRow {
       display:flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: space-between;
       align-items: center;
   }

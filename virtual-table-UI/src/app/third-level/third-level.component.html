@@ -20,17 +20,20 @@
             </div>
         </mat-card-content>
     </mat-card>
+
+
     <mat-card class="dockedCard">
         <mat-card-header class="chemicalDescriptorsHeader">Chemical Descriptors</mat-card-header>
         <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
                 <div *ngFor="let item of thirdLevelData.chemical_descriptors | keyvalue; let i = index">
                     <mat-card class="descriptorCardInfo" (click)="clickedDockCompound(i)">
-                        <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
-                            {{item.value | json}}
-                        </div>
-                        <div name="scoreBlock"> {{item.value| json}}
-                        </div>
+                        <!-- <span class="compoundUnitRow"> <img [src]="item.value.compound_image" alt=""> -->
+                            <span *ngFor="let item2 of item.value | keyvalue" >
+                                <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
+                            </span>
+                        <!-- </span> -->
+
                     </mat-card>
                 </div>
             </div>
