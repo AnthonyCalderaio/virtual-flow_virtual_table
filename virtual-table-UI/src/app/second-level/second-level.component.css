@@ -33,6 +33,7 @@
 
 .dockedCard {
   width: 90%;
+  background-color: lightgray;
 }
 
 .dockedInfoHeader {
