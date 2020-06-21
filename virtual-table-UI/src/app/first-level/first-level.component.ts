@@ -14,13 +14,13 @@ export class FirstLevelComponent implements OnInit {
     private router: Router,
   ) { }
 
+  testData: any = testData
+
   ngOnInit(): void {
     console.log('WholeDataJson: ', this.testData);
     this.populateMoleculeViewports()
 
   }
-  testData: any = testData
-
 
   populateMoleculeViewports() {
     setTimeout(() => {
