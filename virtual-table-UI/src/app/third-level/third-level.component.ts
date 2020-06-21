@@ -24,5 +24,8 @@ export class ThirdLevelComponent implements OnInit {
     console.log('Clicked back')
     this.router.navigate(['/second-level'], this.wholeData );
   }
+  asIsOrder(a, b) {
+    return 1;
+  }
 
 }

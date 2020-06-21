@@ -31,7 +31,7 @@
         <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
                 <div *ngFor="let item of thirdLevelData.chemical_descriptors | keyvalue; let i = index">
-                    <mat-card class="descriptorCardInfo" >
+                    <mat-card class="descriptorCardInfo">
                         <span *ngFor="let item2 of item.value | keyvalue">
                             <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
                         </span>
@@ -49,14 +49,31 @@
             <mat-card-content class="dockedInfo">
                 <div class="compoundScroller">
                     <mat-card style="background-color: darkgrey; margin-bottom: 10px;">
-                        <mat-card-header>
-                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
-                                <ng-container>
-                                    <span>Protein Identifier</span><span>Top Scores</span><span> </span>
-                                </ng-container>
-                            </div>
-                        </mat-card-header>
+                        <!-- <mat-card-header> -->
+                            <!-- style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;" -->
+                        <div >
+                            <span class="gridLayout">
+                                <span>Protein Identifier</span><span>Top Scores</span><span></span>
+                            </span>
+                        </div>
+                        <!-- </mat-card-header> -->
                     </mat-card>
+
+                    <div *ngFor="let item of thirdLevelData.docking_instances | keyvalue: asIsOrder; let i = index">
+
+                        <mat-card class="dockingInstancesRow">
+                            <span class="gridLayout">
+                                <span *ngFor="let item2 of item.value | keyvalue: asIsOrder; let i = index">
+                                    {{item2.value}}
+                                </span>
+                            </span>
+                        </mat-card>
+
+
+
+
+                    </div>
+
                     <!-- <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
                         <mat-card class="compoundCard" (click)="clickedDockCompound(i)">
                             <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">

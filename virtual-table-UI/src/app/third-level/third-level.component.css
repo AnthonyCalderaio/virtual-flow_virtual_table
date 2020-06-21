@@ -1,87 +1,98 @@
 .container {
-    background-color: purple;
-    max-height: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* z-index: 0; */
-    position: relative;
-    /* width:50% */
-    justify-content: center;
-  }
-  
-  .backButton {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 50px;
-    width: 50px;
-    /* background-color: blue; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* float: left; */
-    z-index: 2;
-  }
-  
-  .secondLevelHeaderName {
-    font-size: 55px;
-    margin-bottom: 25px;
-  }
-  
-  .chemicalDescriptorCard {
-    width: 80%;
-    margin-bottom: 10px;
-    background-color: darkgray;
-  }
-  
-  .dockedInfoHeader {
-      height: 35px;
-  }
-  
-  .dockedInfo {
-    display: flex;
-    flex-direction: row;
-    /* height: 400px; */
-    /* margin-bottom: 10px; */
-  }
-  
-  .compoundCard {
-    width: 80%;
-    background-color: darkgray;
-    margin-bottom: 20px;
-  }
-  
-  .chemicalDescriptorsHeader {
-    background-size: cover;
+  background-color: purple;
+  max-height: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* z-index: 0; */
+  position: relative;
+  /* width:50% */
+  justify-content: center;
+}
 
-  }
-  
-  .descriptorCardInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    border-radius: 5px;
-    margin: 10px;
-  }
-  
-  .compoundScroller {
-      height: 100%;
-      width: 100%;
-      /* background-color: lightseagreen; */
-      overflow: auto;
-  }
-  
-  .compoundUnitRow {
-      display:flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-  }
+.backButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* float: left; */
+  z-index: 2;
+}
 
-  .compoundInfo {
-    display: flex;
-    
-  }
+.secondLevelHeaderName {
+  font-size: 55px;
+  margin-bottom: 25px;
+}
 
+.chemicalDescriptorCard {
+  width: 80%;
+  margin-bottom: 10px;
+  background-color: darkgray;
+}
+
+.dockedInfoHeader {
+  height: 35px;
+}
+
+.dockedInfo {
+  display: flex;
+  flex-direction: row;
+  /* height: 400px; */
+  /* margin-bottom: 10px; */
+}
+
+.compoundCard {
+  width: 80%;
+  background-color: darkgray;
+  margin-bottom: 20px;
+}
+
+.chemicalDescriptorsHeader {
+  background-size: cover;
+}
+
+.descriptorCardInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.compoundScroller {
+  height: 100%;
+  width: 100%;
+  /* background-color: lightseagreen; */
+  overflow: auto;
+}
+
+.compoundUnitRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compoundInfo {
+  display: flex;
+}
+
+.dockingInstancesRow {
+  /* display: flex;
+  justify-content: space-between;
+  flex: 1 1 30%; */
+  background-color: indianred;
+  margin: 10px;
+}
+
+.gridLayout {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  padding: 10px;
+}

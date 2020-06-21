@@ -54,7 +54,28 @@
           "PEOE_PC+": 10.154663,
           "PEOE_PC-_per_atom": -0.0202
         }
-
+      },
+      "docking_instances": {
+        "0": {
+          "name": "protease2",
+          "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60",
+          "see_more":"someLink"
+        },
+        "1": {
+          "name": "protease",
+          "top_scores": "Docking -7.80,",
+          "see_more":"someLink"
+        },
+        "2": {
+          "name": "spike1",
+          "top_scores": "",
+          "see_more":"someLink"
+        },
+        "3": {
+          "name": "spike",
+          "top_scores": "",
+          "see_more":"someLink"
+        }
       }
     }
   },
