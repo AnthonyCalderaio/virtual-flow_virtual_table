@@ -1,6 +1,8 @@
 .container {
   height: 100vh;
   width: 100vh;
+  display: flex;
+  
 }
 
 .ligandViewer {
@@ -23,5 +25,29 @@
 }
 
 .buttonBarButton {
-    border-radius: 20px;
+    border-radius: 10px;
+}
+
+.sideButtonBar {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  height: 400px;
+}
+
+
+
+
+
+
+
+
+
+
+.example-section {
+  margin: 12px 0;
+}
+
+.example-margin {
+  margin: 0 12px;
 }

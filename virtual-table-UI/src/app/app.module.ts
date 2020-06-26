@@ -15,6 +15,8 @@ import { ThirdLevelComponent } from './third-level/third-level.component';
 import { LigandDetailComponent } from './ligand-detail/ligand-detail.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
