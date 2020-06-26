@@ -2,7 +2,10 @@
   height: 100vh;
   width: 100vh;
   display: flex;
-  
+}
+
+.secondContainer {
+  display: flex;
 }
 
 .ligandViewer {
@@ -20,7 +23,7 @@
 }
 
 .viewerContainer {
-  height: 400px;
+  height: 700px;
   width: 800px;
 }
 
@@ -29,10 +32,12 @@
 }
 
 .sideButtonBar {
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   background-color: grey;
-  height: 400px;
+  height: 700px;
+  /* height: 400px; */
 }
 
 

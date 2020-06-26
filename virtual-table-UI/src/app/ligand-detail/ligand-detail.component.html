@@ -1,108 +1,111 @@
 <p>ligand-detail works!</p>
 <div class="container">
-    <div class="viewerContainer">
-        <div id='viewport1' class="ligandViewer"></div>
-        <div class="viewerButtonBar">
-            <button mat-raised-button class="buttonBarButton">Spin</button>
-            <button mat-raised-button class="buttonBarButton">Center</button>
-            <button mat-raised-button class="buttonBarButton">Fullscreen</button>
-            <button mat-raised-button class="buttonBarButton">Screenshot</button>
+    <div class="secondContainer">
+        <div class="viewerContainer">
+            <div id='viewport1' class="ligandViewer"></div>
+            <div class="viewerButtonBar">
+                <button mat-raised-button class="buttonBarButton">Spin</button>
+                <button mat-raised-button class="buttonBarButton">Center</button>
+                <button mat-raised-button class="buttonBarButton">Fullscreen</button>
+                <button mat-raised-button class="buttonBarButton">Screenshot</button>
 
-            <button mat-button [matMenuTriggerFor]="perspectiveCamerMenu" class="buttonBarButton">Perspective Camera
-                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-            <mat-menu #perspectiveCamerMenu="matMenu">
-                <button mat-menu-item>Perspective Camera</button>
-                <button mat-menu-item>Orthographic camera</button>
-            </mat-menu>
+                <button mat-button [matMenuTriggerFor]="perspectiveCamerMenu" class="buttonBarButton">Perspective Camera
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+                <mat-menu #perspectiveCamerMenu="matMenu">
+                    <button mat-menu-item>Perspective Camera</button>
+                    <button mat-menu-item>Orthographic camera</button>
+                </mat-menu>
 
-            <button mat-button [matMenuTriggerFor]="whiteBackgroundMenu" class="buttonBarButton">White
-                Background <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon>
-            </button>
-            <mat-menu #whiteBackgroundMenu="matMenu">
-                <button mat-menu-item>White Background</button>
-                <button mat-menu-item>Black Background</button>
-            </mat-menu>
-            <mat-slider></mat-slider>
+                <button mat-button [matMenuTriggerFor]="whiteBackgroundMenu" class="buttonBarButton">White
+                    Background <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #whiteBackgroundMenu="matMenu">
+                    <button mat-menu-item>White Background</button>
+                    <button mat-menu-item>Black Background</button>
+                </mat-menu>
+                <mat-slider></mat-slider>
+
+            </div>
 
         </div>
+        <div class="sideButtonBar">
+            Assembly
+            <button mat-button [matMenuTriggerFor]="assemblyMenu" class="buttonBarButton">Perspective Camera
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #assemblyMenu="matMenu">
+                <button mat-menu-item>Bioassembly1</button>
+                <button mat-menu-item>Asymmetric Unit</button>
+                <button mat-menu-item>Unit Cell</button>
+                <button mat-menu-item>Super Cell</button>
+            </mat-menu>
+            Model
+            <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">Model1
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #modelMenu="matMenu">
+                <button mat-menu-item>Model1</button>
+            </mat-menu>
+            Symmetry
+            <button mat-button [matMenuTriggerFor]="symmetryMenu" class="buttonBarButton">None
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #symmetryMenu="matMenu">
+                <button mat-menu-item>None</button>
+            </mat-menu>
+            Style
+            <button mat-button [matMenuTriggerFor]="styleMenu" class="buttonBarButton">Cartoon
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #styleMenu="matMenu">
+                <button mat-menu-item>Cartoon</button>
+                <button mat-menu-item>None</button>
+                <button mat-menu-item>Backbone</button>
+                <button mat-menu-item>Surface</button>
+                <button mat-menu-item>Spacefill</button>
+                <button mat-menu-item>Licorice</button>
+                <button mat-menu-item>Line</button>
+            </mat-menu>
+            Color
+            <button mat-button [matMenuTriggerFor]="colorMenu" class="buttonBarButton">Cartoon
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #colorMenu="matMenu">
+                <button mat-menu-item>Cartoon</button>
+                <button mat-menu-item>None</button>
+                <button mat-menu-item>Backbone</button>
+                <button mat-menu-item>Surface</button>
+                <button mat-menu-item>Spacefill</button>
+                <button mat-menu-item>Licorice</button>
+                <button mat-menu-item>Line</button>
+            </mat-menu>
+            Ligand
+            <button mat-button [matMenuTriggerFor]="ligandMenu" class="buttonBarButton">Cartoon
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #ligandMenu="matMenu">
+                <button mat-menu-item>Cartoon</button>
+                <button mat-menu-item>None</button>
+                <button mat-menu-item>Backbone</button>
+                <button mat-menu-item>Surface</button>
+                <button mat-menu-item>Spacefill</button>
+                <button mat-menu-item>Licorice</button>
+                <button mat-menu-item>Line</button>
+            </mat-menu>
+            Quality
+            <button mat-button [matMenuTriggerFor]="qualityMenu" class="buttonBarButton">Cartoon
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #qualityMenu="matMenu">
+                <button mat-menu-item>Cartoon</button>
+                <button mat-menu-item>None</button>
+                <button mat-menu-item>Backbone</button>
+                <button mat-menu-item>Surface</button>
+                <button mat-menu-item>Spacefill</button>
+                <button mat-menu-item>Licorice</button>
+                <button mat-menu-item>Line</button>
+            </mat-menu>
+            <section class="example-section">
+                <mat-checkbox class="example-margin">Water</mat-checkbox>
+                <mat-checkbox class="example-margin">Ions</mat-checkbox>
+                <mat-checkbox class="example-margin">Hydrogens</mat-checkbox>
+                <mat-checkbox class="example-margin">Clashes</mat-checkbox>
+            </section>
+            <button mat-raised-button>Default Structure View</button>
+        </div>
+    </div>
 
-    </div>
-    <div class="sideButtonBar">
-        Assembly
-        <button mat-button [matMenuTriggerFor]="assemblyMenu" class="buttonBarButton">Perspective Camera
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #assemblyMenu="matMenu">
-            <button mat-menu-item>Bioassembly1</button>
-            <button mat-menu-item>Asymmetric Unit</button>
-            <button mat-menu-item>Unit Cell</button>
-            <button mat-menu-item>Super Cell</button>
-        </mat-menu>
-        Model
-        <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">Model1
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #modelMenu="matMenu">
-            <button mat-menu-item>Model1</button>
-        </mat-menu>
-        Symmetry
-        <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">None
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #modelMenu="matMenu">
-            <button mat-menu-item>None</button>
-        </mat-menu>
-        Style
-        <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">Cartoon
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #modelMenu="matMenu">
-            <button mat-menu-item>Cartoon</button>
-            <button mat-menu-item>None</button>
-            <button mat-menu-item>Backbone</button>
-            <button mat-menu-item>Surface</button>
-            <button mat-menu-item>Spacefill</button>
-            <button mat-menu-item>Licorice</button>
-            <button mat-menu-item>Line</button>
-        </mat-menu>
-        Color
-        <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">Cartoon
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #modelMenu="matMenu">
-            <button mat-menu-item>Cartoon</button>
-            <button mat-menu-item>None</button>
-            <button mat-menu-item>Backbone</button>
-            <button mat-menu-item>Surface</button>
-            <button mat-menu-item>Spacefill</button>
-            <button mat-menu-item>Licorice</button>
-            <button mat-menu-item>Line</button>
-        </mat-menu>
-        Ligand
-        <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">Cartoon
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #modelMenu="matMenu">
-            <button mat-menu-item>Cartoon</button>
-            <button mat-menu-item>None</button>
-            <button mat-menu-item>Backbone</button>
-            <button mat-menu-item>Surface</button>
-            <button mat-menu-item>Spacefill</button>
-            <button mat-menu-item>Licorice</button>
-            <button mat-menu-item>Line</button>
-        </mat-menu>
-        Quality
-        <button mat-button [matMenuTriggerFor]="modelMenu" class="buttonBarButton">Cartoon
-            <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
-        <mat-menu #modelMenu="matMenu">
-            <button mat-menu-item>Cartoon</button>
-            <button mat-menu-item>None</button>
-            <button mat-menu-item>Backbone</button>
-            <button mat-menu-item>Surface</button>
-            <button mat-menu-item>Spacefill</button>
-            <button mat-menu-item>Licorice</button>
-            <button mat-menu-item>Line</button>
-        </mat-menu>
-        <section class="example-section">
-            <mat-checkbox class="example-margin">Water</mat-checkbox>
-            <mat-checkbox class="example-margin">Ions</mat-checkbox>
-            <mat-checkbox class="example-margin">Hydrogens</mat-checkbox>
-            <mat-checkbox class="example-margin">Clashes</mat-checkbox>
-          </section>
-          <button mat-raised-button>Default Structure View</button>
-    </div>
 </div>
