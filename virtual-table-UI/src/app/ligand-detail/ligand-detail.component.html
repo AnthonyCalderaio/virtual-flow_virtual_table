@@ -1,0 +1,36 @@
+<p>ligand-detail works!</p>
+<div class="container">
+    <div class="viewerContainer">
+        <div id='viewport1' class="ligandViewer"></div>
+        <div class="viewerButtonBar">
+            <button class="buttonBarButton">Spin</button>
+            <button class="buttonBarButton">Center</button>
+            <button class="buttonBarButton">Fullscreen</button>
+            <button class="buttonBarButton">Screenshot</button>
+
+            <button mat-button [matMenuTriggerFor]="perspectiveCamerMenu" class="buttonBarButton">Perspective Camera
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #perspectiveCamerMenu="matMenu">
+                <button mat-menu-item>Perspective Camera</button>
+                <button mat-menu-item>Orthographic camera</button>
+            </mat-menu>
+
+            <button mat-button [matMenuTriggerFor]="whiteBackgroundMenu" class="buttonBarButton">White
+                Background <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
+            <mat-menu #whiteBackgroundMenu="matMenu">
+                <button mat-menu-item>White Background</button>
+                <button mat-menu-item>Black Background</button>
+            </mat-menu>
+            <mat-slider></mat-slider>
+
+        </div>
+    </div>
+    <!-- <div class="sideButtonBar">
+        <button class="buttonBarButton">Spin</button>
+            <button class="buttonBarButton">Center</button>
+            <button class="buttonBarButton">Fullscreen</button>
+            <button class="buttonBarButton">Screenshot</button>
+            <button class="buttonBarButton">Perspective Camera</button>
+            <button class="buttonBarButton">White background</button>
+    </div> -->
+</div>

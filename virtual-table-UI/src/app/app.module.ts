@@ -12,6 +12,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ThirdLevelComponent } from './third-level/third-level.component';
+import { LigandDetailComponent } from './ligand-detail/ligand-detail.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -20,6 +23,7 @@ import { ThirdLevelComponent } from './third-level/third-level.component';
     FirstLevelComponent,
     SecondLevelComponent,
     ThirdLevelComponent,
+    LigandDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,9 @@ import { ThirdLevelComponent } from './third-level/third-level.component';
     MatCardModule,
     MatDividerModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
