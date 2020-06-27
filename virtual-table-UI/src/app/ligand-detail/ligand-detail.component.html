@@ -4,9 +4,9 @@
         <div class="viewerContainer">
             <div id='viewport1' class="ligandViewer"></div>
             <div class="viewerButtonBar">
-                <button mat-raised-button class="buttonBarButton">Spin</button>
-                <button mat-raised-button class="buttonBarButton">Center</button>
-                <button mat-raised-button class="buttonBarButton">Fullscreen</button>
+                <button (click)="spinLigand()" mat-raised-button class="buttonBarButton">Spin</button>
+                <button (click)="centerLigand()" mat-raised-button class="buttonBarButton">Center</button>
+                <button (click)="handleFullScreen()" mat-raised-button class="buttonBarButton">Fullscreen</button>
                 <button mat-raised-button class="buttonBarButton">Screenshot</button>
 
                 <button mat-button [matMenuTriggerFor]="perspectiveCamerMenu" class="buttonBarButton">Perspective Camera
@@ -99,10 +99,11 @@
                 <button mat-menu-item>Line</button>
             </mat-menu>
             <section class="example-section">
-                <mat-checkbox class="example-margin">Water</mat-checkbox>
-                <mat-checkbox class="example-margin">Ions</mat-checkbox>
-                <mat-checkbox class="example-margin">Hydrogens</mat-checkbox>
-                <mat-checkbox class="example-margin">Clashes</mat-checkbox>
+                <mat-checkbox name="Water" (change)="checkClicked($event.checked, $event.source.name)"
+                    class="example-margin">Water</mat-checkbox>
+                <mat-checkbox name="Ions" class="example-margin">Ions</mat-checkbox>
+                <mat-checkbox name="Hydrogens" class="example-margin">Hydrogens</mat-checkbox>
+                <mat-checkbox name="Clashes" class="example-margin">Clashes</mat-checkbox>
             </section>
             <button mat-raised-button>Default Structure View</button>
         </div>
