@@ -24,11 +24,15 @@ export class SecondLevelComponent implements OnInit {
   mwFilter: any;
   slogPFilter: any;
   tpsaFilter: any;
+  h_accFilter: any;
+  hbdFilter: any;
+  rotBFilter: any;
 
-  validFilterKeyNamesForCheck = ["MW", "cLogP", "H_Acc"]
+  validFilterKeyNamesForCheck = ["MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
 
   compoundBlacklist = []
 
+  //MW
   molecularWeightRanges = {
     "0": "0",
     "1": "200",
@@ -43,6 +47,7 @@ export class SecondLevelComponent implements OnInit {
     "10": "500",
   }
 
+  //Slogp
   partitionCoefficientRanges = {
     "0": "-inf",
     "1": "-1",
@@ -58,6 +63,7 @@ export class SecondLevelComponent implements OnInit {
     "11": "inf"
   }
 
+  //TPSA
   topologicalPolarSurfaceArea = {
     "0": "0",
     "1": "20",
@@ -69,7 +75,30 @@ export class SecondLevelComponent implements OnInit {
     "7": "140"
   }
 
+  //HBA or H-Acc
   hydrogenBondAcceptors = {
+    "0": "0",
+    "1": "1",
+    "2": "3",
+    "3": "5",
+    "4": "7",
+    "5": "9",
+    "6": "10"
+  }
+
+  //HBD
+  hydrogenBondDonors = {
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "inf"
+  }
+
+  //RotB
+  rotableBonds = {
     "0": "0",
     "1": "1",
     "2": "3",
@@ -84,7 +113,9 @@ export class SecondLevelComponent implements OnInit {
     this.mwFilter = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilter = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
     this.tpsaFilter = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
-
+    this.h_accFilter = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
+    this.hbdFilter = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
+    this.rotBFilter = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
   }
 
   backClicked() {
@@ -126,6 +157,15 @@ export class SecondLevelComponent implements OnInit {
     if (filterName == 'tpsa') {
       this.tpsaFilter = this.topologicalPolarSurfaceArea[Number(input.value) - 1];
     }
+    if (filterName == 'h-acc') {
+      this.h_accFilter = this.hydrogenBondAcceptors[Number(input.value) - 1];
+    }
+    if (filterName == 'hbd') {
+      this.hbdFilter = this.hydrogenBondDonors[Number(input.value) - 1];
+    }
+    if (filterName == 'rotB') {
+      this.rotBFilter = this.rotableBonds[Number(input.value) - 1];
+    }
     this.validateCompounds()
   }
 
@@ -137,7 +177,7 @@ export class SecondLevelComponent implements OnInit {
       // console.log('????',this.wholeData.level2.docked_compounds[item])
 
       var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
-      console.log('compoundUnderReview:',compoundUnderReview);
+      // console.log('compoundUnderReview:', compoundUnderReview);
       //compound:{}
       // console.log(this.wholeData.level2.docked_compounds[item])
 
@@ -148,7 +188,7 @@ export class SecondLevelComponent implements OnInit {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
           //Checking filter key here
           // console.log('Checking:', compoundDetail)
-
+          // console.log(compoundDetail)
           //Checking filter value here
           if (compoundDetail == 'MW') {
             if (compoundUnderReview[compoundDetail] > this.mwFilter) {
@@ -163,30 +203,42 @@ export class SecondLevelComponent implements OnInit {
             }
           }
           if (compoundDetail == 'H_Acc') {
-            if (compoundUnderReview[compoundDetail] > this.tpsaFilter) {
-              console.log('H_Acc Broke!')
+            if (compoundUnderReview[compoundDetail] > this.h_accFilter) {
+              // console.log('compoundUnderReview[compoundDetail]: ' + compoundUnderReview[compoundDetail])
+
+              console.log('this.h_accFilter: ' + this.h_accFilter)
+              console.log('h-acc Broke!')
               compoundValid = false;
             }
           }
-
-          // "MW": 437.542,
-          // "cLogP": 2,
-          // "H_Acc": 8
-
-
-
+          if (compoundDetail == 'hDonors') {
+            if (compoundUnderReview[compoundDetail] > this.hbdFilter) {
+              console.log('h-acc Broke!')
+              compoundValid = false;
+            }
+          }
+          if (compoundDetail == 'tpsa') {
+            if (compoundUnderReview[compoundDetail] > this.tpsaFilter) {
+              console.log('tpsa Broke!')
+              compoundValid = false;
+            }
+          }
+          if (compoundDetail == 'rotable_bonds') {
+            if (compoundUnderReview[compoundDetail] > this.rotBFilter) {
+              console.log('tpsa Broke!')
+              compoundValid = false;
+            }
+          }
         }
-        // console.log('value', compound[compoundDetail])
-        // console.log('compoundDetail:', compoundDetail);
-        
+
       })
-      if(!compoundValid){
-        this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1  ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
-        
-      }else{
-        this.compoundBlacklist = this.compoundBlacklist.filter(item => {return item != compoundUnderReview.compound_identifier})
+      if (!compoundValid) {
+        this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1 ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
+
+      } else {
+        this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.compound_identifier })
       }
-      console.log('Blacklst',this.compoundBlacklist)
+      // console.log('Blacklst', this.compoundBlacklist)
     })
   }
 

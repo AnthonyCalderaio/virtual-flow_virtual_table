@@ -15,7 +15,10 @@
           "compound_image": "./assets/compound_image_1.png",
           "MW": 422.483,
           "cLogP": 1,
-          "H_Acc": 8
+          "H_Acc": 8,
+          "hDonors":2,
+          "tpsa":91,
+          "rotable_bonds":2
         },
         "1": {
           "compound_identifier": "PV-000469994617",
@@ -23,7 +26,10 @@
           "compound_image": "./assets/compound_image_1.png",
           "MW": 396.476,
           "cLogP": 2,
-          "H_Acc": 5
+          "H_Acc": 5,
+          "hDonors":0,
+          "tpsa":50,
+          "rotable_bonds":3
         },
         "2": {
           "compound_identifier": "PV-001795138257",
@@ -31,7 +37,10 @@
           "compound_image": "./assets/compound_image_1.png",
           "MW": 407.425,
           "cLogP": 2,
-          "H_Acc": 8
+          "H_Acc": 8,
+          "hDonors":3,
+          "tpsa":114,
+          "rotable_bonds":3
         },
         "3": {
           "compound_identifier": "PV-001802203537",
@@ -39,7 +48,10 @@
           "compound_image": "./assets/compound_image_1.png",
           "MW": 451.569,
           "cLogP": 3,
-          "H_Acc": 8
+          "H_Acc": 8,
+          "hDonors":2,
+          "tpsa":96,
+          "rotable_bonds":4
         },
         "4": {
           "compound_identifier": "PV-001802204601",
@@ -47,7 +59,10 @@
           "compound_image": "./assets/compound_image_1.png",
           "MW": 437.542,
           "cLogP": 2,
-          "H_Acc": 8
+          "H_Acc": 8,
+          "hDonors":2,
+          "tpsa":96,
+          "rotable_bonds":4
         }
       }
     },

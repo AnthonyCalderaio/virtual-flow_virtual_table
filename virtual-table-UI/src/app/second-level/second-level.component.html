@@ -31,7 +31,7 @@
     <!-----------------------   RANGE SLIDERS -------------->
 
     <span style="width: 600px;">
-        Molecular Weight (MW): 0 to 250 ppp {{mwFilter}}
+        Molecular Weight (MW): 0 to 250 ---- {{mwFilter}}
         <mat-slider [value]="11" name="MWSlider" (input)="onSliderChange($event, 'MWSlider')" class="my-slider" thumbLabel min="1"
             max="11" step="1" value="1.5" tickInterval="1" style="width:600px"></mat-slider>
         <br>
@@ -66,6 +66,45 @@
         <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
             <ng-container *ngFor="let rangeValue of topologicalPolarSurfaceArea | keyvalue: asIsOrder;">
                 <span>{{topologicalPolarSurfaceArea[rangeValue.key]}}</span>
+            </ng-container>
+        </span>
+    </span>
+    <br>
+
+    <span style="width: 600px;">
+        Hydrogen Bond Acceptors (HBA): 0 to 10 ------ {{h_accFilter}}
+        <mat-slider [value]="8" (input)="onSliderChange($event, 'h-acc')" class="my-slider" min="1" max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
+        </mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
+            <ng-container *ngFor="let rangeValue of hydrogenBondAcceptors | keyvalue: asIsOrder;">
+                <span>{{hydrogenBondAcceptors[rangeValue.key]}}</span>
+            </ng-container>
+        </span>
+    </span>
+    <br>
+
+    <span style="width: 600px;">
+        # H-Donors (HBD): 0 to 10 ------ {{hbdFilter}}
+        <mat-slider [value]="8" (input)="onSliderChange($event, 'hbd')" class="my-slider" min="1" max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
+        </mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
+            <ng-container *ngFor="let rangeValue of hydrogenBondDonors | keyvalue: asIsOrder;">
+                <span>{{hydrogenBondDonors[rangeValue.key]}}</span>
+            </ng-container>
+        </span>
+    </span>
+    <br>
+
+    <span style="width: 600px;">
+        Rotable Bonds (rotB): 0 to 10 ----- {{rotBFilter}}
+        <mat-slider [value]="8" (input)="onSliderChange($event, 'rotB')" class="my-slider" min="1" max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
+        </mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
+            <ng-container *ngFor="let rangeValue of rotableBonds | keyvalue: asIsOrder;">
+                <span>{{rotableBonds[rangeValue.key]}}</span>
             </ng-container>
         </span>
     </span>
@@ -112,7 +151,7 @@
             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
                 <ng-container>
                     <span>Compound Identifier</span><span>Top
-                        Scores</span><span>MW</span><span>cLogP</span><span># H-Acc</span><span> </span>
+                        Scores</span><span>MW</span><span>cLogP</span><span># H-Acc</span><span># H-Donors</span><span>TPSA</span><span>$ Rotable Bonds</span><span> </span>
                 </ng-container>
             </div>
         </mat-card-header>
@@ -139,6 +178,9 @@
                             <div>{{item.value.MW}}</div>
                             <div>{{item.value.cLogP}}</div>
                             <div>{{item.value.H_Acc}}</div>
+                            <div>{{item.value.hDonors}}</div>
+                            <div>{{item.value.tpsa}}</div>
+                            <div>{{item.value.rotable_bonds}}</div>
                             <div class="compoundUnitLinkBlock">
                                 See More
                             </div>
