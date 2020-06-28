@@ -25,6 +25,10 @@ export class SecondLevelComponent implements OnInit {
   slogPFilter: any;
   tpsaFilter: any;
 
+  validFilterKeyNamesForCheck = ["MW", "cLogP", "H_Acc"]
+
+  compoundBlacklist = []
+
   molecularWeightRanges = {
     "0": "0",
     "1": "200",
@@ -122,7 +126,68 @@ export class SecondLevelComponent implements OnInit {
     if (filterName == 'tpsa') {
       this.tpsaFilter = this.topologicalPolarSurfaceArea[Number(input.value) - 1];
     }
+    this.validateCompounds()
+  }
 
+  validateCompounds() {
+    // console
+    // var compoundValid = true;
+    Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
+      var compoundValid = true;
+      // console.log('????',this.wholeData.level2.docked_compounds[item])
+
+      var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
+      console.log('compoundUnderReview:',compoundUnderReview);
+      //compound:{}
+      // console.log(this.wholeData.level2.docked_compounds[item])
+
+      // console.log('--------')
+      Object.keys(compoundUnderReview).forEach(compoundDetail => {
+        //mw,cLog,etc
+
+        if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
+          //Checking filter key here
+          // console.log('Checking:', compoundDetail)
+
+          //Checking filter value here
+          if (compoundDetail == 'MW') {
+            if (compoundUnderReview[compoundDetail] > this.mwFilter) {
+              compoundValid = false;
+              console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilter);
+            }
+          }
+          if (compoundDetail == 'cLogP') {
+            if (compoundUnderReview[compoundDetail] > this.slogPFilter) {
+              compoundValid = false;
+              console.log('cLogP Broke!')
+            }
+          }
+          if (compoundDetail == 'H_Acc') {
+            if (compoundUnderReview[compoundDetail] > this.tpsaFilter) {
+              console.log('H_Acc Broke!')
+              compoundValid = false;
+            }
+          }
+
+          // "MW": 437.542,
+          // "cLogP": 2,
+          // "H_Acc": 8
+
+
+
+        }
+        // console.log('value', compound[compoundDetail])
+        // console.log('compoundDetail:', compoundDetail);
+        
+      })
+      if(!compoundValid){
+        this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1  ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
+        
+      }else{
+        this.compoundBlacklist = this.compoundBlacklist.filter(item => {return item != compoundUnderReview.compound_identifier})
+      }
+      console.log('Blacklst',this.compoundBlacklist)
+    })
   }
 
 }
