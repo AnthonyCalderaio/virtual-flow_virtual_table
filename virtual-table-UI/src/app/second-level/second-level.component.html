@@ -129,19 +129,21 @@
                     </mat-card-header>
                 </mat-card>
                 <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
-                    <mat-card class="compoundCard" (click)="clickedDockCompound(i)">
-                        <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
-                            {{item.value.compound_identifier}}
-                        </div>
-                        <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}
-                        </div>
-                        <div>{{item.value.MW}}</div>
-                        <div>{{item.value.cLogP}}</div>
-                        <div>{{item.value.H_Acc}}</div>
-                        <div class="compoundUnitLinkBlock">
-                            See More
-                        </div>
-                    </mat-card>
+                    <span *ngIf="!compoundBlacklist.includes(item.value.compound_identifier)">
+                        <mat-card class="compoundCard" (click)="clickedDockCompound(i)">
+                            <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
+                                {{item.value.compound_identifier}}
+                            </div>
+                            <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}
+                            </div>
+                            <div>{{item.value.MW}}</div>
+                            <div>{{item.value.cLogP}}</div>
+                            <div>{{item.value.H_Acc}}</div>
+                            <div class="compoundUnitLinkBlock">
+                                See More
+                            </div>
+                        </mat-card>
+                    </span>
                 </div>
             </div>
         </mat-card-content>
