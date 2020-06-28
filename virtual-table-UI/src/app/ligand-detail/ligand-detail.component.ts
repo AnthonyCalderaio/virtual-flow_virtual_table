@@ -56,15 +56,20 @@ export class LigandDetailComponent implements OnInit {
   }
 
   centerLigand() {
-    console.log('viewerEvent:', this.viewerEvent.__zone_symbol__value.getCenter());
-    console.log('this.viewerEvent.__zone_symbol__value.getCenter(): ', this.viewerEvent.__zone_symbol__value.getCenter());
+    // console.log('viewerEvent:', this.viewerEvent.__zone_symbol__value.getCenter());
+    // console.log('this.viewerEvent.__zone_symbol__value.getCenter(): ', this.viewerEvent.__zone_symbol__value.getCenter());
 
 
-    console.log('set viewerOriginalCenter:', this.viewerOriginalCenter);
+    // console.log('set viewerOriginalCenter:', this.viewerOriginalCenter);
 
-    this.viewerEvent.__zone_symbol__value.setPosition(this.viewerOriginalCenter)
+    // this.viewerEvent.__zone_symbol__value.setPosition(this.viewerOriginalCenter)
 
 
+  }
+
+  styleChange(style: string) {
+    this.viewerEvent.__zone_symbol__value.addRepresentation(style)
+    // this.viewerEvent.__zone_symbol__value.addRepresentation( "ball+stick", { multipleBond: true } )
   }
 
   spinLigand() {

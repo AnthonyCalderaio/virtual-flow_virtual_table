@@ -37,14 +37,13 @@
 }
 
 .dockedInfoHeader {
-    height: 35px;
+  height: 35px;
 }
 
 .dockedInfo {
   display: flex;
   flex-direction: row;
   height: 400px;
-  
 }
 
 .proteinCard {
@@ -66,31 +65,51 @@
   flex-direction: row;
   /* height: 100px; */
   margin-top: 10px;
-  
 }
 
 .compoundScroller {
-    height: 100%;
-    width: 100%;
-    /* background-color: lightseagreen; */
-    overflow: auto;
+  height: 100%;
+  width: 100%;
+  /* background-color: lightseagreen; */
+  overflow: auto;
 }
 
 .compoundCard {
-    height: 267px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: lightgray;
-    margin-bottom: 5px;
+  height: 267px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: lightgray;
+  margin-bottom: 5px;
 }
 .compoundUnitFirstColumn {
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.compoundUnitLinkBlock{
-    color: blue;
-} 
+.compoundUnitLinkBlock {
+  color: blue;
+}
+
+.mat-slider-thumb-label {
+  transform: rotate(45deg) !important;
+  border-radius: 50% 50% 0 !important;
+}
+
+.mat-slider-thumb {
+  transform: scale(0) !important;
+}
+
+.mat-slider-thumb-label-text {
+  opacity: 1 !important;
+}
+
+.mat-slider-thumb-label {
+  background: transparent !important;
+}
+
+/* .my-slider {
+  transform: scale(2);
+} */

@@ -54,8 +54,8 @@
             <button mat-button [matMenuTriggerFor]="styleMenu" class="buttonBarButton">Cartoon
                 <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
             <mat-menu #styleMenu="matMenu">
-                <button mat-menu-item>Cartoon</button>
-                <button mat-menu-item>None</button>
+                <button (click)="styleChange('cartoon')" mat-menu-item>Cartoon</button>
+                <button (click)="styleChange('ball+stick')" mat-menu-item>None</button>
                 <button mat-menu-item>Backbone</button>
                 <button mat-menu-item>Surface</button>
                 <button mat-menu-item>Spacefill</button>
@@ -66,13 +66,16 @@
             <button mat-button [matMenuTriggerFor]="colorMenu" class="buttonBarButton">Cartoon
                 <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon></button>
             <mat-menu #colorMenu="matMenu">
-                <button mat-menu-item>Cartoon</button>
-                <button mat-menu-item>None</button>
-                <button mat-menu-item>Backbone</button>
-                <button mat-menu-item>Surface</button>
-                <button mat-menu-item>Spacefill</button>
-                <button mat-menu-item>Licorice</button>
-                <button mat-menu-item>Line</button>
+                <button mat-menu-item>By Chain</button>
+                <button mat-menu-item>Rainbow</button>
+                <button mat-menu-item>By Element/CPK</button>
+                <button mat-menu-item>By Residue</button>
+                <button mat-menu-item>By Molecule Type</button>
+                <button mat-menu-item>By B-factor</button>
+                <button mat-menu-item>By secondary structure</button>
+                <button mat-menu-item>By hydrophobicity</button>
+                <button mat-menu-item>By Density Fit</button>
+                <button mat-menu-item>By Geometry Quality</button>
             </mat-menu>
             Ligand
             <button mat-button [matMenuTriggerFor]="ligandMenu" class="buttonBarButton">Cartoon

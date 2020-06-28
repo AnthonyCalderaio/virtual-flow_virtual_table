@@ -27,6 +27,78 @@
             </div>
         </mat-card-content>
     </mat-card>
+    <span style="width: 600px;">
+        Molecular Weight (MW): 0 to 250
+        <mat-slider class="my-slider" thumbLabel min="1" max="10" step="1" value="1.5" tickInterval="1"
+            style="width:600px"></mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
+                {{molecularWeightRanges[rangeValue.key]}}
+            </ng-container>
+        </span>
+
+    </span>
+    <br>
+
+
+    <span style="width: 600px;">
+        Partition Coefficient (SlogP): -∞ to ∞
+        <mat-slider class="my-slider"  min="1" max="10" step="0.5" value="1.5"></mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
+                {{molecularWeightRanges[rangeValue.key]}}
+            </ng-container>
+        </span>
+    </span>
+
+
+    <span style="width: 600px;">Topological Polar Surface Area (TPSA): 0 to 140
+        <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
+                {{molecularWeightRanges[rangeValue.key]}}
+            </ng-container>
+        </span>
+    </span>
+
+
+    <span style="width: 600px;">Hydrogen Bond Acceptors (HBA): 0 to 10
+        <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
+                {{molecularWeightRanges[rangeValue.key]}}
+            </ng-container>
+        </span>
+    </span>
+
+
+    <span style="width: 600px;">Hydrogen Bond Donors (HBD): 0 to ∞
+        <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
+                {{molecularWeightRanges[rangeValue.key]}}
+            </ng-container>
+        </span>
+    </span>
+
+
+    <span style="width: 600px;">Rotatable Bonds (RotB): 0 to 10
+        <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
+        <br>
+        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
+                {{molecularWeightRanges[rangeValue.key]}}
+            </ng-container>
+        </span>
+    </span>
+
+
+
     <mat-card class="dockedCard">
         <mat-card-header class="dockedInfoHeader">Docked Compounds</mat-card-header>
         <mat-card-content class="dockedInfo">
