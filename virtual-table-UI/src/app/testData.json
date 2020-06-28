@@ -10,14 +10,44 @@
       "Compounds_with_docking_data": 821004,
       "docked_compounds": {
         "0": {
-          "compound_identifier": "CHEMBL3814036",
-          "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
-          "compound_image": "./assets/compound_image_1.png"
+          "compound_identifier": "PV-000346474007",
+          "docking_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+          "compound_image": "./assets/compound_image_1.png",
+          "MW": 422.483,
+          "cLogP": 1,
+          "H_Acc": 8
         },
         "1": {
-          "compound_identifier": "CHEMBL3814036",
-          "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
-          "compound_image": "./assets/compound_image_1.png"
+          "compound_identifier": "PV-000469994617",
+          "docking_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+          "compound_image": "./assets/compound_image_1.png",
+          "MW": 396.476,
+          "cLogP": 2,
+          "H_Acc": 5
+        },
+        "2": {
+          "compound_identifier": "PV-001795138257",
+          "docking_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+          "compound_image": "./assets/compound_image_1.png",
+          "MW": 407.425,
+          "cLogP": 2,
+          "H_Acc": 8
+        },
+        "3": {
+          "compound_identifier": "PV-001802203537",
+          "docking_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+          "compound_image": "./assets/compound_image_1.png",
+          "MW": 451.569,
+          "cLogP": 3,
+          "H_Acc": 8
+        },
+        "4": {
+          "compound_identifier": "PV-001802204601",
+          "docking_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60,",
+          "compound_image": "./assets/compound_image_1.png",
+          "MW": 437.542,
+          "cLogP": 2,
+          "H_Acc": 8
         }
       }
     },
@@ -59,22 +89,22 @@
         "0": {
           "name": "protease2",
           "top_scores": "GBSA -87.30, Docking -7.60, Late-Fusion 7.60",
-          "see_more":"someLink"
+          "see_more": "someLink"
         },
         "1": {
           "name": "protease",
           "top_scores": "Docking -7.80,",
-          "see_more":"someLink"
+          "see_more": "someLink"
         },
         "2": {
           "name": "spike1",
           "top_scores": "",
-          "see_more":"someLink"
+          "see_more": "someLink"
         },
         "3": {
           "name": "spike",
           "top_scores": "",
-          "see_more":"someLink"
+          "see_more": "someLink"
         }
       }
     }

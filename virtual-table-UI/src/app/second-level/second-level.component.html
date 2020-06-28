@@ -27,14 +27,17 @@
             </div>
         </mat-card-content>
     </mat-card>
+
+    <!-----------------------   RANGE SLIDERS -------------->
+
     <span style="width: 600px;">
-        Molecular Weight (MW): 0 to 250
-        <mat-slider class="my-slider" thumbLabel min="1" max="10" step="1" value="1.5" tickInterval="1"
-            style="width:600px"></mat-slider>
+        Molecular Weight (MW): 0 to 250 ppp {{mwFilter}}
+        <mat-slider [value]="11" name="MWSlider" (input)="onSliderChange($event, 'MWSlider')" class="my-slider" thumbLabel min="1"
+            max="11" step="1" value="1.5" tickInterval="1" style="width:600px"></mat-slider>
         <br>
-        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
+        <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
             <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
-                {{molecularWeightRanges[rangeValue.key]}}
+                <span style="text-align: left;">{{molecularWeightRanges[rangeValue.key]}}</span>
             </ng-container>
         </span>
 
@@ -43,29 +46,33 @@
 
 
     <span style="width: 600px;">
-        Partition Coefficient (SlogP): -∞ to ∞
-        <mat-slider class="my-slider"  min="1" max="10" step="0.5" value="1.5"></mat-slider>
+        Partition Coefficient (SlogP): -∞ to ∞ {{slogPFilter}}
+        <mat-slider [value]="12" (input)="onSliderChange($event, 'SlogP')" class="my-slider" thumbLabel min="1" max="12" step="1" value="1.5" tickInterval="1"
+            style="width:600px"></mat-slider>
         <br>
-        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
-            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
-                {{molecularWeightRanges[rangeValue.key]}}
+        <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
+            <ng-container *ngFor="let rangeValue of partitionCoefficientRanges | keyvalue: asIsOrder;">
+                <span>{{partitionCoefficientRanges[rangeValue.key]}}</span>
             </ng-container>
         </span>
     </span>
 
 
-    <span style="width: 600px;">Topological Polar Surface Area (TPSA): 0 to 140
-        <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
+    <span style="width: 600px;">
+        Topological Polar Surface Area (TPSA): 0 to 140 {{tpsaFilter}}
+        <mat-slider [value]="8" (input)="onSliderChange($event, 'tpsa')" class="my-slider" min="1" max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
+        </mat-slider>
         <br>
-        <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
-            <ng-container *ngFor="let rangeValue of molecularWeightRanges | keyvalue: asIsOrder;">
-                {{molecularWeightRanges[rangeValue.key]}}
+        <span style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
+            <ng-container *ngFor="let rangeValue of topologicalPolarSurfaceArea | keyvalue: asIsOrder;">
+                <span>{{topologicalPolarSurfaceArea[rangeValue.key]}}</span>
             </ng-container>
         </span>
     </span>
+    <br>
 
 
-    <span style="width: 600px;">Hydrogen Bond Acceptors (HBA): 0 to 10
+    <!-- <span style="width: 600px;">Hydrogen Bond Acceptors (HBA): 0 to 10
         <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
         <br>
         <span style="display: flex; flex-direction: row; justify-content: space-evenly; width: 600px;">
@@ -95,21 +102,30 @@
                 {{molecularWeightRanges[rangeValue.key]}}
             </ng-container>
         </span>
-    </span>
+    </span> -->
 
 
 
     <mat-card class="dockedCard">
         <mat-card-header class="dockedInfoHeader">Docked Compounds</mat-card-header>
+        <mat-card-header>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                <ng-container>
+                    <span>Compound Identifier</span><span>Top
+                        Scores</span><span>MW</span><span>cLogP</span><span># H-Acc</span><span> </span>
+                </ng-container>
+            </div>
+        </mat-card-header>
         <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
                 <mat-card style="background-color: darkgrey;">
                     <mat-card-header>
-                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                        <!-- <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
                             <ng-container>
-                                <span>Compound Identifier</span><span>Top Scores</span><span> </span>
+                                <span>Compound Identifier</span><span>Top
+                                    Scores</span><span>MW</span><span>cLogP</span><span># H-Acc</span><span> </span>
                             </ng-container>
-                        </div>
+                        </div> -->
                     </mat-card-header>
                 </mat-card>
                 <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
@@ -117,8 +133,11 @@
                         <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
                             {{item.value.compound_identifier}}
                         </div>
-                        <div name="scoreBlock"> {{item.value.top_scores}}
+                        <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}
                         </div>
+                        <div>{{item.value.MW}}</div>
+                        <div>{{item.value.cLogP}}</div>
+                        <div>{{item.value.H_Acc}}</div>
                         <div class="compoundUnitLinkBlock">
                             See More
                         </div>
