@@ -16,7 +16,8 @@ import { LigandDetailComponent } from './ligand-detail/ligand-detail.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { NouisliderModule } from 'ng2-nouislider';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MatMenuModule,
     MatSliderModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NouisliderModule,
+    Ng5SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
