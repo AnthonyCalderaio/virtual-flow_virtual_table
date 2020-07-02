@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import testData from '../testData.json';
 import * as NGL from '../../../node_modules/ngl';
+import { Options } from 'ng5-slider';
 
 @Component({
   selector: 'app-second-level',
@@ -45,7 +46,23 @@ export class SecondLevelComponent implements OnInit {
     "8": "425",
     "9": "450",
     "10": "500",
+    "11":Number.POSITIVE_INFINITY
   }
+
+  value: number = 5;
+  minValue: number = 1;
+  maxValue: number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length-2];
+  stepsArray = []
+  
+  MWSliderOptions: Options = {
+    floor: Number(this.molecularWeightRanges[0]),
+    ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length -2],
+    stepsArray: [
+      {value: 1,}
+    ],
+    // stepsArray: this.tstepsArray2,
+    showTicksValues: true
+  };
 
   //Slogp
   partitionCoefficientRanges = {
@@ -109,6 +126,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.changeOptions()
     this.populateMoleculeViewports()
     this.mwFilter = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilter = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
@@ -242,4 +260,19 @@ export class SecondLevelComponent implements OnInit {
     })
   }
 
+  lowValueChange(input1: any, input2:any){
+    console.log('low change:'+input1+' '+input2)
+  }
+  highValueChange(input1: any, input2:any){
+    console.log('high change:'+input1+' '+input2)
+  }
+  changeOptions() {
+    const newOptions: Options = Object.assign({}, this.MWSliderOptions);
+    var tstepsArray2 = []
+    Object.keys(this.molecularWeightRanges).forEach(element => {
+      tstepsArray2.push({value:this.molecularWeightRanges[element]})
+    });
+    newOptions.stepsArray = tstepsArray2;
+    this.MWSliderOptions = newOptions;
+  }
 }

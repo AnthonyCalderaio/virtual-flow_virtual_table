@@ -2,7 +2,7 @@
     <div (click)="backClicked()" class="backButton">
         <mat-icon>keyboard_backspace</mat-icon>
     </div>
-    <div class="secondLevelHeaderName">{{thirdLevelData.compound_identifier}}</div>
+    <div class="secondLevelHeaderName"></div>
     <mat-card class="compoundCard">
         <mat-card-header style="margin-bottom: 10px;">Compound Information</mat-card-header>
         <mat-card-content class="compoundInfo">
@@ -24,70 +24,7 @@
             </div>
         </mat-card-content>
     </mat-card>
+    <div  id="viewer"></div>
 
 
-    <mat-card class="chemicalDescriptorCard">
-        <mat-card-header class="chemicalDescriptorsHeader">Chemical Descriptors</mat-card-header>
-        <mat-card-content class="dockedInfo">
-            <div class="compoundScroller">
-                <div *ngFor="let item of thirdLevelData.chemical_descriptors | keyvalue; let i = index">
-                    <mat-card class="descriptorCardInfo">
-                        <span *ngFor="let item2 of item.value | keyvalue">
-                            <strong>{{item2.key}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{item2.value}}
-                        </span>
-                    </mat-card>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
-    <router-outlet></router-outlet>
-
-
-    <mat-card class="chemicalDescriptorCard">
-        <mat-card class="dockedCard">
-            <mat-card-header class="dockedInfoHeader">Docking Instances</mat-card-header>
-            <mat-card-content class="dockedInfo">
-                <div class="compoundScroller">
-                    <mat-card style="background-color: darkgrey; margin-bottom: 10px;">
-                        <!-- <mat-card-header> -->
-                            <!-- style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;" -->
-                        <div >
-                            <span class="gridLayout">
-                                <span>Protein Identifier</span><span>Top Scores</span><span></span>
-                            </span>
-                        </div>
-                        <!-- </mat-card-header> -->
-                    </mat-card>
-
-                    <div *ngFor="let item of thirdLevelData.docking_instances | keyvalue: asIsOrder; let i = index">
-
-                        <mat-card class="dockingInstancesRow">
-                            <span class="gridLayout">
-                                <span *ngFor="let item2 of item.value | keyvalue: asIsOrder; let i = index">
-                                    {{item2.value}}
-                                </span>
-                            </span>
-                        </mat-card>
-
-
-
-
-                    </div>
-
-                    <!-- <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
-                        <mat-card class="compoundCard" (click)="clickedDockCompound(i)">
-                            <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt="">
-                                {{item.value.compound_identifier}}
-                            </div>
-                            <div name="scoreBlock"> {{item.value.top_scores}}
-                            </div>
-                            <div class="compoundUnitLinkBlock">
-                                See More
-                            </div>
-                        </mat-card>
-                    </div> -->
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </mat-card>
 </div>
