@@ -96,3 +96,9 @@
   grid-template-columns: 33% 33% 33%;
   padding: 10px;
 }
+
+.viewer {
+  max-height: 30px !important;
+  max-width: 30px !important;
+  background-color: red;
+}
