@@ -232,13 +232,13 @@ export class SecondLevelComponent implements OnInit {
           //Checking filter value here
           if (compoundDetail == 'MW') {
             console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
-            if (compoundUnderReview[compoundDetail] > this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail]) {
+            if (!(compoundUnderReview[compoundDetail] < this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail])) {
               compoundValid = false;
               console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
             }
           }
           if (compoundDetail == 'cLogP') {
-            if (compoundUnderReview[compoundDetail] > this.slogPFilterHigh && this.slogPFilterLow < compoundUnderReview[compoundDetail]) {
+            if (!(compoundUnderReview[compoundDetail] < this.slogPFilterHigh && this.slogPFilterLow < compoundUnderReview[compoundDetail])) {
               compoundValid = false;
               console.log('cLogP Broke!')
             }
