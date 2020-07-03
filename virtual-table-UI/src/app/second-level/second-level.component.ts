@@ -62,7 +62,7 @@ export class SecondLevelComponent implements OnInit {
 
   //This is the index of where the two slider points init in the html
   mwMinValue: number = 0;
-  mwMaxValue: number = 12;//number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1];
+  mwMaxValue: number = Object.keys(this.molecularWeightRanges).length - 1;
 
   alphabet: string = "" + Object.keys(this.molecularWeightRanges).map(item => { return item })
   MWSliderOptions: Options = {
@@ -70,31 +70,31 @@ export class SecondLevelComponent implements OnInit {
       return { value: Number(letter) };
     }),
     translate: (value: number, label: LabelType): string => {
-      return this.indexToLetter(value);
+      return this.indexToLetter(value,this.molecularWeightRanges);
     },
     showTicksValues: true
   }
 
-  indexToLetter(index: number): string {
+  indexToLetter(index: number, arrayType: any): string {
     // index=index-1
-    if (this.molecularWeightRanges[index] == undefined) {
+    if (arrayType[index] == undefined) {
       index = index - 1
     }
     // console.log('Whats this?',index)
-    return String(this.molecularWeightRanges[index]);
+    return String(arrayType[index]);
     // return this.alphabet.replace(/,/g, '')[index];
   }
 
   letterToIndex(letter: string): number {
     // console.log('want to return string:', this.alphabet.indexOf(letter))
-    console.log('turning [' + letter + ']' + this.alphabet.replace(/,/g, '') + '  into')
-    console.log('HERE:', this.alphabet.replace(/,/g, '').indexOf(letter));
+    // console.log('turning [' + letter + ']' + this.alphabet.replace(/,/g, '') + '  into')
+    // console.log('HERE:', this.alphabet.replace(/,/g, '').indexOf(letter));
     return this.alphabet.replace(/,/g, '').indexOf(letter);
   }
 
   //Slogp-----------------------
   partitionCoefficientRanges = {
-    "0": Number.NEGATIVE_INFINITY,
+    "0": "-infinity",
     "1": "-1",
     "2": "0",
     "3": "1",
@@ -105,18 +105,24 @@ export class SecondLevelComponent implements OnInit {
     "8": "4",
     "9": "4.5",
     "10": "5",
-    "11": Number.POSITIVE_INFINITY
+    "11": "infinity"
   }
 
-  slogpMinValue = this.partitionCoefficientRanges[1] ? this.partitionCoefficientRanges[0] : Number.NEGATIVE_INFINITY;
-  slogpMaxValue: number = this.partitionCoefficientRanges[Object.keys(this.molecularWeightRanges).length - 2];
+  //This is the index of where the two slider points init in the html
+  slogpMinValue: number = 0;
+  slogpMaxValue: number = Object.keys(this.partitionCoefficientRanges).length - 1;
 
+  Slogpalphabet: string = "" + Object.keys(this.partitionCoefficientRanges).map(item => { return item })
   SlogpSliderOptions: Options = {
-    floor: Number(this.slogpMinValue),
-    ceil: this.slogpMaxValue,
-    stepsArray: [],
-    showTicksValues: true,
-  };
+    stepsArray: this.Slogpalphabet.split(',').map((letter: string): CustomStepDefinition => {
+      console.log('this.Slogpalphabet: ', this.Slogpalphabet);
+      return { value: Number(letter) };
+    }),
+    translate: (value: number, label: LabelType): string => {
+      return this.indexToLetter(value, this.partitionCoefficientRanges);
+    },
+    showTicksValues: true
+  }
 
   //TPSA
   topologicalPolarSurfaceArea = {
@@ -128,16 +134,23 @@ export class SecondLevelComponent implements OnInit {
     "5": "100",
     "6": "120",
     "7": "140",
-    "8": Number.POSITIVE_INFINITY
+    "8": "infinity"
   }
-  TPSAMinValue = this.topologicalPolarSurfaceArea[0]
-  TPSAMaxValue = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 2]
+
+  //This is the index of where the two slider points init in the html
+  TPSAMinValue: number = 0;
+  TPSAMaxValue: number = Object.keys(this.topologicalPolarSurfaceArea).length - 1;
+
+  TPSAalphabet: string = "" + Object.keys(this.topologicalPolarSurfaceArea).map(item => { return item })
   TPSASliderOptions: Options = {
-    floor: 20,
-    ceil: 140,
-    stepsArray: [],
+    stepsArray: this.TPSAalphabet.split(',').map((letter: string): CustomStepDefinition => {
+      return { value: Number(letter) };
+    }),
+    translate: (value: number, label: LabelType): string => {
+      return this.indexToLetter(value,this.topologicalPolarSurfaceArea);
+    },
     showTicksValues: true
-  };
+  }
 
   //HBA or H-Acc
   hydrogenBondAcceptors = {
@@ -148,18 +161,34 @@ export class SecondLevelComponent implements OnInit {
     "4": "7",
     "5": "9",
     "6": "10",
-    "7": Number.POSITIVE_INFINITY
+    "7": "infinity"
   }
 
-  HBAMinValue = this.hydrogenBondAcceptors[0]
-  HBAMaxValue = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 2]
 
+  //This is the index of where the two slider points init in the html
+  HBAMinValue: number = 0;
+  HBAMaxValue: number = Object.keys(this.hydrogenBondAcceptors).length - 1;
+
+  HBAalphabet: string = "" + Object.keys(this.hydrogenBondAcceptors).map(item => { return item })
   HBASliderOptions: Options = {
-    floor: Number(this.HBAMinValue),
-    ceil: this.HBAMaxValue,
-    stepsArray: [],
+    stepsArray: this.HBAalphabet.split(',').map((letter: string): CustomStepDefinition => {
+      return { value: Number(letter) };
+    }),
+    translate: (value: number, label: LabelType): string => {
+      return this.indexToLetter(value, this.hydrogenBondAcceptors);
+    },
     showTicksValues: true
-  };
+  }
+
+  // HBAMinValue = this.hydrogenBondAcceptors[0]
+  // HBAMaxValue = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 2]
+
+  // HBASliderOptions: Options = {
+  //   floor: Number(this.HBAMinValue),
+  //   ceil: this.HBAMaxValue,
+  //   stepsArray: [],
+  //   showTicksValues: true
+  // };
 
   //HBD
   hydrogenBondDonors = {
@@ -169,18 +198,33 @@ export class SecondLevelComponent implements OnInit {
     "3": "3",
     "4": "4",
     "5": "5",
-    "6": Number.POSITIVE_INFINITY
+    "6": "infinity"
   }
 
-  hbdMinValue = this.hydrogenBondDonors[0]
-  hbdMaxValue = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 2]
+  //This is the index of where the two slider points init in the html
+  hbdMinValue: number = 0;
+  hbdMaxValue: number = Object.keys(this.hydrogenBondDonors).length - 1;
 
+  HBDalphabet: string = "" + Object.keys(this.hydrogenBondDonors).map(item => { return item })
   HBDSliderOptions: Options = {
-    floor: 1,
-    ceil: 4,
-    stepsArray: [],
+    stepsArray: this.HBDalphabet.split(',').map((letter: string): CustomStepDefinition => {
+      return { value: Number(letter) };
+    }),
+    translate: (value: number, label: LabelType): string => {
+      return this.indexToLetter(value, this.hydrogenBondDonors);
+    },
     showTicksValues: true
-  };
+  }
+
+  // hbdMinValue = this.hydrogenBondDonors[0]
+  // hbdMaxValue = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 2]
+
+  // HBDSliderOptions: Options = {
+  //   floor: 1,
+  //   ceil: 4,
+  //   stepsArray: [],
+  //   showTicksValues: true
+  // };
 
   //RotB
   rotableBonds = {
@@ -191,38 +235,67 @@ export class SecondLevelComponent implements OnInit {
     "4": "7",
     "5": "9",
     "6": "10",
-    "7": Number.POSITIVE_INFINITY
+    "7": "infinity"
   }
 
-  rotBMinValue = this.rotableBonds[0]
-  rotBMaxValue = this.rotableBonds[Object.keys(this.rotableBonds).length - 2]
+  //This is the index of where the two slider points init in the html
+  rotBMinValue: number = 0;
+  rotBMaxValue: number = Object.keys(this.rotableBonds).length - 1;
 
+  rotBalphabet: string = "" + Object.keys(this.rotableBonds).map(item => { return item })
   rotBSliderOptions: Options = {
-    floor: Number(this.rotBMinValue),
-    ceil: Number(this.rotBMaxValue),
-    stepsArray: [],
+    stepsArray: this.rotBalphabet.split(',').map((letter: string): CustomStepDefinition => {
+      return { value: Number(letter) };
+    }),
+    translate: (value: number, label: LabelType): string => {
+      return this.indexToLetter(value, this.rotableBonds);
+    },
     showTicksValues: true
-  };
+  }
+
+
+  // rotBMinValue = this.rotableBonds[0]
+  // rotBMaxValue = this.rotableBonds[Object.keys(this.rotableBonds).length - 2]
+
+  // rotBSliderOptions: Options = {
+  //   floor: Number(this.rotBMinValue),
+  //   ceil: Number(this.rotBMaxValue),
+  //   stepsArray: [],
+  //   showTicksValues: true
+  // };
 
   ngOnInit(): void {
     this.changeAllOptions()
     this.populateMoleculeViewports()
+
     this.changeOptionsForMw()
+    this.changeOptionsForSlogP()
+    this.changeOptionsForHBA()
+    this.changeOptionsForHBD()
+    this.changeOptionsForTPSA()
+    this.changeOptionsForRotB()
+
     console.log('alphabet: ', this.alphabet);
 
-    this.mwFilterHigh = this.convertToInfinityOrNot(this.convertToInfinityOrNot(this.molecularWeightRanges[11]))//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
+    this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1])//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
-    console.log('init: this.mwFilterHigh ', this.mwFilterHigh)
-    console.log('init: this.mwFilterLow', this.mwFilterLow)
+    // console.log('init: this.mwFilterHigh ', this.mwFilterHigh)
+    // console.log('init: this.mwFilterLow', this.mwFilterLow)
 
-    this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
-    this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
+    this.slogPFilterHigh = this.convertToInfinityOrNot(this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1])
+    this.slogPFilterLow = this.convertToInfinityOrNot(this.partitionCoefficientRanges[0])
+
+    this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1])
+    this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[0])
 
     this.h_accFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1])
     this.h_accFilterLow = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[0])
 
-    this.hbdFilterHigh = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
-    this.rotBFilterHigh = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
+    this.hbdFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1])
+    this.hbdFilterLow = this.convertToInfinityOrNot(this.hydrogenBondDonors[0])
+
+    this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[Object.keys(this.rotableBonds).length - 1])
+    this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[0])
   }
 
   backClicked() {
@@ -281,8 +354,8 @@ export class SecondLevelComponent implements OnInit {
           if (compoundDetail == 'hDonors') {
             if (!(compoundUnderReview[compoundDetail] <= this.hbdFilterHigh && this.hbdFilterLow <= compoundUnderReview[compoundDetail])) {
               console.log('hDonors Broke!')
-              console.log('this.hbdFilterHigh: ', this.hbdFilterHigh)
-              console.log('this.hbdFilterLow:  ', this.hbdFilterLow)
+              // console.log('this.hbdFilterHigh: ', this.hbdFilterHigh)
+              // console.log('this.hbdFilterLow:  ', this.hbdFilterLow)
               compoundValid = false;
             }
           }
@@ -321,19 +394,19 @@ export class SecondLevelComponent implements OnInit {
       this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[value]);
     }
     if (label == 'SlogP') {
-      this.slogPFilterLow = value
+      this.slogPFilterLow = this.convertToInfinityOrNot(this.partitionCoefficientRanges[value])
     }
     if (label == 'tpsa') {
-      this.tpsaFilterLow = value
+      this.tpsaFilterLow = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[value])
     }
     if (label == 'h-acc') {
-      this.h_accFilterLow = value
+      this.h_accFilterLow = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[value])
     }
     if (label == 'hbd') {
-      this.hbdFilterLow = value;
+      this.hbdFilterLow = this.convertToInfinityOrNot(this.hydrogenBondDonors[value])
     }
     if (label == 'rotB') {
-      this.rotBFilterLow = value;
+      this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[value])
     }
     this.validateCompounds()
   }
@@ -342,26 +415,22 @@ export class SecondLevelComponent implements OnInit {
     console.log('high change:' + value + ' ' + label)
     // console.log('Well 12 is',this.molecularWeightRanges[12])
     if (label == 'MWSlider') {
-      // if (this.molecularWeightRanges[value] != undefined) {
-      // this.mwFilterHigh = this.molecularWeightRanges[value]
-      // }
       this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
-      console.log('this.mwFilterHigh = ', this.mwFilterHigh)
     }
     if (label == 'SlogP') {
-      this.slogPFilterHigh = value
+      this.slogPFilterHigh = this.convertToInfinityOrNot(this.partitionCoefficientRanges[value])
     }
     if (label == 'tpsa') {
-      this.tpsaFilterHigh = value
+      this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[value])
     }
     if (label == 'h-acc') {
-      this.h_accFilterHigh = value
+      this.h_accFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[value])
     }
     if (label == 'hbd') {
-      this.hbdFilterHigh = value;
+      this.hbdFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondDonors[value])
     }
     if (label == 'rotB') {
-      this.rotBFilterHigh = value;
+      this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[value])
     }
     this.validateCompounds()
   }
@@ -382,61 +451,87 @@ export class SecondLevelComponent implements OnInit {
   }
 
   changeOptionsForSlogP() {
-    const slogpOptions: Options = Object.assign({}, this.SlogpSliderOptions);
-    var SlogpSliderOptionsArray = []
-    Object.keys(this.partitionCoefficientRanges).forEach(element => {
-      SlogpSliderOptionsArray.push({ value: this.partitionCoefficientRanges[element] })
-    });
-    slogpOptions.stepsArray = SlogpSliderOptionsArray;
-    this.SlogpSliderOptions = slogpOptions;
+    const newOptions: Options = Object.assign({}, this.SlogpSliderOptions);
+    this.SlogpSliderOptions = newOptions;
   }
+
+  // changeOptionsForSlogP() {
+  //   const slogpOptions: Options = Object.assign({}, this.SlogpSliderOptions);
+  //   var SlogpSliderOptionsArray = []
+  //   Object.keys(this.partitionCoefficientRanges).forEach(element => {
+  //     SlogpSliderOptionsArray.push({ value: this.partitionCoefficientRanges[element] })
+  //   });
+  //   slogpOptions.stepsArray = SlogpSliderOptionsArray;
+  //   this.SlogpSliderOptions = slogpOptions;
+  // }
+
 
   changeOptionsForTPSA() {
-    const tpsaOptions: Options = Object.assign({}, this.TPSASliderOptions);
-    var tpsaSliderOptionsArray = []
-    Object.keys(this.topologicalPolarSurfaceArea).forEach(element => {
-      tpsaSliderOptionsArray.push({ value: this.topologicalPolarSurfaceArea[element] })
-    });
-    tpsaOptions.stepsArray = tpsaSliderOptionsArray;
-    this.TPSASliderOptions = tpsaOptions;
+    const newOptions: Options = Object.assign({}, this.TPSASliderOptions);
+    this.TPSASliderOptions = newOptions;
   }
+
+  // changeOptionsForTPSA() {
+  //   const tpsaOptions: Options = Object.assign({}, this.TPSASliderOptions);
+  //   var tpsaSliderOptionsArray = []
+  //   Object.keys(this.topologicalPolarSurfaceArea).forEach(element => {
+  //     tpsaSliderOptionsArray.push({ value: this.topologicalPolarSurfaceArea[element] })
+  //   });
+  //   tpsaOptions.stepsArray = tpsaSliderOptionsArray;
+  //   this.TPSASliderOptions = tpsaOptions;
+  // }
 
   changeOptionsForHBA() {
-    const tpsaOptions: Options = Object.assign({}, this.HBASliderOptions);
-    var hbaSliderOptionsArray = []
-    Object.keys(this.hydrogenBondAcceptors).forEach(element => {
-      hbaSliderOptionsArray.push({ value: this.hydrogenBondAcceptors[element] })
-    });
-    tpsaOptions.stepsArray = hbaSliderOptionsArray;
-    this.HBASliderOptions = tpsaOptions;
+    const newOptions: Options = Object.assign({}, this.HBASliderOptions);
+    this.HBASliderOptions = newOptions;
   }
+
+  // changeOptionsForHBA() {
+  //   const tpsaOptions: Options = Object.assign({}, this.HBASliderOptions);
+  //   var hbaSliderOptionsArray = []
+  //   Object.keys(this.hydrogenBondAcceptors).forEach(element => {
+  //     hbaSliderOptionsArray.push({ value: this.hydrogenBondAcceptors[element] })
+  //   });
+  //   tpsaOptions.stepsArray = hbaSliderOptionsArray;
+  //   this.HBASliderOptions = tpsaOptions;
+  // }
 
   changeOptionsForHBD() {
-    const tpsaOptions: Options = Object.assign({}, this.HBDSliderOptions);
-    var hbdSliderOptionsArray = []
-    Object.keys(this.hydrogenBondDonors).forEach(element => {
-      hbdSliderOptionsArray.push({ value: this.hydrogenBondDonors[element] })
-    });
-    tpsaOptions.stepsArray = hbdSliderOptionsArray;
-    this.HBDSliderOptions = tpsaOptions;
+    const newOptions: Options = Object.assign({}, this.HBDSliderOptions);
+    this.HBDSliderOptions = newOptions;
   }
 
+  // changeOptionsForHBD() {
+  //   const tpsaOptions: Options = Object.assign({}, this.HBDSliderOptions);
+  //   var hbdSliderOptionsArray = []
+  //   Object.keys(this.hydrogenBondDonors).forEach(element => {
+  //     hbdSliderOptionsArray.push({ value: this.hydrogenBondDonors[element] })
+  //   });
+  //   tpsaOptions.stepsArray = hbdSliderOptionsArray;
+  //   this.HBDSliderOptions = tpsaOptions;
+  // }
+
   changeOptionsForRotB() {
-    const tpsaOptions: Options = Object.assign({}, this.rotBSliderOptions);
-    var rotBSliderOptionsArray = []
-    Object.keys(this.rotableBonds).forEach(element => {
-      rotBSliderOptionsArray.push({ value: this.rotableBonds[element] })
-    });
-    tpsaOptions.stepsArray = rotBSliderOptionsArray;
-    this.rotBSliderOptions = tpsaOptions;
+    const newOptions: Options = Object.assign({}, this.rotBSliderOptions);
+    this.rotBSliderOptions = newOptions;
   }
+
+  // changeOptionsForRotB() {
+  //   const tpsaOptions: Options = Object.assign({}, this.rotBSliderOptions);
+  //   var rotBSliderOptionsArray = []
+  //   Object.keys(this.rotableBonds).forEach(element => {
+  //     rotBSliderOptionsArray.push({ value: this.rotableBonds[element] })
+  //   });
+  //   tpsaOptions.stepsArray = rotBSliderOptionsArray;
+  //   this.rotBSliderOptions = tpsaOptions;
+  // }
   changeAllOptions() {
     // this.changeOptionsForMw()
-    this.changeOptionsForSlogP()
-    this.changeOptionsForTPSA()
-    this.changeOptionsForHBA()
-    this.changeOptionsForHBD()
-    this.changeOptionsForRotB()
+    // this.changeOptionsForSlogP()
+    // this.changeOptionsForTPSA()
+    // this.changeOptionsForHBA()
+    // this.changeOptionsForHBD()
+    // this.changeOptionsForRotB()
   }
   // convertObjectToString(inputObject) {
   //   var someString = ""
@@ -457,11 +552,12 @@ export class SecondLevelComponent implements OnInit {
   }
   convertToInfinityOrNot(item: any) {
     if (item == 'infinity') {
-      console.log('returned ' + Number.POSITIVE_INFINITY)
+      // console.log('returned ' + Number.POSITIVE_INFINITY)
       return Number.POSITIVE_INFINITY
     }
     else if (item == '-infinity') {
-      console.log('returned ' + Number.NEGATIVE_INFINITY)
+      // console.log('Made it here?', item)
+      // console.log('returned ' + Number.NEGATIVE_INFINITY)
       return Number.NEGATIVE_INFINITY
     } else {
       console.log('returned ', item)
@@ -469,7 +565,7 @@ export class SecondLevelComponent implements OnInit {
     }
   }
   between(x, min, max) {
-    console.log('is ' + min + ' <' + x + ' < ' + max);
+    // console.log('is ' + min + ' <' + x + ' < ' + max);
     return x >= min && x <= max;
   }
 }
