@@ -257,7 +257,7 @@ export class SecondLevelComponent implements OnInit {
     this.slogPFilterLow = this.convertToInfinityOrNot(this.partitionCoefficientRanges[0])
 
     this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1])
-    this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[0])
+    this.tpsaFilterLow = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[0])
 
     this.h_accFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1])
     this.h_accFilterLow = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[0])
