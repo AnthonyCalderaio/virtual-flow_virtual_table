@@ -158,7 +158,6 @@ export class SecondLevelComponent implements OnInit {
     "7": "infinity"
   }
 
-
   //This is the index of where the two slider points init in the html
   HBAMinValue: number = 0;
   HBAMaxValue: number = Object.keys(this.hydrogenBondAcceptors).length - 1;
@@ -173,16 +172,6 @@ export class SecondLevelComponent implements OnInit {
     },
     showTicksValues: true
   }
-
-  // HBAMinValue = this.hydrogenBondAcceptors[0]
-  // HBAMaxValue = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 2]
-
-  // HBASliderOptions: Options = {
-  //   floor: Number(this.HBAMinValue),
-  //   ceil: this.HBAMaxValue,
-  //   stepsArray: [],
-  //   showTicksValues: true
-  // };
 
   //HBD
   hydrogenBondDonors = {
@@ -276,36 +265,30 @@ export class SecondLevelComponent implements OnInit {
           if (compoundDetail == 'MW') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
               compoundValid = false;
-              console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' < ' + this.mwFilterLow);
             }
           }
           if (compoundDetail == 'cLogP') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.slogPFilterLow, this.slogPFilterHigh))) {
               compoundValid = false;
-              console.log('cLogP Broke!')
             }
           }
           if (compoundDetail == 'H_Acc') {
               if (!(this.between(compoundUnderReview[compoundDetail], this.h_accFilterLow, this.h_accFilterHigh))) {
-              console.log('h-acc Broke!')
               compoundValid = false;
             }
           }
           if (compoundDetail == 'hDonors') {
-            if (!(compoundUnderReview[compoundDetail] <= this.hbdFilterHigh && this.hbdFilterLow <= compoundUnderReview[compoundDetail])) {
-              console.log('hDonors Broke!')
+              if (!(this.between(compoundUnderReview[compoundDetail], this.hbdFilterLow , this.hbdFilterHigh))) {
               compoundValid = false;
             }
           }
           if (compoundDetail == 'tpsa') {
-            if (!(compoundUnderReview[compoundDetail] < this.tpsaFilterHigh && this.tpsaFilterLow < compoundUnderReview[compoundDetail])) {
-              console.log('tpsa Broke!')
+              if (!(this.between(compoundUnderReview[compoundDetail], this.tpsaFilterLow , this.tpsaFilterHigh))) {
               compoundValid = false;
             }
           }
           if (compoundDetail == 'rotable_bonds') {
-            if (!(compoundUnderReview[compoundDetail] < this.rotBFilterHigh && this.rotBFilterLow < compoundUnderReview[compoundDetail])) {
-              console.log('rotable_bonds Broke!')
+              if (!(this.between(compoundUnderReview[compoundDetail], this.rotBFilterLow , this.rotBFilterHigh))) {
               compoundValid = false;
             }
           }
