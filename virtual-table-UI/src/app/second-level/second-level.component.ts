@@ -240,33 +240,7 @@ export class SecondLevelComponent implements OnInit {
   ngOnInit(): void {
     this.changeAllOptions()
     this.populateMoleculeViewports()
-
-    this.changeOptionsForMw()
-    this.changeOptionsForSlogP()
-    this.changeOptionsForHBA()
-    this.changeOptionsForHBD()
-    this.changeOptionsForTPSA()
-    this.changeOptionsForRotB()
-
-    console.log('alphabet: ', this.alphabet);
-
-    this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1])//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
-    this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
-
-    this.slogPFilterHigh = this.convertToInfinityOrNot(this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1])
-    this.slogPFilterLow = this.convertToInfinityOrNot(this.partitionCoefficientRanges[0])
-
-    this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1])
-    this.tpsaFilterLow = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[0])
-
-    this.h_accFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1])
-    this.h_accFilterLow = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[0])
-
-    this.hbdFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1])
-    this.hbdFilterLow = this.convertToInfinityOrNot(this.hydrogenBondDonors[0])
-
-    this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[Object.keys(this.rotableBonds).length - 1])
-    this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[0])
+    this.initializeFilterBounds()
   }
 
   backClicked() {
@@ -301,7 +275,6 @@ export class SecondLevelComponent implements OnInit {
           //Checking filter value here
           if (compoundDetail == 'MW') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
-              //between(compoundUnderReview[compoundDetail],this.mwFilterLow,this.mwFilterHigh)
               compoundValid = false;
               console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' < ' + this.mwFilterLow);
             }
@@ -321,8 +294,6 @@ export class SecondLevelComponent implements OnInit {
           if (compoundDetail == 'hDonors') {
             if (!(compoundUnderReview[compoundDetail] <= this.hbdFilterHigh && this.hbdFilterLow <= compoundUnderReview[compoundDetail])) {
               console.log('hDonors Broke!')
-              // console.log('this.hbdFilterHigh: ', this.hbdFilterHigh)
-              // console.log('this.hbdFilterLow:  ', this.hbdFilterLow)
               compoundValid = false;
             }
           }
@@ -339,15 +310,12 @@ export class SecondLevelComponent implements OnInit {
             }
           }
         }
-
       })
       if (!compoundValid) {
         //Mark Invalid
-        // console.log('INVALID compoundUnderReview.compound_identifier: ',compoundUnderReview.compound_identifier)
         this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1 ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
       } else {
         //Mark Valid
-        // console.log('VALID compoundUnderReview.compound_identifier: ',compoundUnderReview.compound_identifier)
         this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.compound_identifier })
       }
 
@@ -380,7 +348,6 @@ export class SecondLevelComponent implements OnInit {
 
   highValueChange(value: any, label: any) {
     console.log('high change:' + value + ' ' + label)
-    // console.log('Well 12 is',this.molecularWeightRanges[12])
     if (label == 'MWSlider') {
       this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
     }
@@ -402,16 +369,6 @@ export class SecondLevelComponent implements OnInit {
     this.validateCompounds()
   }
 
-  // changeOptionsForMw() {
-  //   const newOptions: Options = Object.assign({}, this.MWSliderOptions);
-  //   var tstepsArray2 = []
-  //   Object.keys(this.molecularWeightRanges).forEach(element => {
-  //     tstepsArray2.push({ value: this.molecularWeightRanges[element] })
-  //   });
-  //   newOptions.stepsArray = tstepsArray2;
-  //   this.MWSliderOptions = newOptions;
-  // }
-
   changeOptionsForMw() {
     const newOptions: Options = Object.assign({}, this.MWSliderOptions);
     this.MWSliderOptions = newOptions;
@@ -422,109 +379,47 @@ export class SecondLevelComponent implements OnInit {
     this.SlogpSliderOptions = newOptions;
   }
 
-  // changeOptionsForSlogP() {
-  //   const slogpOptions: Options = Object.assign({}, this.SlogpSliderOptions);
-  //   var SlogpSliderOptionsArray = []
-  //   Object.keys(this.partitionCoefficientRanges).forEach(element => {
-  //     SlogpSliderOptionsArray.push({ value: this.partitionCoefficientRanges[element] })
-  //   });
-  //   slogpOptions.stepsArray = SlogpSliderOptionsArray;
-  //   this.SlogpSliderOptions = slogpOptions;
-  // }
-
-
   changeOptionsForTPSA() {
     const newOptions: Options = Object.assign({}, this.TPSASliderOptions);
     this.TPSASliderOptions = newOptions;
   }
-
-  // changeOptionsForTPSA() {
-  //   const tpsaOptions: Options = Object.assign({}, this.TPSASliderOptions);
-  //   var tpsaSliderOptionsArray = []
-  //   Object.keys(this.topologicalPolarSurfaceArea).forEach(element => {
-  //     tpsaSliderOptionsArray.push({ value: this.topologicalPolarSurfaceArea[element] })
-  //   });
-  //   tpsaOptions.stepsArray = tpsaSliderOptionsArray;
-  //   this.TPSASliderOptions = tpsaOptions;
-  // }
 
   changeOptionsForHBA() {
     const newOptions: Options = Object.assign({}, this.HBASliderOptions);
     this.HBASliderOptions = newOptions;
   }
 
-  // changeOptionsForHBA() {
-  //   const tpsaOptions: Options = Object.assign({}, this.HBASliderOptions);
-  //   var hbaSliderOptionsArray = []
-  //   Object.keys(this.hydrogenBondAcceptors).forEach(element => {
-  //     hbaSliderOptionsArray.push({ value: this.hydrogenBondAcceptors[element] })
-  //   });
-  //   tpsaOptions.stepsArray = hbaSliderOptionsArray;
-  //   this.HBASliderOptions = tpsaOptions;
-  // }
-
   changeOptionsForHBD() {
     const newOptions: Options = Object.assign({}, this.HBDSliderOptions);
     this.HBDSliderOptions = newOptions;
   }
-
-  // changeOptionsForHBD() {
-  //   const tpsaOptions: Options = Object.assign({}, this.HBDSliderOptions);
-  //   var hbdSliderOptionsArray = []
-  //   Object.keys(this.hydrogenBondDonors).forEach(element => {
-  //     hbdSliderOptionsArray.push({ value: this.hydrogenBondDonors[element] })
-  //   });
-  //   tpsaOptions.stepsArray = hbdSliderOptionsArray;
-  //   this.HBDSliderOptions = tpsaOptions;
-  // }
 
   changeOptionsForRotB() {
     const newOptions: Options = Object.assign({}, this.rotBSliderOptions);
     this.rotBSliderOptions = newOptions;
   }
 
-  // changeOptionsForRotB() {
-  //   const tpsaOptions: Options = Object.assign({}, this.rotBSliderOptions);
-  //   var rotBSliderOptionsArray = []
-  //   Object.keys(this.rotableBonds).forEach(element => {
-  //     rotBSliderOptionsArray.push({ value: this.rotableBonds[element] })
-  //   });
-  //   tpsaOptions.stepsArray = rotBSliderOptionsArray;
-  //   this.rotBSliderOptions = tpsaOptions;
-  // }
   changeAllOptions() {
-    // this.changeOptionsForMw()
-    // this.changeOptionsForSlogP()
-    // this.changeOptionsForTPSA()
-    // this.changeOptionsForHBA()
-    // this.changeOptionsForHBD()
-    // this.changeOptionsForRotB()
+    this.changeOptionsForMw()
+    this.changeOptionsForSlogP()
+    this.changeOptionsForHBA()
+    this.changeOptionsForHBD()
+    this.changeOptionsForTPSA()
+    this.changeOptionsForRotB()
   }
-  // convertObjectToString(inputObject) {
-  //   var someString = ""
-  //   Object.keys(inputObject).forEach(element => {
-  //     someString = someString + element + ','
-  //   })
-  //   console.log('someString:', someString)
-  // }
 
   convertOjectToArray(object: any) {
     var someArray = []
     Object.keys(object).forEach((item) => {
-      // console.log('object[item]', object[item])
       someArray.push(String(object[item]))
     })
-    // console.log('Returning: ', someArray);
     return someArray;
   }
   convertToInfinityOrNot(item: any) {
     if (item == 'infinity') {
-      // console.log('returned ' + Number.POSITIVE_INFINITY)
       return Number.POSITIVE_INFINITY
     }
     else if (item == '-infinity') {
-      // console.log('Made it here?', item)
-      // console.log('returned ' + Number.NEGATIVE_INFINITY)
       return Number.NEGATIVE_INFINITY
     } else {
       console.log('returned ', item)
@@ -532,7 +427,25 @@ export class SecondLevelComponent implements OnInit {
     }
   }
   between(x, min, max) {
-    // console.log('is ' + min + ' <' + x + ' < ' + max);
     return x >= min && x <= max;
+  }
+  initializeFilterBounds(){
+    this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1])//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
+    this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
+
+    this.slogPFilterHigh = this.convertToInfinityOrNot(this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1])
+    this.slogPFilterLow = this.convertToInfinityOrNot(this.partitionCoefficientRanges[0])
+
+    this.tpsaFilterHigh = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1])
+    this.tpsaFilterLow = this.convertToInfinityOrNot(this.topologicalPolarSurfaceArea[0])
+
+    this.h_accFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1])
+    this.h_accFilterLow = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[0])
+
+    this.hbdFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1])
+    this.hbdFilterLow = this.convertToInfinityOrNot(this.hydrogenBondDonors[0])
+
+    this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[Object.keys(this.rotableBonds).length - 1])
+    this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[0])
   }
 }
