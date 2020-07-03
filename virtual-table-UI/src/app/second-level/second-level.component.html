@@ -28,7 +28,7 @@
                     style="display: flex; flex-direction: row; justify-content: space-between;">
                     <span name="sliderContainer1" style="display: flex; flex-direction: column; margin: 10px;">
                         <span style="width: 600px;">
-                            Molecular Weight (MW): 0 to 250 
+                            Molecular Weight (MW): 0 to 250
                             mwMaxValue{{mwMaxValue}}
                             mwMinValue{{mwMinValue}}
                             <ng5-slider [(value)]="mwMinValue" [(highValue)]="mwMaxValue" [options]="MWSliderOptions"
@@ -46,13 +46,13 @@
 
 
                         <span style="width: 600px;">
-                            Partition Coefficient (SlogP): -∞ to ∞ 
+                            Partition Coefficient (SlogP): -∞ to ∞
                             <!-- <mat-slider [value]="12" (input)="onSliderChange($event, 'SlogP')" class="my-slider"
                                 thumbLabel min="1" max="12" step="1" value="1.5" tickInterval="1" style="width:600px">
                             </mat-slider> -->
                             slogpMaxValue
-                            <ng5-slider [(value)]="slogpMinValue" [(highValue)]="slogpMaxValue" [options]="SlogpSliderOptions"
-                                (valueChange)="lowValueChange($event, 'SlogP')"
+                            <ng5-slider [(value)]="slogpMinValue" [(highValue)]="slogpMaxValue"
+                                [options]="SlogpSliderOptions" (valueChange)="lowValueChange($event, 'SlogP')"
                                 (highValueChange)="highValueChange($event,'SlogP')"></ng5-slider>
                             <br>
                             <br>
@@ -60,63 +60,69 @@
 
 
                         <span style="width: 600px;">
-                            Topological Polar Surface Area (TPSA): 0 to 140 
-                            <ng5-slider [(value)]="TPSAMinValue" [(highValue)]="TPSAMaxValue" [options]="TPSASliderOptions"
-                                (valueChange)="lowValueChange($event, 'tpsa')"
+                            Topological Polar Surface Area (TPSA): 0 to 140
+                            <ng5-slider [(value)]="TPSAMinValue" [(highValue)]="TPSAMaxValue"
+                                [options]="TPSASliderOptions" (valueChange)="lowValueChange($event, 'tpsa')"
                                 (highValueChange)="highValueChange($event, 'tpsa')"></ng5-slider>
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
-                                <ng-container
+                                <!-- <ng-container
                                     *ngFor="let rangeValue of topologicalPolarSurfaceArea | keyvalue: asIsOrder;">
                                     <span>{{topologicalPolarSurfaceArea[rangeValue.key]}}</span>
-                                </ng-container>
+                                </ng-container> -->
                             </span>
                         </span>
                         <br>
                     </span>
                     <span name="sliderContainer2" style="display: flex; flex-direction: column;  margin: 10px;">
                         <span style="width: 600px;">
-                            Hydrogen Bond Acceptors (HBA): 0 to 10 
+                            Hydrogen Bond Acceptors (HBA): 0 to 10
                             <ng5-slider [(value)]="HBAMinValue" [(highValue)]="HBAMaxValue" [options]="HBASliderOptions"
                                 (valueChange)="lowValueChange($event, 'h-acc')"
                                 (highValueChange)="highValueChange($event, 'h-acc')"></ng5-slider>
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
-                                <ng-container *ngFor="let rangeValue of hydrogenBondAcceptors | keyvalue: asIsOrder;">
+                                <!-- <ng-container *ngFor="let rangeValue of hydrogenBondAcceptors | keyvalue: asIsOrder;">
                                     <span>{{hydrogenBondAcceptors[rangeValue.key]}}</span>
-                                </ng-container>
+                                </ng-container> -->
                             </span>
                         </span>
                         <br>
 
                         <span style="width: 600px;">
-                            # H-Donors (HBD): 0 to 10 
+                            # H-Donors (HBD): 0 to 10  hbdFilterLow{{hbdFilterLow}}   hbdFilterHigh{{hbdFilterHigh}}
+                            <ng5-slider [(value)]="hbdMinValue" [(highValue)]="hbdMaxValue" [options]="HBDSliderOptions"
+                                (valueChange)="lowValueChange($event, 'hbd')"
+                                (highValueChange)="highValueChange($event, 'hbd')"></ng5-slider>
                             <!-- <mat-slider [value]="8" (input)="onSliderChange($event, 'hbd')" class="my-slider" min="1"
                                 max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
                             </mat-slider>
                             <br> -->
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
-                                <ng-container *ngFor="let rangeValue of hydrogenBondDonors | keyvalue: asIsOrder;">
+                                <!-- <ng-container *ngFor="let rangeValue of hydrogenBondDonors | keyvalue: asIsOrder;">
                                     <span>{{hydrogenBondDonors[rangeValue.key]}}</span>
-                                </ng-container>
+                                </ng-container> -->
                             </span>
                         </span>
                         <br>
 
                         <span style="width: 600px;">
                             Rotable Bonds (rotB): 0 to 10
+                            <ng5-slider [(value)]="rotBMinValue" [(highValue)]="rotBMaxValue" [options]="rotBSliderOptions"
+                                (valueChange)="lowValueChange($event, 'rotB')"
+                                (highValueChange)="highValueChange($event, 'rotB')"></ng5-slider>
                             <!-- <mat-slider [value]="8" (input)="onSliderChange($event, 'rotB')" class="my-slider" min="1"
                                 max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
                             </mat-slider> -->
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
-                                <ng-container *ngFor="let rangeValue of rotableBonds | keyvalue: asIsOrder;">
+                                <!-- <ng-container *ngFor="let rangeValue of rotableBonds | keyvalue: asIsOrder;">
                                     <span>{{rotableBonds[rangeValue.key]}}</span>
-                                </ng-container>
+                                </ng-container> -->
                             </span>
                         </span>
                         <br>

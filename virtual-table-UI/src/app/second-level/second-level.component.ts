@@ -34,8 +34,11 @@ export class SecondLevelComponent implements OnInit {
   h_accFilterLow: any;
   h_accFilterHigh: any;
 
-  hbdFilter: any;
-  rotBFilter: any;
+  hbdFilterLow: any;
+  hbdFilterHigh: any;
+
+  rotBFilterHigh: any;
+  rotBFilterLow: any;
 
   validFilterKeyNamesForCheck = ["MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
 
@@ -165,6 +168,20 @@ export class SecondLevelComponent implements OnInit {
     "6": Number.POSITIVE_INFINITY
   }
 
+  hbdMinValue = this.hydrogenBondDonors[0]
+  hbdMaxValue = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 2]
+
+  HBDSliderOptions: Options = {
+    floor: 1,
+    ceil: 4,
+    stepsArray: [
+      // { value: 1, },
+      // { value: 2, }
+    ],
+    // stepsArray: this.tstepsArray2,
+    showTicksValues: true
+  };
+
   //RotB
   rotableBonds = {
     "0": "0",
@@ -177,19 +194,34 @@ export class SecondLevelComponent implements OnInit {
     "7": Number.POSITIVE_INFINITY
   }
 
+  rotBMinValue = this.rotableBonds[0]
+  rotBMaxValue = this.rotableBonds[Object.keys(this.rotableBonds).length - 2]
+  rotBSliderOptions: Options = {
+    floor: Number(this.rotBMinValue),
+    ceil:Number(this.rotBMaxValue),
+    stepsArray: [
+      // { value: 1, },
+      // { value: 2, }
+    ],
+    // stepsArray: this.tstepsArray2,
+    showTicksValues: true
+  };
+
   ngOnInit(): void {
     this.changeOptionsForMw()
     this.changeOptionsForSlogP()
     this.changeOptionsForTPSA()
     this.changeOptionsForHBA()
+    this.changeOptionsForHBD()
+    this.changeOptionsForRotB()
 
     this.populateMoleculeViewports()
     this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
     this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
     this.h_accFilterHigh = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
-    this.hbdFilter = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
-    this.rotBFilter = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
+    this.hbdFilterHigh = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
+    this.rotBFilterHigh = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
   }
 
   backClicked() {
@@ -287,7 +319,7 @@ export class SecondLevelComponent implements OnInit {
             }
           }
           if (compoundDetail == 'hDonors') {
-            if (compoundUnderReview[compoundDetail] > this.hbdFilter) {
+            if (!(compoundUnderReview[compoundDetail] < this.hbdFilterHigh && this.hbdFilterLow < compoundUnderReview[compoundDetail])) {
               console.log('h-acc Broke!')
               compoundValid = false;
             }
@@ -299,7 +331,7 @@ export class SecondLevelComponent implements OnInit {
             }
           }
           if (compoundDetail == 'rotable_bonds') {
-            if (compoundUnderReview[compoundDetail] > this.rotBFilter) {
+            if (!(compoundUnderReview[compoundDetail] < this.rotBFilterHigh && this.rotBFilterLow  < compoundUnderReview[compoundDetail])) {
               console.log('tpsa Broke!')
               compoundValid = false;
             }
@@ -331,6 +363,12 @@ export class SecondLevelComponent implements OnInit {
     if (label == 'h-acc') {
       this.h_accFilterLow = value
     }
+    if(label == 'hbd'){
+      this.hbdFilterLow = value;
+    }
+    if(label == 'rotB'){
+      this.rotBFilterLow = value;
+    }
 
     this.validateCompounds()
   }
@@ -348,6 +386,12 @@ export class SecondLevelComponent implements OnInit {
     }
     if (label == 'h-acc') {
       this.h_accFilterHigh = value
+    }
+    if(label == 'hbd'){
+      this.hbdFilterHigh = value;
+    }
+    if(label == 'rotB'){
+      this.rotBFilterHigh = value;
     }
     this.validateCompounds()
   }
@@ -390,5 +434,25 @@ export class SecondLevelComponent implements OnInit {
     });
     tpsaOptions.stepsArray = hbaSliderOptionsArray;
     this.HBASliderOptions = tpsaOptions;
+  }
+
+  changeOptionsForHBD(){
+    const tpsaOptions: Options = Object.assign({}, this.HBDSliderOptions);
+    var hbdSliderOptionsArray = []
+    Object.keys(this.hydrogenBondDonors).forEach(element => {
+      hbdSliderOptionsArray.push({ value: this.hydrogenBondDonors[element] })
+    });
+    tpsaOptions.stepsArray = hbdSliderOptionsArray;
+    this.HBDSliderOptions = tpsaOptions;
+  }
+
+  changeOptionsForRotB(){
+    const tpsaOptions: Options = Object.assign({}, this.rotBSliderOptions);
+    var rotBSliderOptionsArray = []
+    Object.keys(this.rotableBonds).forEach(element => {
+      rotBSliderOptionsArray.push({ value: this.rotableBonds[element] })
+    });
+    tpsaOptions.stepsArray = rotBSliderOptionsArray;
+    this.rotBSliderOptions = tpsaOptions;
   }
 }
