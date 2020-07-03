@@ -64,28 +64,9 @@ export class SecondLevelComponent implements OnInit {
   mwMinValue: number = 0;
   mwMaxValue: number = 12;//number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1];
 
-
-  // MWSliderOptions: Options = {
-  //   // floor = //number(this.molecularWeightRanges[0]),
-  //   ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1],
-  //   stepsArray: [
-  //     { value: 1, }
-  //   ],
-  //   showTicksValues: true
-  // };
-  // this.mwMaxValue = 20;
-  // alphabet: string = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Infinity';
-  // alphabet: string = this.convertOjectToArray(this.molecularWeightRanges).toString()
   alphabet: string = "" + Object.keys(this.molecularWeightRanges).map(item => { return item })
-  // value: number = this.letterToIndex('Z');
-  // value: 12
   MWSliderOptions: Options = {
-    // floor:1,
-    // ceil:20,
     stepsArray: this.alphabet.split(',').map((letter: string): CustomStepDefinition => {
-      // console.log('Item to map:', letter)
-      // console.log(this.convertOjectToArray(this.molecularWeightRanges))
-      // return { value: this.letterToIndex(letter) };
       return { value: Number(letter) };
     }),
     translate: (value: number, label: LabelType): string => {
@@ -231,8 +212,8 @@ export class SecondLevelComponent implements OnInit {
 
     this.mwFilterHigh = this.convertToInfinityOrNot(this.convertToInfinityOrNot(this.molecularWeightRanges[11]))//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
-    // console.log('init: this.mwFilterHigh ',this.mwFilterHigh)
-    // console.log('init: this.mwFilterLow',this.mwFilterLow)
+    console.log('init: this.mwFilterHigh ', this.mwFilterHigh)
+    console.log('init: this.mwFilterLow', this.mwFilterLow)
 
     this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
     this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
@@ -275,8 +256,10 @@ export class SecondLevelComponent implements OnInit {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
           //Checking filter value here
           if (compoundDetail == 'MW') {
-            // console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
-            if (!(compoundUnderReview[compoundDetail] < this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail])) {
+            // if (!(compoundUnderReview[compoundDetail] <= this.mwFilterHigh && this.mwFilterLow <= compoundUnderReview[compoundDetail])) {
+            if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
+
+              //between(compoundUnderReview[compoundDetail],this.mwFilterLow,this.mwFilterHigh)
               compoundValid = false;
               console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' < ' + this.mwFilterLow);
             }
@@ -289,8 +272,8 @@ export class SecondLevelComponent implements OnInit {
           }
           if (compoundDetail == 'H_Acc') {
             if (!(compoundUnderReview[compoundDetail] < this.h_accFilterHigh && this.h_accFilterLow < compoundUnderReview[compoundDetail])) {
-              console.log('h_accFilterHigh: ', this.h_accFilterHigh);
-              console.log('this.h_accFilterLow: ', this.h_accFilterLow);
+              // console.log('h_accFilterHigh: ', this.h_accFilterHigh);
+              // console.log('this.h_accFilterLow: ', this.h_accFilterLow);
               console.log('h-acc Broke!')
               compoundValid = false;
             }
@@ -335,8 +318,7 @@ export class SecondLevelComponent implements OnInit {
   lowValueChange(value: any, label: any) {
     console.log('low change:' + value + ' ' + label)
     if (label == 'MWSlider') {
-      this.mwFilterLow = value;
-      console.log('this.mwFilterLow = ', this.mwFilterLow)
+      this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[value]);
     }
     if (label == 'SlogP') {
       this.slogPFilterLow = value
@@ -485,5 +467,9 @@ export class SecondLevelComponent implements OnInit {
       console.log('returned ', item)
       return item;
     }
+  }
+  between(x, min, max) {
+    console.log('is ' + min + ' <' + x + ' < ' + max);
+    return x >= min && x <= max;
   }
 }

@@ -28,7 +28,7 @@
                     style="display: flex; flex-direction: row; justify-content: space-between;">
                     <span name="sliderContainer1" style="display: flex; flex-direction: column; margin: 10px;">
                         <span style="width: 600px;">
-                            Molecular Weight (MW): 0 to 250
+                            Molecular Weight (MW): 0 to 250--mwMinValue{{molecularWeightRanges[mwMinValue]}}--mwMaxValue{{molecularWeightRanges[mwMaxValue]}}
                             <ng5-slider [(value)]="mwMinValue" [(highValue)]="mwMaxValue" [options]="MWSliderOptions"
                                 (valueChange)="lowValueChange($event, 'MWSlider')"
                                 (highValueChange)="highValueChange($event,'MWSlider')"></ng5-slider>
