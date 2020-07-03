@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import testData from '../testData.json';
 import * as NGL from '../../../node_modules/ngl';
-import { Options } from 'ng5-slider';
+import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
 
 @Component({
   selector: 'app-second-level',
@@ -57,21 +57,55 @@ export class SecondLevelComponent implements OnInit {
     "8": "425",
     "9": "450",
     "10": "500",
-    "11": Number.POSITIVE_INFINITY
+    "11": "infinity"
   }
 
-  mwMinValue: number = 1;
-  mwMaxValue: number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 2];
+  //This is the index of where the two slider points init in the html
+  mwMinValue: number = 0;
+  mwMaxValue: number = 12;//number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1];
 
 
+  // MWSliderOptions: Options = {
+  //   // floor = //number(this.molecularWeightRanges[0]),
+  //   ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1],
+  //   stepsArray: [
+  //     { value: 1, }
+  //   ],
+  //   showTicksValues: true
+  // };
+  // this.mwMaxValue = 20;
+  // alphabet: string = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Infinity';
+  // alphabet: string = this.convertOjectToArray(this.molecularWeightRanges).toString()
+  alphabet: string = "" + Object.keys(this.molecularWeightRanges).map(item=> {return item})
+  // value: number = this.letterToIndex('Z');
+  value:11
   MWSliderOptions: Options = {
-    floor: Number(this.molecularWeightRanges[0]),
-    ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1],
-    stepsArray: [
-      { value: 1, }
-    ],
+    // floor:1,
+    // ceil:20,
+    stepsArray: this.alphabet.split(',').map((letter: string): CustomStepDefinition => {
+      // console.log('Item to map:', letter)
+      // console.log(this.convertOjectToArray(this.molecularWeightRanges))
+      return { value: this.letterToIndex(letter) };
+    }),
+    translate: (value: number, label: LabelType): string => {
+      return this.indexToLetter(value);
+    },
     showTicksValues: true
-  };
+  }
+
+  indexToLetter(index: number): string {
+    // index=index-1
+    if(this.molecularWeightRanges[index] == undefined){
+      index=index-1
+    }
+    return String(this.molecularWeightRanges[index]);
+    // return this.alphabet.replace(/,/g, '')[index];
+  }
+
+  letterToIndex(letter: string): number {
+    // console.log('want to return string:', this.alphabet.indexOf(letter))
+    return this.alphabet.replace(/,/g, '').indexOf(letter);
+  }
 
   //Slogp-----------------------
   partitionCoefficientRanges = {
@@ -95,7 +129,7 @@ export class SecondLevelComponent implements OnInit {
   SlogpSliderOptions: Options = {
     floor: Number(this.slogpMinValue),
     ceil: this.slogpMaxValue,
-    stepsArray: [ ],
+    stepsArray: [],
     showTicksValues: true,
   };
 
@@ -116,7 +150,7 @@ export class SecondLevelComponent implements OnInit {
   TPSASliderOptions: Options = {
     floor: 20,
     ceil: 140,
-    stepsArray: [ ],
+    stepsArray: [],
     showTicksValues: true
   };
 
@@ -138,7 +172,7 @@ export class SecondLevelComponent implements OnInit {
   HBASliderOptions: Options = {
     floor: Number(this.HBAMinValue),
     ceil: this.HBAMaxValue,
-    stepsArray: [ ],
+    stepsArray: [],
     showTicksValues: true
   };
 
@@ -159,7 +193,7 @@ export class SecondLevelComponent implements OnInit {
   HBDSliderOptions: Options = {
     floor: 1,
     ceil: 4,
-    stepsArray: [ ],
+    stepsArray: [],
     showTicksValues: true
   };
 
@@ -177,23 +211,32 @@ export class SecondLevelComponent implements OnInit {
 
   rotBMinValue = this.rotableBonds[0]
   rotBMaxValue = this.rotableBonds[Object.keys(this.rotableBonds).length - 2]
-  
+
   rotBSliderOptions: Options = {
     floor: Number(this.rotBMinValue),
-    ceil:Number(this.rotBMaxValue),
-    stepsArray: [ ],
+    ceil: Number(this.rotBMaxValue),
+    stepsArray: [],
     showTicksValues: true
   };
 
   ngOnInit(): void {
     this.changeAllOptions()
     this.populateMoleculeViewports()
-    this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
-    this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
-    this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
-    this.h_accFilterHigh = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
-    this.hbdFilterHigh = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
-    this.rotBFilterHigh = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
+    this.changeOptionsForMw()
+    // var stepsArrayToWatch = this.alphabet.split(',').map((letter: string): CustomStepDefinition => {
+    //   console.log('Item to map:', letter)
+    //   console.log(this.convertOjectToArray(this.molecularWeightRanges))
+    //   return { value: this.letterToIndex(letter) };
+    // })
+    // console.log('alphabet:',this.alphabet)
+    // console.log('stepsArrayToWatch: ' + JSON.stringify(stepsArrayToWatch))
+    // console.log('Object.keys(this.molecularWeightRanges).map(item=> {return item + })',Object.keys(this.molecularWeightRanges).map(item=> {return item + ','}))
+    // this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
+    // this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
+    // this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
+    // this.h_accFilterHigh = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
+    // this.hbdFilterHigh = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
+    // this.rotBFilterHigh = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
   }
 
   backClicked() {
@@ -201,8 +244,8 @@ export class SecondLevelComponent implements OnInit {
   }
 
   clickedDockCompound(index: any) {
-    console.log('Index clicked:', index)
-    console.log(this.wholeData.level2.docked_compounds[index])
+    // console.log('Index clicked:', index)
+    // console.log(this.wholeData.level2.docked_compounds[index])
     this.router.navigate(['/third-level'], this.wholeData);
   }
 
@@ -228,41 +271,41 @@ export class SecondLevelComponent implements OnInit {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
           //Checking filter value here
           if (compoundDetail == 'MW') {
-            console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
+            // console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
             if (!(compoundUnderReview[compoundDetail] < this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail])) {
               compoundValid = false;
-              console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
+              // console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
             }
           }
           if (compoundDetail == 'cLogP') {
             if (!(compoundUnderReview[compoundDetail] < this.slogPFilterHigh && this.slogPFilterLow < compoundUnderReview[compoundDetail])) {
               compoundValid = false;
-              console.log('cLogP Broke!')
+              // console.log('cLogP Broke!')
             }
           }
           if (compoundDetail == 'H_Acc') {
             if (!(compoundUnderReview[compoundDetail] < this.h_accFilterHigh && this.h_accFilterLow < compoundUnderReview[compoundDetail])) {
-              console.log('h_accFilterHigh: ', this.h_accFilterHigh);
-              console.log('this.h_accFilterLow: ', this.h_accFilterLow);
-              console.log('h-acc Broke!')
+              // console.log('h_accFilterHigh: ', this.h_accFilterHigh);
+              // console.log('this.h_accFilterLow: ', this.h_accFilterLow);
+              // console.log('h-acc Broke!')
               compoundValid = false;
             }
           }
           if (compoundDetail == 'hDonors') {
             if (!(compoundUnderReview[compoundDetail] < this.hbdFilterHigh && this.hbdFilterLow < compoundUnderReview[compoundDetail])) {
-              console.log('h-acc Broke!')
+              // console.log('h-acc Broke!')
               compoundValid = false;
             }
           }
           if (compoundDetail == 'tpsa') {
             if (!(compoundUnderReview[compoundDetail] < this.tpsaFilterHigh && this.tpsaFilterLow < compoundUnderReview[compoundDetail])) {
-              console.log('tpsa Broke!')
+              // console.log('tpsa Broke!')
               compoundValid = false;
             }
           }
           if (compoundDetail == 'rotable_bonds') {
-            if (!(compoundUnderReview[compoundDetail] < this.rotBFilterHigh && this.rotBFilterLow  < compoundUnderReview[compoundDetail])) {
-              console.log('tpsa Broke!')
+            if (!(compoundUnderReview[compoundDetail] < this.rotBFilterHigh && this.rotBFilterLow < compoundUnderReview[compoundDetail])) {
+              // console.log('tpsa Broke!')
               compoundValid = false;
             }
           }
@@ -279,7 +322,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   lowValueChange(value: any, label: any) {
-    console.log('low change:' + value + ' ' + label)
+    // console.log('low change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterLow = value;
     }
@@ -292,17 +335,17 @@ export class SecondLevelComponent implements OnInit {
     if (label == 'h-acc') {
       this.h_accFilterLow = value
     }
-    if(label == 'hbd'){
+    if (label == 'hbd') {
       this.hbdFilterLow = value;
     }
-    if(label == 'rotB'){
+    if (label == 'rotB') {
       this.rotBFilterLow = value;
     }
     this.validateCompounds()
   }
 
   highValueChange(value: any, label: any) {
-    console.log('high change:' + value + ' ' + label)
+    // console.log('high change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterHigh = value
     }
@@ -315,22 +358,27 @@ export class SecondLevelComponent implements OnInit {
     if (label == 'h-acc') {
       this.h_accFilterHigh = value
     }
-    if(label == 'hbd'){
+    if (label == 'hbd') {
       this.hbdFilterHigh = value;
     }
-    if(label == 'rotB'){
+    if (label == 'rotB') {
       this.rotBFilterHigh = value;
     }
     this.validateCompounds()
   }
 
-  changeOptionsForMw() {
+  // changeOptionsForMw() {
+  //   const newOptions: Options = Object.assign({}, this.MWSliderOptions);
+  //   var tstepsArray2 = []
+  //   Object.keys(this.molecularWeightRanges).forEach(element => {
+  //     tstepsArray2.push({ value: this.molecularWeightRanges[element] })
+  //   });
+  //   newOptions.stepsArray = tstepsArray2;
+  //   this.MWSliderOptions = newOptions;
+  // }
+
+  changeOptionsForMw(){
     const newOptions: Options = Object.assign({}, this.MWSliderOptions);
-    var tstepsArray2 = []
-    Object.keys(this.molecularWeightRanges).forEach(element => {
-      tstepsArray2.push({ value: this.molecularWeightRanges[element] })
-    });
-    newOptions.stepsArray = tstepsArray2;
     this.MWSliderOptions = newOptions;
   }
 
@@ -364,7 +412,7 @@ export class SecondLevelComponent implements OnInit {
     this.HBASliderOptions = tpsaOptions;
   }
 
-  changeOptionsForHBD(){
+  changeOptionsForHBD() {
     const tpsaOptions: Options = Object.assign({}, this.HBDSliderOptions);
     var hbdSliderOptionsArray = []
     Object.keys(this.hydrogenBondDonors).forEach(element => {
@@ -374,7 +422,7 @@ export class SecondLevelComponent implements OnInit {
     this.HBDSliderOptions = tpsaOptions;
   }
 
-  changeOptionsForRotB(){
+  changeOptionsForRotB() {
     const tpsaOptions: Options = Object.assign({}, this.rotBSliderOptions);
     var rotBSliderOptionsArray = []
     Object.keys(this.rotableBonds).forEach(element => {
@@ -383,12 +431,29 @@ export class SecondLevelComponent implements OnInit {
     tpsaOptions.stepsArray = rotBSliderOptionsArray;
     this.rotBSliderOptions = tpsaOptions;
   }
-  changeAllOptions(){
-    this.changeOptionsForMw()
+  changeAllOptions() {
+    // this.changeOptionsForMw()
     this.changeOptionsForSlogP()
     this.changeOptionsForTPSA()
     this.changeOptionsForHBA()
     this.changeOptionsForHBD()
     this.changeOptionsForRotB()
+  }
+  // convertObjectToString(inputObject) {
+  //   var someString = ""
+  //   Object.keys(inputObject).forEach(element => {
+  //     someString = someString + element + ','
+  //   })
+  //   console.log('someString:', someString)
+  // }
+
+  convertOjectToArray(object: any) {
+    var someArray = []
+    Object.keys(object).forEach((item) => {
+      // console.log('object[item]', object[item])
+      someArray.push(String(object[item]))
+    })
+    // console.log('Returning: ', someArray);
+    return someArray;
   }
 }
