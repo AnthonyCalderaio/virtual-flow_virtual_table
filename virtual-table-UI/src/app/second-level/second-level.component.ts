@@ -60,10 +60,8 @@ export class SecondLevelComponent implements OnInit {
     "11": Number.POSITIVE_INFINITY
   }
 
-  // value: number = 5;
   mwMinValue: number = 1;
   mwMaxValue: number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 2];
-  // stepsArray = []
 
 
   MWSliderOptions: Options = {
@@ -72,7 +70,6 @@ export class SecondLevelComponent implements OnInit {
     stepsArray: [
       { value: 1, }
     ],
-    // stepsArray: this.tstepsArray2,
     showTicksValues: true
   };
 
@@ -98,11 +95,7 @@ export class SecondLevelComponent implements OnInit {
   SlogpSliderOptions: Options = {
     floor: Number(this.slogpMinValue),
     ceil: this.slogpMaxValue,
-    stepsArray: [
-      // { value: 1, },
-      // { value: 2, }
-    ],
-    // stepsArray: this.tstepsArray2,
+    stepsArray: [ ],
     showTicksValues: true
   };
 
@@ -123,11 +116,7 @@ export class SecondLevelComponent implements OnInit {
   TPSASliderOptions: Options = {
     floor: 20,
     ceil: 140,
-    stepsArray: [
-      // { value: 1, },
-      // { value: 2, }
-    ],
-    // stepsArray: this.tstepsArray2,
+    stepsArray: [ ],
     showTicksValues: true
   };
 
@@ -149,11 +138,7 @@ export class SecondLevelComponent implements OnInit {
   HBASliderOptions: Options = {
     floor: Number(this.HBAMinValue),
     ceil: this.HBAMaxValue,
-    stepsArray: [
-      // { value: 1, },
-      // { value: 2, }
-    ],
-    // stepsArray: this.tstepsArray2,
+    stepsArray: [ ],
     showTicksValues: true
   };
 
@@ -174,11 +159,7 @@ export class SecondLevelComponent implements OnInit {
   HBDSliderOptions: Options = {
     floor: 1,
     ceil: 4,
-    stepsArray: [
-      // { value: 1, },
-      // { value: 2, }
-    ],
-    // stepsArray: this.tstepsArray2,
+    stepsArray: [ ],
     showTicksValues: true
   };
 
@@ -199,22 +180,12 @@ export class SecondLevelComponent implements OnInit {
   rotBSliderOptions: Options = {
     floor: Number(this.rotBMinValue),
     ceil:Number(this.rotBMaxValue),
-    stepsArray: [
-      // { value: 1, },
-      // { value: 2, }
-    ],
-    // stepsArray: this.tstepsArray2,
+    stepsArray: [ ],
     showTicksValues: true
   };
 
   ngOnInit(): void {
-    this.changeOptionsForMw()
-    this.changeOptionsForSlogP()
-    this.changeOptionsForTPSA()
-    this.changeOptionsForHBA()
-    this.changeOptionsForHBD()
-    this.changeOptionsForRotB()
-
+    this.changeAllOptions()
     this.populateMoleculeViewports()
     this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
@@ -225,7 +196,6 @@ export class SecondLevelComponent implements OnInit {
   }
 
   backClicked() {
-    console.log('Clicked back')
     this.router.navigate(['/first-level'], this.wholeData);
   }
 
@@ -237,14 +207,11 @@ export class SecondLevelComponent implements OnInit {
 
   populateMoleculeViewports() {
     setTimeout(() => {
-      // Object.keys(this.wholeData).forEach(item => {
-      // console.log('item: ',item)
       var stage = new NGL.Stage("secondLevelviewport" + '1');
       window.addEventListener("resize", function (event) {
         stage.handleResize();
       }, true);
       stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
-      // })
     }, 1);
   }
 
@@ -252,54 +219,16 @@ export class SecondLevelComponent implements OnInit {
     return 1;
   }
 
-  onSliderChange(input: any, filterName?: any) {
-    console.log()
-    // if (filterName == 'MWSlider') {
-    //   this.mwFilterHigh = this.molecularWeightRanges[Number(input.value) - 1];
-    // }
-    // if (filterName == 'SlogP') {
-    //   this.slogPFilter = this.partitionCoefficientRanges[Number(input.value) - 1];
-    // }
-    // if (filterName == 'tpsa') {
-    //   this.tpsaFilter = this.topologicalPolarSurfaceArea[Number(input.value) - 1];
-    // }
-    // if (filterName == 'h-acc') {
-    //   this.h_accFilter = this.hydrogenBondAcceptors[Number(input.value) - 1];
-    // }
-    // if (filterName == 'hbd') {
-    //   this.hbdFilter = this.hydrogenBondDonors[Number(input.value) - 1];
-    // }
-    // if (filterName == 'rotB') {
-    //   this.rotBFilter = this.rotableBonds[Number(input.value) - 1];
-    // }
-    // this.validateCompounds()
-  }
-
   validateCompounds() {
-    // console
-    // var compoundValid = true;
     Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
       var compoundValid = true;
-      // console.log('????',this.wholeData.level2.docked_compounds[item])
-
       var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
-      // console.log('compoundUnderReview:', compoundUnderReview);
-      //compound:{}
-      // console.log(this.wholeData.level2.docked_compounds[item])
-
-      // console.log('--------')
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
-        //mw,cLog,etc
-
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
-          //Checking filter key here
-          // console.log('Checking:', compoundDetail)
-          // console.log(compoundDetail)
           //Checking filter value here
           if (compoundDetail == 'MW') {
             console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
             if (!(compoundUnderReview[compoundDetail] < this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail])) {
-              
               compoundValid = false;
               console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
             }
@@ -337,7 +266,6 @@ export class SecondLevelComponent implements OnInit {
             }
           }
         }
-
       })
       if (!compoundValid) {
         this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1 ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
@@ -369,7 +297,6 @@ export class SecondLevelComponent implements OnInit {
     if(label == 'rotB'){
       this.rotBFilterLow = value;
     }
-
     this.validateCompounds()
   }
 
@@ -454,5 +381,13 @@ export class SecondLevelComponent implements OnInit {
     });
     tpsaOptions.stepsArray = rotBSliderOptionsArray;
     this.rotBSliderOptions = tpsaOptions;
+  }
+  changeAllOptions(){
+    this.changeOptionsForMw()
+    this.changeOptionsForSlogP()
+    this.changeOptionsForTPSA()
+    this.changeOptionsForHBA()
+    this.changeOptionsForHBD()
+    this.changeOptionsForRotB()
   }
 }
