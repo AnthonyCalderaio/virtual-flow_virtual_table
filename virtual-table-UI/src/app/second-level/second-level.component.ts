@@ -22,7 +22,9 @@ export class SecondLevelComponent implements OnInit {
   testData: any = testData
 
   //Filters
-  mwFilter: any;
+  mwFilterHigh: any;
+  mwFilterLow: any;
+
   slogPFilter: any;
   tpsaFilter: any;
   h_accFilter: any;
@@ -46,19 +48,19 @@ export class SecondLevelComponent implements OnInit {
     "8": "425",
     "9": "450",
     "10": "500",
-    "11":Number.POSITIVE_INFINITY
+    "11": Number.POSITIVE_INFINITY
   }
 
   value: number = 5;
   minValue: number = 1;
-  maxValue: number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length-2];
+  maxValue: number = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 2];
   stepsArray = []
-  
+
   MWSliderOptions: Options = {
     floor: Number(this.molecularWeightRanges[0]),
-    ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length -2],
+    ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 2],
     stepsArray: [
-      {value: 1,}
+      { value: 1, }
     ],
     // stepsArray: this.tstepsArray2,
     showTicksValues: true
@@ -128,7 +130,7 @@ export class SecondLevelComponent implements OnInit {
   ngOnInit(): void {
     this.changeOptions()
     this.populateMoleculeViewports()
-    this.mwFilter = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
+    this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilter = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
     this.tpsaFilter = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
     this.h_accFilter = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
@@ -164,28 +166,28 @@ export class SecondLevelComponent implements OnInit {
     return 1;
   }
 
-  onSliderChange(input: any, filterName?: any) {
-    console.log()
-    if (filterName == 'MWSlider') {
-      this.mwFilter = this.molecularWeightRanges[Number(input.value) - 1];
-    }
-    if (filterName == 'SlogP') {
-      this.slogPFilter = this.partitionCoefficientRanges[Number(input.value) - 1];
-    }
-    if (filterName == 'tpsa') {
-      this.tpsaFilter = this.topologicalPolarSurfaceArea[Number(input.value) - 1];
-    }
-    if (filterName == 'h-acc') {
-      this.h_accFilter = this.hydrogenBondAcceptors[Number(input.value) - 1];
-    }
-    if (filterName == 'hbd') {
-      this.hbdFilter = this.hydrogenBondDonors[Number(input.value) - 1];
-    }
-    if (filterName == 'rotB') {
-      this.rotBFilter = this.rotableBonds[Number(input.value) - 1];
-    }
-    this.validateCompounds()
-  }
+  // onSliderChange(input: any, filterName?: any) {
+  //   console.log()
+  //   if (filterName == 'MWSlider') {
+  //     this.mwFilterHigh = this.molecularWeightRanges[Number(input.value) - 1];
+  //   }
+  //   if (filterName == 'SlogP') {
+  //     this.slogPFilter = this.partitionCoefficientRanges[Number(input.value) - 1];
+  //   }
+  //   if (filterName == 'tpsa') {
+  //     this.tpsaFilter = this.topologicalPolarSurfaceArea[Number(input.value) - 1];
+  //   }
+  //   if (filterName == 'h-acc') {
+  //     this.h_accFilter = this.hydrogenBondAcceptors[Number(input.value) - 1];
+  //   }
+  //   if (filterName == 'hbd') {
+  //     this.hbdFilter = this.hydrogenBondDonors[Number(input.value) - 1];
+  //   }
+  //   if (filterName == 'rotB') {
+  //     this.rotBFilter = this.rotableBonds[Number(input.value) - 1];
+  //   }
+  //   this.validateCompounds()
+  // }
 
   validateCompounds() {
     // console
@@ -209,9 +211,10 @@ export class SecondLevelComponent implements OnInit {
           // console.log(compoundDetail)
           //Checking filter value here
           if (compoundDetail == 'MW') {
-            if (compoundUnderReview[compoundDetail] > this.mwFilter) {
+            console.log('compoundUnderReview[compoundDetail]:',compoundUnderReview[compoundDetail])
+            if (compoundUnderReview[compoundDetail] > this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail]) {
               compoundValid = false;
-              console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilter);
+              console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
             }
           }
           if (compoundDetail == 'cLogP') {
@@ -260,17 +263,27 @@ export class SecondLevelComponent implements OnInit {
     })
   }
 
-  lowValueChange(input1: any, input2:any){
-    console.log('low change:'+input1+' '+input2)
+  lowValueChange(value: any, label: any) {
+    console.log('low change:' + value + ' ' + label)
+    if (label == 'MWSlider') {
+      this.mwFilterLow = value
+    }
+    this.validateCompounds()
   }
-  highValueChange(input1: any, input2:any){
-    console.log('high change:'+input1+' '+input2)
+
+  highValueChange(value: any, label: any) {
+    console.log('high change:' + value + ' ' + label)
+    if (label == 'MWSlider') {
+      this.mwFilterHigh = value
+    }
+    this.validateCompounds()
   }
+
   changeOptions() {
     const newOptions: Options = Object.assign({}, this.MWSliderOptions);
     var tstepsArray2 = []
     Object.keys(this.molecularWeightRanges).forEach(element => {
-      tstepsArray2.push({value:this.molecularWeightRanges[element]})
+      tstepsArray2.push({ value: this.molecularWeightRanges[element] })
     });
     newOptions.stepsArray = tstepsArray2;
     this.MWSliderOptions = newOptions;
