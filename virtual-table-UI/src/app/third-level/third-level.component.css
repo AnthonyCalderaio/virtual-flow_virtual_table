@@ -7,8 +7,9 @@
   align-items: center;
   /* z-index: 0; */
   position: relative;
+  top: 15%;
   /* width:50% */
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .backButton {
@@ -51,6 +52,8 @@
   width: 80%;
   background-color: darkgray;
   margin-bottom: 20px;
+  margin-top: 3%;
+  max-height: 50vh;
 }
 
 .chemicalDescriptorsHeader {
