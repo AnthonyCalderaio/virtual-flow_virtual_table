@@ -66,7 +66,7 @@ export class SecondLevelComponent implements OnInit {
 
   MWSliderOptions: Options = {
     floor: Number(this.molecularWeightRanges[0]),
-    ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 2],
+    ceil: this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1],
     stepsArray: [
       { value: 1, }
     ],
@@ -96,7 +96,7 @@ export class SecondLevelComponent implements OnInit {
     floor: Number(this.slogpMinValue),
     ceil: this.slogpMaxValue,
     stepsArray: [ ],
-    showTicksValues: true
+    showTicksValues: true,
   };
 
   //TPSA
@@ -177,6 +177,7 @@ export class SecondLevelComponent implements OnInit {
 
   rotBMinValue = this.rotableBonds[0]
   rotBMaxValue = this.rotableBonds[Object.keys(this.rotableBonds).length - 2]
+  
   rotBSliderOptions: Options = {
     floor: Number(this.rotBMinValue),
     ceil:Number(this.rotBMaxValue),
