@@ -30,7 +30,10 @@ export class SecondLevelComponent implements OnInit {
 
   tpsaFilterHigh: any;
   tpsaFilterLow: any
-  h_accFilter: any;
+
+  h_accFilterLow: any;
+  h_accFilterHigh: any;
+
   hbdFilter: any;
   rotBFilter: any;
 
@@ -110,10 +113,10 @@ export class SecondLevelComponent implements OnInit {
     "5": "100",
     "6": "120",
     "7": "140",
-    "8":Number.POSITIVE_INFINITY
+    "8": Number.POSITIVE_INFINITY
   }
   TPSAMinValue = this.topologicalPolarSurfaceArea[0]
-  TPSAMaxValue = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length -2]
+  TPSAMaxValue = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 2]
   TPSASliderOptions: Options = {
     floor: 20,
     ceil: 140,
@@ -136,6 +139,20 @@ export class SecondLevelComponent implements OnInit {
     "6": "10",
     "7": Number.POSITIVE_INFINITY
   }
+
+  HBAMinValue = this.hydrogenBondAcceptors[0]
+  HBAMaxValue = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 2]
+
+  HBASliderOptions: Options = {
+    floor: Number(this.HBAMinValue),
+    ceil: this.HBAMaxValue,
+    stepsArray: [
+      // { value: 1, },
+      // { value: 2, }
+    ],
+    // stepsArray: this.tstepsArray2,
+    showTicksValues: true
+  };
 
   //HBD
   hydrogenBondDonors = {
@@ -164,12 +181,13 @@ export class SecondLevelComponent implements OnInit {
     this.changeOptionsForMw()
     this.changeOptionsForSlogP()
     this.changeOptionsForTPSA()
+    this.changeOptionsForHBA()
 
     this.populateMoleculeViewports()
     this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
     this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
-    this.h_accFilter = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
+    this.h_accFilterHigh = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
     this.hbdFilter = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
     this.rotBFilter = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
   }
@@ -249,6 +267,7 @@ export class SecondLevelComponent implements OnInit {
           if (compoundDetail == 'MW') {
             console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
             if (!(compoundUnderReview[compoundDetail] < this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail])) {
+              
               compoundValid = false;
               console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
             }
@@ -260,10 +279,9 @@ export class SecondLevelComponent implements OnInit {
             }
           }
           if (compoundDetail == 'H_Acc') {
-            if (compoundUnderReview[compoundDetail] > this.h_accFilter) {
-              // console.log('compoundUnderReview[compoundDetail]: ' + compoundUnderReview[compoundDetail])
-
-              console.log('this.h_accFilter: ' + this.h_accFilter)
+            if (!(compoundUnderReview[compoundDetail] < this.h_accFilterHigh && this.h_accFilterLow < compoundUnderReview[compoundDetail])) {
+              console.log('h_accFilterHigh: ', this.h_accFilterHigh);
+              console.log('this.h_accFilterLow: ', this.h_accFilterLow);
               console.log('h-acc Broke!')
               compoundValid = false;
             }
@@ -310,6 +328,10 @@ export class SecondLevelComponent implements OnInit {
     if (label == 'tpsa') {
       this.tpsaFilterLow = value
     }
+    if (label == 'h-acc') {
+      this.h_accFilterLow = value
+    }
+
     this.validateCompounds()
   }
 
@@ -323,6 +345,9 @@ export class SecondLevelComponent implements OnInit {
     }
     if (label == 'tpsa') {
       this.tpsaFilterHigh = value
+    }
+    if (label == 'h-acc') {
+      this.h_accFilterHigh = value
     }
     this.validateCompounds()
   }
@@ -355,5 +380,15 @@ export class SecondLevelComponent implements OnInit {
     });
     tpsaOptions.stepsArray = tpsaSliderOptionsArray;
     this.TPSASliderOptions = tpsaOptions;
+  }
+
+  changeOptionsForHBA() {
+    const tpsaOptions: Options = Object.assign({}, this.HBASliderOptions);
+    var hbaSliderOptionsArray = []
+    Object.keys(this.hydrogenBondAcceptors).forEach(element => {
+      hbaSliderOptionsArray.push({ value: this.hydrogenBondAcceptors[element] })
+    });
+    tpsaOptions.stepsArray = hbaSliderOptionsArray;
+    this.HBASliderOptions = tpsaOptions;
   }
 }
