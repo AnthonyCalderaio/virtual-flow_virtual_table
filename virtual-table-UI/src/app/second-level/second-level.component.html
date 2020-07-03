@@ -29,8 +29,6 @@
                     <span name="sliderContainer1" style="display: flex; flex-direction: column; margin: 10px;">
                         <span style="width: 600px;">
                             Molecular Weight (MW): 0 to 250
-                            mwMaxValue{{mwMaxValue}}
-                            mwMinValue{{mwMinValue}}
                             <ng5-slider [(value)]="mwMinValue" [(highValue)]="mwMaxValue" [options]="MWSliderOptions"
                                 (valueChange)="lowValueChange($event, 'MWSlider')"
                                 (highValueChange)="highValueChange($event,'MWSlider')"></ng5-slider>
@@ -47,10 +45,6 @@
 
                         <span style="width: 600px;">
                             Partition Coefficient (SlogP): -∞ to ∞
-                            <!-- <mat-slider [value]="12" (input)="onSliderChange($event, 'SlogP')" class="my-slider"
-                                thumbLabel min="1" max="12" step="1" value="1.5" tickInterval="1" style="width:600px">
-                            </mat-slider> -->
-                            slogpMaxValue
                             <ng5-slider [(value)]="slogpMinValue" [(highValue)]="slogpMaxValue"
                                 [options]="SlogpSliderOptions" (valueChange)="lowValueChange($event, 'SlogP')"
                                 (highValueChange)="highValueChange($event,'SlogP')"></ng5-slider>

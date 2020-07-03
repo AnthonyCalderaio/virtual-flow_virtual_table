@@ -76,16 +76,17 @@ export class SecondLevelComponent implements OnInit {
   // this.mwMaxValue = 20;
   // alphabet: string = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Infinity';
   // alphabet: string = this.convertOjectToArray(this.molecularWeightRanges).toString()
-  alphabet: string = "" + Object.keys(this.molecularWeightRanges).map(item=> {return item})
+  alphabet: string = "" + Object.keys(this.molecularWeightRanges).map(item => { return item })
   // value: number = this.letterToIndex('Z');
-  value:11
+  // value: 12
   MWSliderOptions: Options = {
     // floor:1,
     // ceil:20,
     stepsArray: this.alphabet.split(',').map((letter: string): CustomStepDefinition => {
       // console.log('Item to map:', letter)
       // console.log(this.convertOjectToArray(this.molecularWeightRanges))
-      return { value: this.letterToIndex(letter) };
+      // return { value: this.letterToIndex(letter) };
+      return { value: Number(letter) };
     }),
     translate: (value: number, label: LabelType): string => {
       return this.indexToLetter(value);
@@ -95,15 +96,18 @@ export class SecondLevelComponent implements OnInit {
 
   indexToLetter(index: number): string {
     // index=index-1
-    if(this.molecularWeightRanges[index] == undefined){
-      index=index-1
+    if (this.molecularWeightRanges[index] == undefined) {
+      index = index - 1
     }
+    // console.log('Whats this?',index)
     return String(this.molecularWeightRanges[index]);
     // return this.alphabet.replace(/,/g, '')[index];
   }
 
   letterToIndex(letter: string): number {
     // console.log('want to return string:', this.alphabet.indexOf(letter))
+    console.log('turning [' + letter + ']' + this.alphabet.replace(/,/g, '') + '  into')
+    console.log('HERE:', this.alphabet.replace(/,/g, '').indexOf(letter));
     return this.alphabet.replace(/,/g, '').indexOf(letter);
   }
 
@@ -223,20 +227,21 @@ export class SecondLevelComponent implements OnInit {
     this.changeAllOptions()
     this.populateMoleculeViewports()
     this.changeOptionsForMw()
-    // var stepsArrayToWatch = this.alphabet.split(',').map((letter: string): CustomStepDefinition => {
-    //   console.log('Item to map:', letter)
-    //   console.log(this.convertOjectToArray(this.molecularWeightRanges))
-    //   return { value: this.letterToIndex(letter) };
-    // })
-    // console.log('alphabet:',this.alphabet)
-    // console.log('stepsArrayToWatch: ' + JSON.stringify(stepsArrayToWatch))
-    // console.log('Object.keys(this.molecularWeightRanges).map(item=> {return item + })',Object.keys(this.molecularWeightRanges).map(item=> {return item + ','}))
-    // this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
-    // this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
-    // this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
-    // this.h_accFilterHigh = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
-    // this.hbdFilterHigh = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
-    // this.rotBFilterHigh = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
+    console.log('alphabet: ', this.alphabet);
+
+    this.mwFilterHigh = this.convertToInfinityOrNot(this.convertToInfinityOrNot(this.molecularWeightRanges[11]))//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
+    this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
+    // console.log('init: this.mwFilterHigh ',this.mwFilterHigh)
+    // console.log('init: this.mwFilterLow',this.mwFilterLow)
+
+    this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
+    this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
+
+    this.h_accFilterHigh = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1])
+    this.h_accFilterLow = this.convertToInfinityOrNot(this.hydrogenBondAcceptors[0])
+
+    this.hbdFilterHigh = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
+    this.rotBFilterHigh = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
   }
 
   backClicked() {
@@ -244,8 +249,6 @@ export class SecondLevelComponent implements OnInit {
   }
 
   clickedDockCompound(index: any) {
-    // console.log('Index clicked:', index)
-    // console.log(this.wholeData.level2.docked_compounds[index])
     this.router.navigate(['/third-level'], this.wholeData);
   }
 
@@ -264,8 +267,9 @@ export class SecondLevelComponent implements OnInit {
   }
 
   validateCompounds() {
+    var compoundValid = true;
     Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
-      var compoundValid = true;
+      compoundValid = true;
       var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
@@ -274,57 +278,65 @@ export class SecondLevelComponent implements OnInit {
             // console.log('compoundUnderReview[compoundDetail]:', compoundUnderReview[compoundDetail])
             if (!(compoundUnderReview[compoundDetail] < this.mwFilterHigh && this.mwFilterLow < compoundUnderReview[compoundDetail])) {
               compoundValid = false;
-              // console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' > ' + this.mwFilterHigh);
+              console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' < ' + this.mwFilterLow);
             }
           }
           if (compoundDetail == 'cLogP') {
             if (!(compoundUnderReview[compoundDetail] < this.slogPFilterHigh && this.slogPFilterLow < compoundUnderReview[compoundDetail])) {
               compoundValid = false;
-              // console.log('cLogP Broke!')
+              console.log('cLogP Broke!')
             }
           }
           if (compoundDetail == 'H_Acc') {
             if (!(compoundUnderReview[compoundDetail] < this.h_accFilterHigh && this.h_accFilterLow < compoundUnderReview[compoundDetail])) {
-              // console.log('h_accFilterHigh: ', this.h_accFilterHigh);
-              // console.log('this.h_accFilterLow: ', this.h_accFilterLow);
-              // console.log('h-acc Broke!')
+              console.log('h_accFilterHigh: ', this.h_accFilterHigh);
+              console.log('this.h_accFilterLow: ', this.h_accFilterLow);
+              console.log('h-acc Broke!')
               compoundValid = false;
             }
           }
           if (compoundDetail == 'hDonors') {
-            if (!(compoundUnderReview[compoundDetail] < this.hbdFilterHigh && this.hbdFilterLow < compoundUnderReview[compoundDetail])) {
-              // console.log('h-acc Broke!')
+            if (!(compoundUnderReview[compoundDetail] <= this.hbdFilterHigh && this.hbdFilterLow <= compoundUnderReview[compoundDetail])) {
+              console.log('hDonors Broke!')
+              console.log('this.hbdFilterHigh: ', this.hbdFilterHigh)
+              console.log('this.hbdFilterLow:  ', this.hbdFilterLow)
               compoundValid = false;
             }
           }
           if (compoundDetail == 'tpsa') {
             if (!(compoundUnderReview[compoundDetail] < this.tpsaFilterHigh && this.tpsaFilterLow < compoundUnderReview[compoundDetail])) {
-              // console.log('tpsa Broke!')
+              console.log('tpsa Broke!')
               compoundValid = false;
             }
           }
           if (compoundDetail == 'rotable_bonds') {
             if (!(compoundUnderReview[compoundDetail] < this.rotBFilterHigh && this.rotBFilterLow < compoundUnderReview[compoundDetail])) {
-              // console.log('tpsa Broke!')
+              console.log('rotable_bonds Broke!')
               compoundValid = false;
             }
           }
         }
+
       })
       if (!compoundValid) {
+        //Mark Invalid
+        // console.log('INVALID compoundUnderReview.compound_identifier: ',compoundUnderReview.compound_identifier)
         this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1 ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
-
       } else {
+        //Mark Valid
+        // console.log('VALID compoundUnderReview.compound_identifier: ',compoundUnderReview.compound_identifier)
         this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.compound_identifier })
       }
-      // console.log('Blacklst', this.compoundBlacklist)
+
     })
+    console.log('Blacklst', this.compoundBlacklist)
   }
 
   lowValueChange(value: any, label: any) {
-    // console.log('low change:' + value + ' ' + label)
+    console.log('low change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterLow = value;
+      console.log('this.mwFilterLow = ', this.mwFilterLow)
     }
     if (label == 'SlogP') {
       this.slogPFilterLow = value
@@ -345,9 +357,14 @@ export class SecondLevelComponent implements OnInit {
   }
 
   highValueChange(value: any, label: any) {
-    // console.log('high change:' + value + ' ' + label)
+    console.log('high change:' + value + ' ' + label)
+    // console.log('Well 12 is',this.molecularWeightRanges[12])
     if (label == 'MWSlider') {
-      this.mwFilterHigh = value
+      // if (this.molecularWeightRanges[value] != undefined) {
+      // this.mwFilterHigh = this.molecularWeightRanges[value]
+      // }
+      this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
+      console.log('this.mwFilterHigh = ', this.mwFilterHigh)
     }
     if (label == 'SlogP') {
       this.slogPFilterHigh = value
@@ -377,7 +394,7 @@ export class SecondLevelComponent implements OnInit {
   //   this.MWSliderOptions = newOptions;
   // }
 
-  changeOptionsForMw(){
+  changeOptionsForMw() {
     const newOptions: Options = Object.assign({}, this.MWSliderOptions);
     this.MWSliderOptions = newOptions;
   }
@@ -455,5 +472,18 @@ export class SecondLevelComponent implements OnInit {
     })
     // console.log('Returning: ', someArray);
     return someArray;
+  }
+  convertToInfinityOrNot(item: any) {
+    if (item == 'infinity') {
+      console.log('returned ' + Number.POSITIVE_INFINITY)
+      return Number.POSITIVE_INFINITY
+    }
+    else if (item == '-infinity') {
+      console.log('returned ' + Number.NEGATIVE_INFINITY)
+      return Number.NEGATIVE_INFINITY
+    } else {
+      console.log('returned ', item)
+      return item;
+    }
   }
 }
