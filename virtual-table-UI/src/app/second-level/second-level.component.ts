@@ -28,7 +28,8 @@ export class SecondLevelComponent implements OnInit {
   slogPFilterHigh: any;
   slogPFilterLow: any;
 
-  tpsaFilter: any;
+  tpsaFilterHigh: any;
+  tpsaFilterLow: any
   h_accFilter: any;
   hbdFilter: any;
   rotBFilter: any;
@@ -108,8 +109,21 @@ export class SecondLevelComponent implements OnInit {
     "4": "80",
     "5": "100",
     "6": "120",
-    "7": "140"
+    "7": "140",
+    "8":Number.POSITIVE_INFINITY
   }
+  TPSAMinValue = this.topologicalPolarSurfaceArea[0]
+  TPSAMaxValue = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length -2]
+  TPSASliderOptions: Options = {
+    floor: 20,
+    ceil: 140,
+    stepsArray: [
+      // { value: 1, },
+      // { value: 2, }
+    ],
+    // stepsArray: this.tstepsArray2,
+    showTicksValues: true
+  };
 
   //HBA or H-Acc
   hydrogenBondAcceptors = {
@@ -119,7 +133,8 @@ export class SecondLevelComponent implements OnInit {
     "3": "5",
     "4": "7",
     "5": "9",
-    "6": "10"
+    "6": "10",
+    "7": Number.POSITIVE_INFINITY
   }
 
   //HBD
@@ -130,7 +145,7 @@ export class SecondLevelComponent implements OnInit {
     "3": "3",
     "4": "4",
     "5": "5",
-    "6": "inf"
+    "6": Number.POSITIVE_INFINITY
   }
 
   //RotB
@@ -141,18 +156,19 @@ export class SecondLevelComponent implements OnInit {
     "3": "5",
     "4": "7",
     "5": "9",
-    "6": "10"
+    "6": "10",
+    "7": Number.POSITIVE_INFINITY
   }
 
   ngOnInit(): void {
     this.changeOptionsForMw()
     this.changeOptionsForSlogP()
-    
+    this.changeOptionsForTPSA()
 
     this.populateMoleculeViewports()
     this.mwFilterHigh = this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.slogPFilterHigh = this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1]
-    this.tpsaFilter = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
+    this.tpsaFilterHigh = this.topologicalPolarSurfaceArea[Object.keys(this.topologicalPolarSurfaceArea).length - 1]
     this.h_accFilter = this.hydrogenBondAcceptors[Object.keys(this.hydrogenBondAcceptors).length - 1]
     this.hbdFilter = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 1]
     this.rotBFilter = this.rotableBonds[Object.keys(this.rotableBonds).length - 1]
@@ -259,7 +275,7 @@ export class SecondLevelComponent implements OnInit {
             }
           }
           if (compoundDetail == 'tpsa') {
-            if (compoundUnderReview[compoundDetail] > this.tpsaFilter) {
+            if (!(compoundUnderReview[compoundDetail] < this.tpsaFilterHigh && this.tpsaFilterLow < compoundUnderReview[compoundDetail])) {
               console.log('tpsa Broke!')
               compoundValid = false;
             }
@@ -291,6 +307,9 @@ export class SecondLevelComponent implements OnInit {
     if (label == 'SlogP') {
       this.slogPFilterLow = value
     }
+    if (label == 'tpsa') {
+      this.tpsaFilterLow = value
+    }
     this.validateCompounds()
   }
 
@@ -301,6 +320,9 @@ export class SecondLevelComponent implements OnInit {
     }
     if (label == 'SlogP') {
       this.slogPFilterHigh = value
+    }
+    if (label == 'tpsa') {
+      this.tpsaFilterHigh = value
     }
     this.validateCompounds()
   }
@@ -323,5 +345,15 @@ export class SecondLevelComponent implements OnInit {
     });
     slogpOptions.stepsArray = SlogpSliderOptionsArray;
     this.SlogpSliderOptions = slogpOptions;
+  }
+
+  changeOptionsForTPSA() {
+    const tpsaOptions: Options = Object.assign({}, this.TPSASliderOptions);
+    var tpsaSliderOptionsArray = []
+    Object.keys(this.topologicalPolarSurfaceArea).forEach(element => {
+      tpsaSliderOptionsArray.push({ value: this.topologicalPolarSurfaceArea[element] })
+    });
+    tpsaOptions.stepsArray = tpsaSliderOptionsArray;
+    this.TPSASliderOptions = tpsaOptions;
   }
 }

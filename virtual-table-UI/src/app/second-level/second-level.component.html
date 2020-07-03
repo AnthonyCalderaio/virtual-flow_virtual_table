@@ -71,6 +71,9 @@
                             <!-- <mat-slider [value]="8" (input)="onSliderChange($event, 'tpsa')" class="my-slider" min="1"
                                 max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
                             </mat-slider> -->
+                            <ng5-slider [(value)]="TPSAMinValue" [(highValue)]="TPSAMaxValue" [options]="TPSASliderOptions"
+                                (valueChange)="lowValueChange($event, 'tpsa')"
+                                (highValueChange)="highValueChange($event, 'tpsa')"></ng5-slider>
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
