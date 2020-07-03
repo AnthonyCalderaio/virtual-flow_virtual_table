@@ -70,25 +70,19 @@ export class SecondLevelComponent implements OnInit {
       return { value: Number(letter) };
     }),
     translate: (value: number, label: LabelType): string => {
-      return this.indexToLetter(value,this.molecularWeightRanges);
+      return this.indexToLetter(value, this.molecularWeightRanges);
     },
     showTicksValues: true
   }
 
   indexToLetter(index: number, arrayType: any): string {
-    // index=index-1
     if (arrayType[index] == undefined) {
       index = index - 1
     }
-    // console.log('Whats this?',index)
     return String(arrayType[index]);
-    // return this.alphabet.replace(/,/g, '')[index];
   }
 
   letterToIndex(letter: string): number {
-    // console.log('want to return string:', this.alphabet.indexOf(letter))
-    // console.log('turning [' + letter + ']' + this.alphabet.replace(/,/g, '') + '  into')
-    // console.log('HERE:', this.alphabet.replace(/,/g, '').indexOf(letter));
     return this.alphabet.replace(/,/g, '').indexOf(letter);
   }
 
@@ -147,7 +141,7 @@ export class SecondLevelComponent implements OnInit {
       return { value: Number(letter) };
     }),
     translate: (value: number, label: LabelType): string => {
-      return this.indexToLetter(value,this.topologicalPolarSurfaceArea);
+      return this.indexToLetter(value, this.topologicalPolarSurfaceArea);
     },
     showTicksValues: true
   }
@@ -216,16 +210,6 @@ export class SecondLevelComponent implements OnInit {
     showTicksValues: true
   }
 
-  // hbdMinValue = this.hydrogenBondDonors[0]
-  // hbdMaxValue = this.hydrogenBondDonors[Object.keys(this.hydrogenBondDonors).length - 2]
-
-  // HBDSliderOptions: Options = {
-  //   floor: 1,
-  //   ceil: 4,
-  //   stepsArray: [],
-  //   showTicksValues: true
-  // };
-
   //RotB
   rotableBonds = {
     "0": "0",
@@ -253,17 +237,6 @@ export class SecondLevelComponent implements OnInit {
     showTicksValues: true
   }
 
-
-  // rotBMinValue = this.rotableBonds[0]
-  // rotBMaxValue = this.rotableBonds[Object.keys(this.rotableBonds).length - 2]
-
-  // rotBSliderOptions: Options = {
-  //   floor: Number(this.rotBMinValue),
-  //   ceil: Number(this.rotBMaxValue),
-  //   stepsArray: [],
-  //   showTicksValues: true
-  // };
-
   ngOnInit(): void {
     this.changeAllOptions()
     this.populateMoleculeViewports()
@@ -279,8 +252,6 @@ export class SecondLevelComponent implements OnInit {
 
     this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1])//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
-    // console.log('init: this.mwFilterHigh ', this.mwFilterHigh)
-    // console.log('init: this.mwFilterLow', this.mwFilterLow)
 
     this.slogPFilterHigh = this.convertToInfinityOrNot(this.partitionCoefficientRanges[Object.keys(this.partitionCoefficientRanges).length - 1])
     this.slogPFilterLow = this.convertToInfinityOrNot(this.partitionCoefficientRanges[0])
@@ -329,24 +300,20 @@ export class SecondLevelComponent implements OnInit {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
           //Checking filter value here
           if (compoundDetail == 'MW') {
-            // if (!(compoundUnderReview[compoundDetail] <= this.mwFilterHigh && this.mwFilterLow <= compoundUnderReview[compoundDetail])) {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
-
               //between(compoundUnderReview[compoundDetail],this.mwFilterLow,this.mwFilterHigh)
               compoundValid = false;
               console.log('MW Broke!' + compoundUnderReview[compoundDetail] + ' < ' + this.mwFilterLow);
             }
           }
           if (compoundDetail == 'cLogP') {
-            if (!(compoundUnderReview[compoundDetail] < this.slogPFilterHigh && this.slogPFilterLow < compoundUnderReview[compoundDetail])) {
+            if (!(this.between(compoundUnderReview[compoundDetail], this.slogPFilterLow, this.slogPFilterHigh))) {
               compoundValid = false;
               console.log('cLogP Broke!')
             }
           }
           if (compoundDetail == 'H_Acc') {
-            if (!(compoundUnderReview[compoundDetail] < this.h_accFilterHigh && this.h_accFilterLow < compoundUnderReview[compoundDetail])) {
-              // console.log('h_accFilterHigh: ', this.h_accFilterHigh);
-              // console.log('this.h_accFilterLow: ', this.h_accFilterLow);
+              if (!(this.between(compoundUnderReview[compoundDetail], this.h_accFilterLow, this.h_accFilterHigh))) {
               console.log('h-acc Broke!')
               compoundValid = false;
             }
