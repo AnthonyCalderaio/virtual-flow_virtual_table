@@ -29,11 +29,8 @@
                     <span name="sliderContainer1" style="display: flex; flex-direction: column; margin: 10px;">
                         <span style="width: 600px;">
                             Molecular Weight (MW): 0 to 250 ---- {{mwFilter}}
-                            <!-- <mat-slider [value]="11" name="MWSlider" (input)="onSliderChange($event, 'MWSlider')"
-                                class="my-slider" thumbLabel min="1" max="11" step="1" value="1.5" tickInterval="1"
-                                style="width:600px"></mat-slider> -->
-                                this.mwFilterHigh{{this.mwFilterHigh}}
-                                this.mwFilterLow{{this.mwFilterLow}}
+                                <!-- this.mwFilterHigh{{this.mwFilterHigh}}
+                                this.mwFilterLow{{this.mwFilterLow}} -->
                             <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="MWSliderOptions"
                                 (valueChange)="lowValueChange($event, 'MWSlider')"
                                 (highValueChange)="highValueChange($event,'MWSlider')"></ng5-slider>
@@ -44,7 +41,6 @@
                                     <span style="text-align: left;">{{molecularWeightRanges[rangeValue.key]}}</span>
                                 </ng-container> -->
                             </span>
-
                         </span>
                         <br>
 
