@@ -72,7 +72,9 @@
                     </span>
                     <span name="sliderContainer2" style="display: flex; flex-direction: column;  margin: 10px;">
                         <span style="width: 600px;">
-                            Hydrogen Bond Acceptors (HBA): 0 to 10
+                            Hydrogen Bond Acceptors (HBA): 0 to 10 
+                            HBAMinValue{{hydrogenBondAcceptors[HBAMinValue]}}
+                            HBAMaxValue{{hydrogenBondAcceptors[HBAMaxValue]}}
                             <ng5-slider [(value)]="HBAMinValue" [(highValue)]="HBAMaxValue" [options]="HBASliderOptions"
                                 (valueChange)="lowValueChange($event, 'h-acc')"
                                 (highValueChange)="highValueChange($event, 'h-acc')"></ng5-slider>
@@ -106,6 +108,8 @@
 
                         <span style="width: 600px;">
                             Rotable Bonds (rotB): 0 to 10
+                            rotBMinValue{{rotableBonds[rotBMinValue]}}
+                            rotBMaxValue{{rotableBonds[rotBMaxValue]}}
                             <ng5-slider [(value)]="rotBMinValue" [(highValue)]="rotBMaxValue"
                                 [options]="rotBSliderOptions" (valueChange)="lowValueChange($event, 'rotB')"
                                 (highValueChange)="highValueChange($event, 'rotB')"></ng5-slider>
@@ -131,57 +135,59 @@
     </mat-card>
 
 
-    <table mat-table [dataSource]="ELEMENT_DATA_REAL" class="mat-elevation-z8" style="width:90%">
+    <table mat-table  #table [dataSource]="ELEMENT_DATA_REAL" class="mat-elevation-z8" style="width:90%">
 
         <!-- Position Column -->
         <ng-container matColumnDef="CompoudBaseID">
             <th mat-header-cell *matHeaderCellDef>Compound Identifier</th>
-            <td mat-cell  *matCellDef="let element">
-                <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)">{{element.CompoudBaseID}}</span>
-                 
+            <!-- <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)"> -->
+            <td mat-cell  *matCellDef="let element;" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}" >
+                <!-- <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)"></span> -->
+                {{element.CompoudBaseID}}
                  </td>
+                <!-- </span> -->
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="Top_Scores">
             <th mat-header-cell *matHeaderCellDef> Top Scores </th>
-            <td mat-cell *matCellDef="let element"> {{element.Top_Scores}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.Top_Scores}} </td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="MW">
             <th mat-header-cell *matHeaderCellDef> Molecular Weight </th>
-            <td mat-cell *matCellDef="let element"> {{element.MW}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.MW}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="cLogP">
             <th mat-header-cell *matHeaderCellDef> cLogP </th>
-            <td mat-cell *matCellDef="let element"> {{element.cLogP}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.cLogP}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="h_acc">
             <th mat-header-cell *matHeaderCellDef> h_acc </th>
-            <td mat-cell *matCellDef="let element"> {{element.h_acc}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.h_acc}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="h_donors">
             <th mat-header-cell *matHeaderCellDef> h_donors </th>
-            <td mat-cell *matCellDef="let element"> {{element.h_donors}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.h_donors}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="tpsa">
             <th mat-header-cell *matHeaderCellDef> tpsa </th>
-            <td mat-cell *matCellDef="let element"> {{element.tpsa}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.tpsa}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="Rotatable_Bonds">
             <th mat-header-cell *matHeaderCellDef> rotb </th>
-            <td mat-cell *matCellDef="let element"> {{element.Rotatable_Bonds}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.Rotatable_Bonds}} </td>
         </ng-container>
 
 
@@ -190,12 +196,6 @@
     </table>
 
     <!-- <span *ngIf="!compoundBlacklist.includes(item.value.compound_identifier)"></span> -->
-
-
-
-
-
-
     <!-- <span style="width: 600px;">Hydrogen Bond Acceptors (HBA): 0 to 10
         <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
         <br>
@@ -205,8 +205,6 @@
             </ng-container>
         </span>
     </span>
-
-
     <span style="width: 600px;">Hydrogen Bond Donors (HBD): 0 to ∞
         <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
         <br>

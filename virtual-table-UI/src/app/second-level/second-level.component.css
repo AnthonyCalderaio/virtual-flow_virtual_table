@@ -113,3 +113,7 @@
 /* .my-slider {
   transform: scale(2);
 } */
+
+.hide {
+  display: none;
+}

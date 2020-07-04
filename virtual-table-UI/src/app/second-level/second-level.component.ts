@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
 import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
+import { MatTable } from '@angular/material/table';
 // import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
@@ -12,7 +13,7 @@ import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
   styleUrls: ['./second-level.component.css']
 })
 export class SecondLevelComponent implements OnInit {
-
+  @ViewChild(MatTable) table: MatTable<any>;
   constructor(
     private _location: Location,
     private router: Router,
@@ -21,7 +22,7 @@ export class SecondLevelComponent implements OnInit {
 
 
   ELEMENT_DATA_REAL: any = []
-
+  ELEMENT_DATA_REAL_decoy: any = []
   ELEMENT_DATA: any = [
     { CompoudBaseID: 1, Top_Scores: 'Hydrogen', MW: 1.0079, cLogP: 'H', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
     { CompoudBaseID: 2, Top_Scores: 'Helium', MW: 4.0026, cLogP: 'He', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
@@ -34,6 +35,8 @@ export class SecondLevelComponent implements OnInit {
     { CompoudBaseID: 9, Top_Scores: 'Fluorine', MW: 18.9984, cLogP: 'F', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
     { CompoudBaseID: 10, Top_Scores: 'Neon', MW: 20.1797, cLogP: 'Ne', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
   ];
+
+  removedCompounds: any = []
 
   dataSource = this.ELEMENT_DATA;
 
@@ -61,7 +64,7 @@ export class SecondLevelComponent implements OnInit {
   rotBFilterHigh: any;
   rotBFilterLow: any;
 
-  validFilterKeyNamesForCheck = ["MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
+  validFilterKeyNamesForCheck = ["MW", "cLogP", "h_acc", "h_donors", "tpsa", "Rotatable_Bonds"]
 
   compoundBlacklist = []
 
@@ -252,6 +255,7 @@ export class SecondLevelComponent implements OnInit {
     this.initializeFilterBounds()
     this.populateTableData()
     console.log('this.ELEMENT_DATA_REAL: ', this.ELEMENT_DATA_REAL);
+    console.log('this.wholeData.level2.docked_compounds: ',this.wholeData.level2.docked_compounds)
   }
 
   populateTableData() {
@@ -259,6 +263,7 @@ export class SecondLevelComponent implements OnInit {
       console.log('Element:', this.wholeData.level2.docked_compounds[element])
       var subSet = this.getSubsetOfObject(this.wholeData.level2.docked_compounds[element])
       this.ELEMENT_DATA_REAL.push(subSet)
+      this.ELEMENT_DATA_REAL_decoy.push(subSet)
     })
   }
 
@@ -296,8 +301,10 @@ export class SecondLevelComponent implements OnInit {
     Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
       compoundValid = true;
       var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
+      console.log('this.wholeData.level2.docked_compounds: ',this.wholeData.level2.docked_compounds)
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
+          console.log('compoundDetail: ',compoundDetail)
           //Checking filter value here
           if (compoundDetail == 'MW') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
@@ -309,12 +316,12 @@ export class SecondLevelComponent implements OnInit {
               compoundValid = false;
             }
           }
-          if (compoundDetail == 'H_Acc') {
+          if (compoundDetail == 'h_acc') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.h_accFilterLow, this.h_accFilterHigh))) {
               compoundValid = false;
             }
           }
-          if (compoundDetail == 'hDonors') {
+          if (compoundDetail == 'h_donors') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.hbdFilterLow, this.hbdFilterHigh))) {
               compoundValid = false;
             }
@@ -324,7 +331,7 @@ export class SecondLevelComponent implements OnInit {
               compoundValid = false;
             }
           }
-          if (compoundDetail == 'rotable_bonds') {
+          if (compoundDetail == 'Rotatable_Bonds') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.rotBFilterLow, this.rotBFilterHigh))) {
               compoundValid = false;
             }
@@ -338,12 +345,24 @@ export class SecondLevelComponent implements OnInit {
         //Mark Valid
         this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.CompoudBaseID })
       }
-
     })
+
     console.log('Blacklst', this.compoundBlacklist)
   }
 
+  updateTableDataFromBlackList(compoundUnderReview) {
+    this.ELEMENT_DATA_REAL = this.ELEMENT_DATA_REAL_decoy
+    Object.keys(this.ELEMENT_DATA_REAL).forEach(element => {
+      // console.log('Element:', this.ELEMENT_DATA_REAL[element])
+      if (this.compoundBlacklist.includes(this.ELEMENT_DATA_REAL[element].CompoudBaseID)) {
+
+        delete this.ELEMENT_DATA_REAL[element]
+      }
+    });
+  }
+
   lowValueChange(value: any, label: any) {
+    // this.populateTableData()
     // console.log('low change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[value]);
@@ -367,6 +386,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   highValueChange(value: any, label: any) {
+    // this.populateTableData()
     // console.log('high change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
@@ -467,6 +487,8 @@ export class SecondLevelComponent implements OnInit {
     this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[Object.keys(this.rotableBonds).length - 1])
     this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[0])
   }
+
+
 
 
 }
