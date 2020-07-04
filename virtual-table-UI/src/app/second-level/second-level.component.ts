@@ -243,6 +243,7 @@ export class SecondLevelComponent implements OnInit {
   populateMoleculeViewports() {
     setTimeout(() => {
       var stage = new NGL.Stage("secondLevelviewport" + '1');
+      stage.setParameters( { backgroundColor: "white", hoverTimeout: -1 } );
       window.addEventListener("resize", function (event) {
         stage.handleResize();
       }, true);

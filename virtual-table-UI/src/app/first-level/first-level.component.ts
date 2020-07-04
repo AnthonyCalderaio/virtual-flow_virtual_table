@@ -26,6 +26,19 @@ export class FirstLevelComponent implements OnInit {
     setTimeout(() => {
       Object.keys(this.testData).forEach(item => {
         var stage = new NGL.Stage("viewport" + item);
+        stage.setParameters({ backgroundColor: "white", hoverTimeout: -1 });
+        var tooltip = document.createElement("div");
+        Object.assign(tooltip.style, {
+          display: "none",
+          position: "absolute",
+          zIndex: 10,
+          pointerEvents: "none",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          color: "lightgrey",
+          padding: "0.5em",
+          fontFamily: "sans-serif"
+        });
+        stage.viewer.container.appendChild(tooltip);
         window.addEventListener("resize", function (event) {
           stage.handleResize();
         }, true);
