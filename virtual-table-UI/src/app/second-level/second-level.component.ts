@@ -37,7 +37,7 @@ export class SecondLevelComponent implements OnInit {
 
   dataSource = this.ELEMENT_DATA;
 
-  displayedColumns: string[] = ['CompoudBaseID', 'Top_Scores', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "rotb"];
+  displayedColumns: string[] = ['CompoudBaseID', 'Top_Scores', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "Rotatable_Bonds"];
 
   wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
   testData: any = testData
@@ -263,8 +263,8 @@ export class SecondLevelComponent implements OnInit {
   }
 
   getSubsetOfObject(objectInput) {
-    let { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, rotb, ...partialObject } = objectInput;
-    let subset = { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, rotb };
+    let { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, ...partialObject } = objectInput;
+    let subset = { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds };
     return subset
   }
 
