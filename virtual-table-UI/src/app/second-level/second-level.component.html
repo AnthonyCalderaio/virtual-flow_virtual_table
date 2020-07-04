@@ -28,8 +28,10 @@
                     style="display: flex; flex-direction: row; justify-content: space-between;">
                     <span name="sliderContainer1" style="display: flex; flex-direction: column; margin: 10px;">
                         <span style="width: 600px;">
-                            Molecular Weight (MW): 0 to
-                            250--mwMinValue{{molecularWeightRanges[mwMinValue]}}--mwMaxValue{{molecularWeightRanges[mwMaxValue]}}
+                            <br>
+                            Molecular Weight (MW):
+                            <br>
+                            <br>
                             <ng5-slider [(value)]="mwMinValue" [(highValue)]="mwMaxValue" [options]="MWSliderOptions"
                                 (valueChange)="lowValueChange($event, 'MWSlider')"
                                 (highValueChange)="highValueChange($event,'MWSlider')"></ng5-slider>
@@ -45,7 +47,9 @@
 
 
                         <span style="width: 600px;">
-                            Partition Coefficient (SlogP): -∞ to ∞
+                            Partition Coefficient (SlogP):
+                            <br> 
+                            <br>
                             <ng5-slider [(value)]="slogpMinValue" [(highValue)]="slogpMaxValue"
                                 [options]="SlogpSliderOptions" (valueChange)="lowValueChange($event, 'SlogP')"
                                 (highValueChange)="highValueChange($event,'SlogP')"></ng5-slider>
@@ -55,7 +59,10 @@
 
 
                         <span style="width: 600px;">
-                            Topological Polar Surface Area (TPSA): 0 to 140
+                            <br>
+                            Topological Polar Surface Area (TPSA):
+                            <br>
+                            <br>
                             <ng5-slider [(value)]="TPSAMinValue" [(highValue)]="TPSAMaxValue"
                                 [options]="TPSASliderOptions" (valueChange)="lowValueChange($event, 'tpsa')"
                                 (highValueChange)="highValueChange($event, 'tpsa')"></ng5-slider>
@@ -72,9 +79,10 @@
                     </span>
                     <span name="sliderContainer2" style="display: flex; flex-direction: column;  margin: 10px;">
                         <span style="width: 600px;">
-                            Hydrogen Bond Acceptors (HBA): 0 to 10 
-                            HBAMinValue{{hydrogenBondAcceptors[HBAMinValue]}}
-                            HBAMaxValue{{hydrogenBondAcceptors[HBAMaxValue]}}
+                            <br>
+                            Hydrogen Bond Acceptors (HBA):
+                            <br>
+                            <br>
                             <ng5-slider [(value)]="HBAMinValue" [(highValue)]="HBAMaxValue" [options]="HBASliderOptions"
                                 (valueChange)="lowValueChange($event, 'h-acc')"
                                 (highValueChange)="highValueChange($event, 'h-acc')"></ng5-slider>
@@ -89,7 +97,9 @@
                         <br>
 
                         <span style="width: 600px;">
-                            # H-Donors (HBD): 0 to 10 hbdFilterLow{{hbdFilterLow}} hbdFilterHigh{{hbdFilterHigh}}
+                            <br>
+                            # H-Donors (HBD):
+                            <br>
                             <ng5-slider [(value)]="hbdMinValue" [(highValue)]="hbdMaxValue" [options]="HBDSliderOptions"
                                 (valueChange)="lowValueChange($event, 'hbd')"
                                 (highValueChange)="highValueChange($event, 'hbd')"></ng5-slider>
@@ -107,9 +117,10 @@
                         <br>
 
                         <span style="width: 600px;">
-                            Rotable Bonds (rotB): 0 to 10
-                            rotBMinValue{{rotableBonds[rotBMinValue]}}
-                            rotBMaxValue{{rotableBonds[rotBMaxValue]}}
+                            <br>
+                            <br>
+                            Rotable Bonds (rotB):
+                            <br>
                             <ng5-slider [(value)]="rotBMinValue" [(highValue)]="rotBMaxValue"
                                 [options]="rotBSliderOptions" (valueChange)="lowValueChange($event, 'rotB')"
                                 (highValueChange)="highValueChange($event, 'rotB')"></ng5-slider>
