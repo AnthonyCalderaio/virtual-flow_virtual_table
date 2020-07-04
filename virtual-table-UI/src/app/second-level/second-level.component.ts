@@ -333,10 +333,10 @@ export class SecondLevelComponent implements OnInit {
       })
       if (!compoundValid) {
         //Mark Invalid
-        this.compoundBlacklist.indexOf(compoundUnderReview.compound_identifier) === -1 ? this.compoundBlacklist.push(compoundUnderReview.compound_identifier) : null;
+        this.compoundBlacklist.indexOf(compoundUnderReview.CompoudBaseID) === -1 ? this.compoundBlacklist.push(compoundUnderReview.CompoudBaseID) : null;
       } else {
         //Mark Valid
-        this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.compound_identifier })
+        this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.CompoudBaseID })
       }
 
     })
