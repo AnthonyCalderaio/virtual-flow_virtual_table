@@ -28,7 +28,8 @@
                     style="display: flex; flex-direction: row; justify-content: space-between;">
                     <span name="sliderContainer1" style="display: flex; flex-direction: column; margin: 10px;">
                         <span style="width: 600px;">
-                            Molecular Weight (MW): 0 to 250--mwMinValue{{molecularWeightRanges[mwMinValue]}}--mwMaxValue{{molecularWeightRanges[mwMaxValue]}}
+                            Molecular Weight (MW): 0 to
+                            250--mwMinValue{{molecularWeightRanges[mwMinValue]}}--mwMaxValue{{molecularWeightRanges[mwMaxValue]}}
                             <ng5-slider [(value)]="mwMinValue" [(highValue)]="mwMaxValue" [options]="MWSliderOptions"
                                 (valueChange)="lowValueChange($event, 'MWSlider')"
                                 (highValueChange)="highValueChange($event,'MWSlider')"></ng5-slider>
@@ -86,7 +87,7 @@
                         <br>
 
                         <span style="width: 600px;">
-                            # H-Donors (HBD): 0 to 10  hbdFilterLow{{hbdFilterLow}}   hbdFilterHigh{{hbdFilterHigh}}
+                            # H-Donors (HBD): 0 to 10 hbdFilterLow{{hbdFilterLow}} hbdFilterHigh{{hbdFilterHigh}}
                             <ng5-slider [(value)]="hbdMinValue" [(highValue)]="hbdMaxValue" [options]="HBDSliderOptions"
                                 (valueChange)="lowValueChange($event, 'hbd')"
                                 (highValueChange)="highValueChange($event, 'hbd')"></ng5-slider>
@@ -105,8 +106,8 @@
 
                         <span style="width: 600px;">
                             Rotable Bonds (rotB): 0 to 10
-                            <ng5-slider [(value)]="rotBMinValue" [(highValue)]="rotBMaxValue" [options]="rotBSliderOptions"
-                                (valueChange)="lowValueChange($event, 'rotB')"
+                            <ng5-slider [(value)]="rotBMinValue" [(highValue)]="rotBMaxValue"
+                                [options]="rotBSliderOptions" (valueChange)="lowValueChange($event, 'rotB')"
                                 (highValueChange)="highValueChange($event, 'rotB')"></ng5-slider>
                             <!-- <mat-slider [value]="8" (input)="onSliderChange($event, 'rotB')" class="my-slider" min="1"
                                 max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
@@ -128,6 +129,62 @@
         </mat-card-content>
 
     </mat-card>
+
+
+    <table mat-table [dataSource]="ELEMENT_DATA_REAL" class="mat-elevation-z8" style="width:90%">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="CompoudBaseID">
+            <th mat-header-cell *matHeaderCellDef>Compound Identifier</th>
+            <td mat-cell *matCellDef="let element"> {{element.CompoudBaseID}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Top_Scores">
+            <th mat-header-cell *matHeaderCellDef> Top Scores </th>
+            <td mat-cell *matCellDef="let element"> {{element.Top_Scores}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="MW">
+            <th mat-header-cell *matHeaderCellDef> Molecular Weight </th>
+            <td mat-cell *matCellDef="let element"> {{element.MW}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="cLogP">
+            <th mat-header-cell *matHeaderCellDef> cLogP </th>
+            <td mat-cell *matCellDef="let element"> {{element.cLogP}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="h_acc">
+            <th mat-header-cell *matHeaderCellDef> h_acc </th>
+            <td mat-cell *matCellDef="let element"> {{element.h_acc}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="h_donors">
+            <th mat-header-cell *matHeaderCellDef> h_donors </th>
+            <td mat-cell *matCellDef="let element"> {{element.h_donors}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="tpsa">
+            <th mat-header-cell *matHeaderCellDef> tpsa </th>
+            <td mat-cell *matCellDef="let element"> {{element.tpsa}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="rotb">
+            <th mat-header-cell *matHeaderCellDef> rotb </th>
+            <td mat-cell *matCellDef="let element"> {{element.rotb}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 
 
 
@@ -170,27 +227,29 @@
 
 
 
-    <mat-card class="dockedCard">
+    <!-- <mat-card class="dockedCard">
         <mat-card-header class="dockedInfoHeader">Docked Compounds</mat-card-header>
         <mat-card-header>
             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
                 <ng-container>
-                    <span>Compound Identifier</span><span>Top
-                        Scores</span><span>MW</span><span>cLogP</span><span># H-Acc</span><span>#
-                        H-Donors</span><span>TPSA</span><span>$ Rotable Bonds</span><span> </span>
+                    <span>Compound Identifier</span>
+                    <span>Top Scores</span>
+                    <span>MW</span>
+                    <span>cLogP</span>
+                    <span># H-Acc</span>
+                    <span># H-Donors</span>
+                    <span>TPSA</span>
+                    <span>$ Rotable Bonds</span>
+                    <span> </span>
                 </ng-container>
             </div>
-        </mat-card-header>
-        <mat-card-content class="dockedInfo">
+        </mat-card-header> -->
+
+
+    <!-- <mat-card-content class="dockedInfo">
             <div class="compoundScroller">
                 <mat-card style="background-color: darkgrey;">
                     <mat-card-header>
-                        <!-- <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
-                            <ng-container>
-                                <span>Compound Identifier</span><span>Top
-                                    Scores</span><span>MW</span><span>cLogP</span><span># H-Acc</span><span> </span>
-                            </ng-container>
-                        </div> -->
                     </mat-card-header>
                 </mat-card>
                 <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
@@ -200,14 +259,13 @@
                                     (click)="clickedDockCompound(i)">
                                 {{item.value.compound_identifier}}
                             </div>
-                            <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}
-                            </div>
+                            <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}</div>
                             <div>{{item.value.MW}}</div>
                             <div>{{item.value.cLogP}}</div>
-                            <div>{{item.value.H_Acc}}</div>
-                            <div>{{item.value.hDonors}}</div>
-                            <div>{{item.value.tpsa}}</div>
-                            <div>{{item.value.rotable_bonds}}</div>
+                            <div>{{item.value.h_acc}}</div>
+                            <div>{{item.value.h_donors}}</div>
+                            <div>{{item.value.TPSA}}</div>
+                            <div>{{item.value.Rotatable_Bonds}}</div>
                             <div class="compoundUnitLinkBlock">
                                 See More
                             </div>
@@ -215,7 +273,7 @@
                     </span>
                 </div>
             </div>
-        </mat-card-content>
-    </mat-card>
+        </mat-card-content> -->
+    <!-- </mat-card> -->
     <router-outlet></router-outlet>
 </div>

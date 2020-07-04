@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import testData from '../testData.json';
+import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
 
 @Component({

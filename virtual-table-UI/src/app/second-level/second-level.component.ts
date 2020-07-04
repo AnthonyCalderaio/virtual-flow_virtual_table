@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import testData from '../testData.json';
+import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
 import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
+// import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-second-level',
@@ -14,10 +15,30 @@ export class SecondLevelComponent implements OnInit {
 
   constructor(
     private _location: Location,
-    private router: Router
-  ) {
-    // console.log(this.router.getCurrentNavigation().extras)
-  }
+    private router: Router,
+    // private _bankHttpService: BankHttpService
+  ) { }
+
+
+  ELEMENT_DATA_REAL: any = []
+
+  ELEMENT_DATA: any = [
+    { CompoudBaseID: 1, Top_Scores: 'Hydrogen', MW: 1.0079, cLogP: 'H', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 2, Top_Scores: 'Helium', MW: 4.0026, cLogP: 'He', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 3, Top_Scores: 'Lithium', MW: 6.941, cLogP: 'Li', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 4, Top_Scores: 'Beryllium', MW: 9.0122, cLogP: 'Be', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 5, Top_Scores: 'Boron', MW: 10.811, cLogP: 'B', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 6, Top_Scores: 'Carbon', MW: 12.0107, cLogP: 'C', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 7, Top_Scores: 'Nitrogen', MW: 14.0067, cLogP: 'N', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 8, Top_Scores: 'Oxygen', MW: 15.9994, cLogP: 'O', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 9, Top_Scores: 'Fluorine', MW: 18.9984, cLogP: 'F', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+    { CompoudBaseID: 10, Top_Scores: 'Neon', MW: 20.1797, cLogP: 'Ne', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
+  ];
+
+  dataSource = this.ELEMENT_DATA;
+
+  displayedColumns: string[] = ['CompoudBaseID', 'Top_Scores', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "rotb"];
+
   wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
   testData: any = testData
 
@@ -109,7 +130,6 @@ export class SecondLevelComponent implements OnInit {
   Slogpalphabet: string = "" + Object.keys(this.partitionCoefficientRanges).map(item => { return item })
   SlogpSliderOptions: Options = {
     stepsArray: this.Slogpalphabet.split(',').map((letter: string): CustomStepDefinition => {
-      console.log('this.Slogpalphabet: ', this.Slogpalphabet);
       return { value: Number(letter) };
     }),
     translate: (value: number, label: LabelType): string => {
@@ -230,6 +250,22 @@ export class SecondLevelComponent implements OnInit {
     this.changeAllOptions()
     this.populateMoleculeViewports()
     this.initializeFilterBounds()
+    this.populateTableData()
+    console.log('this.ELEMENT_DATA_REAL: ', this.ELEMENT_DATA_REAL);
+  }
+
+  populateTableData() {
+    Object.keys(this.wholeData.level2.docked_compounds).forEach(element => {
+      console.log('Element:', this.wholeData.level2.docked_compounds[element])
+      var subSet = this.getSubsetOfObject(this.wholeData.level2.docked_compounds[element])
+      this.ELEMENT_DATA_REAL.push(subSet)
+    })
+  }
+
+  getSubsetOfObject(objectInput) {
+    let { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, rotb, ...partialObject } = objectInput;
+    let subset = { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, rotb };
+    return subset
   }
 
   backClicked() {
@@ -243,7 +279,7 @@ export class SecondLevelComponent implements OnInit {
   populateMoleculeViewports() {
     setTimeout(() => {
       var stage = new NGL.Stage("secondLevelviewport" + '1');
-      stage.setParameters( { backgroundColor: "white", hoverTimeout: -1 } );
+      stage.setParameters({ backgroundColor: "white", hoverTimeout: -1 });
       window.addEventListener("resize", function (event) {
         stage.handleResize();
       }, true);
@@ -274,22 +310,22 @@ export class SecondLevelComponent implements OnInit {
             }
           }
           if (compoundDetail == 'H_Acc') {
-              if (!(this.between(compoundUnderReview[compoundDetail], this.h_accFilterLow, this.h_accFilterHigh))) {
+            if (!(this.between(compoundUnderReview[compoundDetail], this.h_accFilterLow, this.h_accFilterHigh))) {
               compoundValid = false;
             }
           }
           if (compoundDetail == 'hDonors') {
-              if (!(this.between(compoundUnderReview[compoundDetail], this.hbdFilterLow , this.hbdFilterHigh))) {
+            if (!(this.between(compoundUnderReview[compoundDetail], this.hbdFilterLow, this.hbdFilterHigh))) {
               compoundValid = false;
             }
           }
           if (compoundDetail == 'tpsa') {
-              if (!(this.between(compoundUnderReview[compoundDetail], this.tpsaFilterLow , this.tpsaFilterHigh))) {
+            if (!(this.between(compoundUnderReview[compoundDetail], this.tpsaFilterLow, this.tpsaFilterHigh))) {
               compoundValid = false;
             }
           }
           if (compoundDetail == 'rotable_bonds') {
-              if (!(this.between(compoundUnderReview[compoundDetail], this.rotBFilterLow , this.rotBFilterHigh))) {
+            if (!(this.between(compoundUnderReview[compoundDetail], this.rotBFilterLow, this.rotBFilterHigh))) {
               compoundValid = false;
             }
           }
@@ -308,7 +344,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   lowValueChange(value: any, label: any) {
-    console.log('low change:' + value + ' ' + label)
+    // console.log('low change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[value]);
     }
@@ -331,7 +367,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   highValueChange(value: any, label: any) {
-    console.log('high change:' + value + ' ' + label)
+    // console.log('high change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
     }
@@ -406,14 +442,13 @@ export class SecondLevelComponent implements OnInit {
     else if (item == '-infinity') {
       return Number.NEGATIVE_INFINITY
     } else {
-      console.log('returned ', item)
       return item;
     }
   }
   between(x, min, max) {
     return x >= min && x <= max;
   }
-  initializeFilterBounds(){
+  initializeFilterBounds() {
     this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1])//this.molecularWeightRanges[Object.keys(this.molecularWeightRanges).length - 1]
     this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[0])
 
@@ -432,4 +467,6 @@ export class SecondLevelComponent implements OnInit {
     this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[Object.keys(this.rotableBonds).length - 1])
     this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[0])
   }
+
+
 }
