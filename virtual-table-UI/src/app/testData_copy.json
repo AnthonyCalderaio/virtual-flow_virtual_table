@@ -369,25 +369,6 @@
           "Reproductive Effects": "none",
           "Database": "REAL",
           "SMILES": "Cc1cccc(NC(=O)[C@H]2CCCN(C(=O)c3cc4ccccc4cc3NC(=O)C(C)C)C2)n1"
-        },
-        "19": {
-          "CompoudBaseID": "PV-001825785858",
-          "Publication_Name": "",
-          "docking_score": "-10.1",
-          "ligand_efficiency": "0.316",
-          "MW": "455.901",
-          "cLogP": "2.2433",
-          "h_acc": "9",
-          "h_donors": "3",
-          "tpsa": "120.5",
-          "Rotatable_Bonds": "4",
-          "nonh_atoms": "32",
-          "Druglikeness": "6.6351",
-          "Mutagenic": "none",
-          "Tumorigenic": "none",
-          "Reproductive Effects": "none",
-          "Database": "REAL",
-          "SMILES": "C[C@@]1(c2cccc(C(=O)N3CCC[C@H](C(=O)Nc4ccc(Cl)cn4)C3)c2)NC(=O)NC1=O"
         }
       }
     },
