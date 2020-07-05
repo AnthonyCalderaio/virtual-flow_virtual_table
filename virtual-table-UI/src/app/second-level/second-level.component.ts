@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
 import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 // import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
@@ -14,13 +15,15 @@ import { MatTable } from '@angular/material/table';
 })
 export class SecondLevelComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
+
   constructor(
     private _location: Location,
     private router: Router,
     // private _bankHttpService: BankHttpService
   ) { }
 
-
+  someLength = 5
   ELEMENT_DATA_REAL: any = []
   ELEMENT_DATA_REAL_decoy: any = []
   ELEMENT_DATA: any = [
@@ -37,10 +40,10 @@ export class SecondLevelComponent implements OnInit {
   ];
 
   removedCompounds: any = []
+  dataSource = new MatTableDataSource();
 
-  dataSource = this.ELEMENT_DATA;
 
-  displayedColumns: string[] = ['CompoudBaseID', 'Top_Scores', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "Rotatable_Bonds"];
+  displayedColumns: string[] = ['CompoudBaseID', 'docking_score', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "Rotatable_Bonds"];
 
   wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
   testData: any = testData
@@ -255,7 +258,12 @@ export class SecondLevelComponent implements OnInit {
     this.initializeFilterBounds()
     this.populateTableData()
     console.log('this.ELEMENT_DATA_REAL: ', this.ELEMENT_DATA_REAL);
-    console.log('this.wholeData.level2.docked_compounds: ',this.wholeData.level2.docked_compounds)
+    console.log('this.wholeData.level2.docked_compounds: ', this.wholeData.level2.docked_compounds)
+    this.dataSource = this.ELEMENT_DATA_REAL;
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator; // For pagination
   }
 
   populateTableData() {
@@ -265,11 +273,12 @@ export class SecondLevelComponent implements OnInit {
       this.ELEMENT_DATA_REAL.push(subSet)
       this.ELEMENT_DATA_REAL_decoy.push(subSet)
     })
+    this.dataSource.data = this.ELEMENT_DATA_REAL
   }
 
   getSubsetOfObject(objectInput) {
-    let { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, ...partialObject } = objectInput;
-    let subset = { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds };
+    let { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, docking_score, ...partialObject } = objectInput;
+    let subset = { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds,docking_score };
     return subset
   }
 
@@ -301,10 +310,10 @@ export class SecondLevelComponent implements OnInit {
     Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
       compoundValid = true;
       var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
-      console.log('this.wholeData.level2.docked_compounds: ',this.wholeData.level2.docked_compounds)
+      console.log('this.wholeData.level2.docked_compounds: ', this.wholeData.level2.docked_compounds)
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
-          console.log('compoundDetail: ',compoundDetail)
+          console.log('compoundDetail: ', compoundDetail)
           //Checking filter value here
           if (compoundDetail == 'MW') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
@@ -488,7 +497,9 @@ export class SecondLevelComponent implements OnInit {
     this.rotBFilterLow = this.convertToInfinityOrNot(this.rotableBonds[0])
   }
 
-
+  handlePage(input: any) {
+    console.log('input: ', input);
+  }
 
 
 }

@@ -146,7 +146,7 @@
     </mat-card>
 
 
-    <table mat-table  #table [dataSource]="ELEMENT_DATA_REAL" class="mat-elevation-z8" style="width:90%">
+    <table mat-table  #table [dataSource]="dataSource" class="mat-elevation-z8" style="width:90%">
 
         <!-- Position Column -->
         <ng-container matColumnDef="CompoudBaseID">
@@ -160,9 +160,9 @@
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="Top_Scores">
+        <ng-container matColumnDef="docking_score">
             <th mat-header-cell *matHeaderCellDef> Top Scores </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.Top_Scores}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.docking_score}} </td>
         </ng-container>
 
         <!-- Weight Column -->
@@ -205,7 +205,15 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
+    <mat-paginator style="width: 90%;" #scheduledOrdersPaginator
+               [length]="ELEMENT_DATA_REAL.length" 
+               [pageSize]="10" 
+               [pageSizeOptions]="[5, 10, 25, 100]"
+               showFirstLastButtons
+               (page)="handlePage($event)"
+               > 
+</mat-paginator>
+    <!-- <mat-paginator #scheduledOrdersPaginator [length]="someLength"[pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
     <!-- <span *ngIf="!compoundBlacklist.includes(item.value.compound_identifier)"></span> -->
     <!-- <span style="width: 600px;">Hydrogen Bond Acceptors (HBA): 0 to 10
         <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>
