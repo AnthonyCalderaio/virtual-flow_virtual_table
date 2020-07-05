@@ -6,7 +6,7 @@ import * as NGL from '../../../node_modules/ngl';
 import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-// import { MatTableDataSource } from '@angular/material/table'
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-second-level',
@@ -16,6 +16,8 @@ import { MatPaginator } from '@angular/material/paginator';
 export class SecondLevelComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private _location: Location,
     private router: Router,
@@ -256,8 +258,6 @@ export class SecondLevelComponent implements OnInit {
     this.populateMoleculeViewports()
     this.initializeFilterBounds()
     this.populateTableData()
-    console.log('this.ELEMENT_DATA_REAL: ', this.ELEMENT_DATA_REAL);
-    console.log('this.wholeData.level2.docked_compounds: ', this.wholeData.level2.docked_compounds)
     this.dataSource.data = this.ELEMENT_DATA_REAL;
   }
 
@@ -267,7 +267,6 @@ export class SecondLevelComponent implements OnInit {
 
   populateTableData() {
     Object.keys(this.wholeData.level2.docked_compounds).forEach(element => {
-      console.log('Element:', this.wholeData.level2.docked_compounds[element])
       var subSet = this.getSubsetOfObject(this.wholeData.level2.docked_compounds[element])
       this.ELEMENT_DATA_REAL.push(subSet)
       this.ELEMENT_DATA_REAL_decoy.push(subSet)
@@ -309,10 +308,8 @@ export class SecondLevelComponent implements OnInit {
     Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
       compoundValid = true;
       var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
-      console.log('this.wholeData.level2.docked_compounds: ', this.wholeData.level2.docked_compounds)
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
-          console.log('compoundDetail: ', compoundDetail)
           //Checking filter value here
           if (compoundDetail == 'MW') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
@@ -355,23 +352,19 @@ export class SecondLevelComponent implements OnInit {
       }
     })
 
-    console.log('Blacklst', this.compoundBlacklist)
+    // console.log('Blacklst', this.compoundBlacklist)
   }
 
   updateTableDataFromBlackList(compoundUnderReview) {
     this.ELEMENT_DATA_REAL = this.ELEMENT_DATA_REAL_decoy
     Object.keys(this.ELEMENT_DATA_REAL).forEach(element => {
-      // console.log('Element:', this.ELEMENT_DATA_REAL[element])
       if (this.compoundBlacklist.includes(this.ELEMENT_DATA_REAL[element].CompoudBaseID)) {
-
         delete this.ELEMENT_DATA_REAL[element]
       }
     });
   }
 
   lowValueChange(value: any, label: any) {
-    // this.populateTableData()
-    // console.log('low change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterLow = this.convertToInfinityOrNot(this.molecularWeightRanges[value]);
     }
@@ -394,8 +387,6 @@ export class SecondLevelComponent implements OnInit {
   }
 
   highValueChange(value: any, label: any) {
-    // this.populateTableData()
-    // console.log('high change:' + value + ' ' + label)
     if (label == 'MWSlider') {
       this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
     }
@@ -497,8 +488,6 @@ export class SecondLevelComponent implements OnInit {
   }
 
   handlePage(input: any) {
-    // this.pageSize = input.pageSize
-    console.log('input: ', input);
   }
 
 
