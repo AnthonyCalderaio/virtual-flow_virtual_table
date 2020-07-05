@@ -206,7 +206,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator style="width: 90%;" 
-    [pageSize]="2" [pageSizeOptions]="[2, 4, 6, 10, 20]"
+    [pageSize]="initPageSize" [pageSizeOptions]="[2, 4, 6, 10, 20]"
                (page)="handlePage($event)"
                > 
 </mat-paginator>

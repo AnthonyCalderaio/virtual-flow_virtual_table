@@ -22,7 +22,7 @@ export class SecondLevelComponent implements OnInit {
     // private _bankHttpService: BankHttpService
   ) { }
 
-  pageSize = 10
+  initPageSize = 10
   ELEMENT_DATA_REAL: any = []
   ELEMENT_DATA_REAL_decoy: any = []
   ELEMENT_DATA: any = [
@@ -497,7 +497,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   handlePage(input: any) {
-    this.pageSize = input.pageSize
+    // this.pageSize = input.pageSize
     console.log('input: ', input);
   }
 
