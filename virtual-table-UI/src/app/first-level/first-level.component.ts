@@ -52,9 +52,6 @@ export class FirstLevelComponent implements OnInit {
   }
 
   level1Click(item: any) {
-    console.log(this.testData[item.key])
-    console.log('vs')
-    console.log(this.realdata[item.key])
     this.router.navigate(['/second-level'], this.realdata[item.key]);
   }
 }

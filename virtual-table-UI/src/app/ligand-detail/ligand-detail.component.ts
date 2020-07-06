@@ -46,9 +46,6 @@ export class LigandDetailComponent implements OnInit {
       stage.handleResize();
     }, true);
     this.viewerEvent = stage.loadFile("rcsb://1crn", { defaultRepresentation: true }).then(function (o) {
-      console.log('o', o)
-      // this.viewerOriginalCenter = o.position
-      // console.log('this.viewerEvent:', this.viewerEvent);
       return o;
     })
     // stage.setSpin(true);
