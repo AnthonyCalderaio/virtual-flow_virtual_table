@@ -44,9 +44,9 @@ export class FirstLevelComponent implements OnInit {
         }, true);
         var url = 'https://virtualflow-covid.hms.harvard.edu/Structures/' + this.realdata[item].protein_name + '/Receptor.pdb'
         console.log('Url for protein pic:', url)
-        stage.loadFile(url, { defaultRepresentation: true })
+        // stage.loadFile(url, { defaultRepresentation: true })
         // stage.loadFile(this.realdata[item].metadata.pdb_url, { defaultRepresentation: true });
-        // stage.loadFile("http://files.rcsb.org/download/5IOS.pdb", { defaultRepresentation: true });
+        stage.loadFile("http://files.rcsb.org/download/5IOS.pdb", { defaultRepresentation: true });
       })
     }, 1);
   }
