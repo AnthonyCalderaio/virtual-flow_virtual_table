@@ -23,10 +23,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
 
   ngOnInit() {
-    console.log('testDataParsed:',this.testDataParsed)
-    console.log()
-    // this.router.navigate(['/ligand-detail'])
-
     this.router.navigate(['/first-level'])
   }
 

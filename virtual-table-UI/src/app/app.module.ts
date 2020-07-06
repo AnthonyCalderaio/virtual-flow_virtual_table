@@ -20,8 +20,9 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { MatTableModule } from '@angular/material/table';
 
 
-import { MatPaginatorModule } from "@angular/material/paginator";
 
+import { MatPaginatorModule } from "@angular/material/paginator";
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatCheckboxModule,
     Ng5SliderModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule,
   ],
   exports:[MatPaginatorModule,],
   providers: [],

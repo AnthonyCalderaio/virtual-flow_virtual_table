@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import testData from '../testData_copy.json';
+import { Router, ActivatedRoute } from '@angular/router';
+// import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
 import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -16,38 +16,34 @@ import { MatSort } from '@angular/material/sort';
 export class SecondLevelComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
     private _location: Location,
     private router: Router,
+    private route: ActivatedRoute,
     // private _bankHttpService: BankHttpService
-  ) { }
+  ) { 
+    this.fromLevel1
+      = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras)) != undefined
+        ? JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
+        : this.router.getCurrentNavigation().extras
+        console.log('From level 1',this.fromLevel1 )
+  }
+  fromLevel1: any;
 
   initPageSize = 10
   ELEMENT_DATA_REAL: any = []
   ELEMENT_DATA_REAL_decoy: any = []
-  ELEMENT_DATA: any = [
-    { CompoudBaseID: 1, Top_Scores: 'Hydrogen', MW: 1.0079, cLogP: 'H', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 2, Top_Scores: 'Helium', MW: 4.0026, cLogP: 'He', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 3, Top_Scores: 'Lithium', MW: 6.941, cLogP: 'Li', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 4, Top_Scores: 'Beryllium', MW: 9.0122, cLogP: 'Be', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 5, Top_Scores: 'Boron', MW: 10.811, cLogP: 'B', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 6, Top_Scores: 'Carbon', MW: 12.0107, cLogP: 'C', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 7, Top_Scores: 'Nitrogen', MW: 14.0067, cLogP: 'N', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 8, Top_Scores: 'Oxygen', MW: 15.9994, cLogP: 'O', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 9, Top_Scores: 'Fluorine', MW: 18.9984, cLogP: 'F', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-    { CompoudBaseID: 10, Top_Scores: 'Neon', MW: 20.1797, cLogP: 'Ne', h_acc: 1, h_donors: 1, tpsa: 1, rotb: 1 },
-  ];
 
   removedCompounds: any = []
   dataSource = new MatTableDataSource();
 
 
-  displayedColumns: string[] = ['CompoudBaseID', 'docking_score', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "Rotatable_Bonds"];
+  displayedColumns: string[] = ['compound_screening_ID', 'docking_score', 'MW', 'cLogP', "h_acc", "h_donors", "tpsa", "Rotatable_Bonds"];
 
   wholeData = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
-  testData: any = testData
+  // testData: any = testData
 
   //Filters
   mwFilterHigh: any;
@@ -259,10 +255,26 @@ export class SecondLevelComponent implements OnInit {
     this.initializeFilterBounds()
     this.populateTableData()
     this.dataSource.data = this.ELEMENT_DATA_REAL;
+    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator; // For pagination
+  }
+  
+  clickedRow(event: any) {
+    // console.log('Clicked row', event.srcElement.innerText);
+    Object.keys(this.wholeData.level2.docked_compounds).forEach(key => {
+      if (this.wholeData.level2.docked_compounds[key].compound_screening_ID == event.srcElement.innerText) {
+        this.wholeData['objectOfInterest'] = this.wholeData.level2.docked_compounds[key]
+          this.router.navigate(['/third-level'],this.wholeData);
+      }
+    })
+  }
+
+
+  sortData(event: any) {
+    // console.log('Sorting for:', event)
   }
 
   populateTableData() {
@@ -275,8 +287,8 @@ export class SecondLevelComponent implements OnInit {
   }
 
   getSubsetOfObject(objectInput) {
-    let { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, docking_score, ...partialObject } = objectInput;
-    let subset = { CompoudBaseID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds,docking_score };
+    let { compound_screening_ID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, docking_score, ...partialObject } = objectInput;
+    let subset = { compound_screening_ID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, docking_score };
     return subset
   }
 
@@ -284,9 +296,10 @@ export class SecondLevelComponent implements OnInit {
     this.router.navigate(['/first-level'], this.wholeData);
   }
 
-  clickedDockCompound(index: any) {
-    this.router.navigate(['/third-level'], this.wholeData);
-  }
+  // clickedDockCompound(index: any) {
+  //   console.log('clicked docked compund')
+  //   this.router.navigate(['/third-level'], this.wholeData);
+  // }
 
   populateMoleculeViewports() {
     setTimeout(() => {
@@ -405,7 +418,10 @@ export class SecondLevelComponent implements OnInit {
     if (label == 'rotB') {
       this.rotBFilterHigh = this.convertToInfinityOrNot(this.rotableBonds[value])
     }
+    // var t0 = performance.now()
     this.validateCompounds()
+    // var t1 = performance.now()
+    // console.log("Call to validateCompounds took " + (t1 - t0) + " milliseconds.")
   }
 
   changeOptionsForMw() {
