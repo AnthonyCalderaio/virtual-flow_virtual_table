@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 // import testData from '../testData_copy.json';
@@ -22,8 +22,9 @@ export class SecondLevelComponent implements OnInit {
     private _location: Location,
     private router: Router,
     private route: ActivatedRoute,
+    private ngZone: NgZone
     // private _bankHttpService: BankHttpService
-  ) { 
+  ) {
     this.fromLevel1
       = JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras)) != undefined
         ? JSON.parse(JSON.stringify(this.router.getCurrentNavigation().extras))
@@ -261,7 +262,7 @@ export class SecondLevelComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator; // For pagination
   }
-  
+
   clickedRow(event: any) {
     // console.log('Clicked row', event.srcElement.innerText);
     Object.keys(this.wholeData.level2.docked_compounds).forEach(key => {
@@ -303,14 +304,16 @@ export class SecondLevelComponent implements OnInit {
   // }
 
   populateMoleculeViewports() {
-    setTimeout(() => {
-      var stage = new NGL.Stage("secondLevelviewport" + '1');
-      stage.setParameters({ backgroundColor: "white", hoverTimeout: -1 });
-      window.addEventListener("resize", function (event) {
-        stage.handleResize();
-      }, true);
-      stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
-    }, 1);
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        var stage = new NGL.Stage("secondLevelviewport" + '1');
+        stage.setParameters({ backgroundColor: "white", hoverTimeout: -1 });
+        window.addEventListener("resize", function (event) {
+          stage.handleResize();
+        }, true);
+        stage.loadFile("rcsb://1crn", { defaultRepresentation: true });
+      }, 1);
+    });
   }
 
   asIsOrder(a, b) {

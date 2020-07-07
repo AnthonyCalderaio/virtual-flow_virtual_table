@@ -48,7 +48,7 @@
 
                         <span style="width: 600px;">
                             Partition Coefficient (SlogP):
-                            <br> 
+                            <br>
                             <br>
                             <ng5-slider [(value)]="slogpMinValue" [(highValue)]="slogpMaxValue"
                                 [options]="SlogpSliderOptions" (valueChange)="lowValueChange($event, 'SlogP')"
@@ -205,10 +205,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clickedRow($event)" ></tr>
     </table>
-    <mat-paginator style="width: 90%;" 
-    [pageSize]="initPageSize" [pageSizeOptions]="[2, 4, 6, 10, 20,100,500,1000]"
-               (page)="handlePage($event)"
-               > 
-</mat-paginator>
+    <mat-paginator style="width: 90%;"
+      [pageSize]="initPageSize" [pageSizeOptions]="[2, 4, 6, 10, 20,100,500,1000]"
+      (page)="handlePage($event)">
+    </mat-paginator>
     <router-outlet></router-outlet>
 </div>
