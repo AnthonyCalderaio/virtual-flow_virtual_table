@@ -151,9 +151,9 @@
         <!-- Position Column -->
         <ng-container matColumnDef="Compound_screening_ID">
             <th mat-header-cell *matHeaderCellDef >Compound Identifier</th>
-            <!-- <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)"> -->
-            <td mat-cell  *matCellDef="let element;" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}" >
-                <!-- <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)"></span> -->
+            <!-- <span *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"> -->
+            <td mat-cell  *matCellDef="let element;" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}" >
+                <!-- <span *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"></span> -->
                 {{element.Compound_screening_ID}}
                  </td>
                 <!-- </span> -->
@@ -162,43 +162,43 @@
         <!-- Name Column -->
         <ng-container matColumnDef="docking_score">
             <th mat-header-cell *matHeaderCellDef matSort> Top Scores </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.docking_score}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.docking_score}} </td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="MW">
             <th mat-header-cell *matHeaderCellDef> Molecular Weight </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.MW}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.MW}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="cLogP">
             <th mat-header-cell *matHeaderCellDef> cLogP </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.cLogP}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.cLogP}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="h_acc">
             <th mat-header-cell *matHeaderCellDef> h_acc </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.h_acc}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.h_acc}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="h_donors">
             <th mat-header-cell *matHeaderCellDef> h_donors </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.h_donors}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.h_donors}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="tpsa">
             <th mat-header-cell *matHeaderCellDef> tpsa </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.tpsa}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.tpsa}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="Rotatable_Bonds">
             <th mat-header-cell *matHeaderCellDef> rotb </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}"> {{element.Rotatable_Bonds}} </td>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'hide':compoundBlacklist.includes(element.Compound_screening_ID)}"> {{element.Rotatable_Bonds}} </td>
         </ng-container>
 
 

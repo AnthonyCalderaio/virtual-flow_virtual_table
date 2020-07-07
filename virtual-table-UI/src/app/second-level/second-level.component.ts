@@ -327,6 +327,7 @@ export class SecondLevelComponent implements OnInit {
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
           //Checking filter value here
+          console.log('compoundUnderReview[compoundDetail]:',compoundDetail)
           if (compoundDetail == 'MW') {
             if (!(this.between(compoundUnderReview[compoundDetail], this.mwFilterLow, this.mwFilterHigh))) {
               compoundValid = false;
@@ -361,14 +362,14 @@ export class SecondLevelComponent implements OnInit {
       })
       if (!compoundValid) {
         //Mark Invalid
-        this.compoundBlacklist.indexOf(compoundUnderReview.CompoudBaseID) === -1 ? this.compoundBlacklist.push(compoundUnderReview.CompoudBaseID) : null;
+        this.compoundBlacklist.indexOf(compoundUnderReview.Compound_screening_ID) === -1 ? this.compoundBlacklist.push(compoundUnderReview.Compound_screening_ID) : null;
       } else {
         //Mark Valid
-        this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.CompoudBaseID })
+        this.compoundBlacklist = this.compoundBlacklist.filter(item => { return item != compoundUnderReview.Compound_screening_ID })
       }
     })
 
-    // console.log('Blacklst', this.compoundBlacklist)
+    console.log('Blacklst', this.compoundBlacklist)
   }
 
   updateTableDataFromBlackList(compoundUnderReview) {
