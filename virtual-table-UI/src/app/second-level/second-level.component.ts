@@ -264,9 +264,9 @@ export class SecondLevelComponent implements OnInit {
   
   clickedRow(event: any) {
     // console.log('Clicked row', event.srcElement.innerText);
-    Object.keys(this.wholeData.level2.docked_compounds).forEach(key => {
-      if (this.wholeData.level2.docked_compounds[key].compound_screening_ID == event.srcElement.innerText) {
-        this.wholeData['objectOfInterest'] = this.wholeData.level2.docked_compounds[key]
+    Object.keys(this.wholeData.level2).forEach(key => {
+      if (this.wholeData.level2[key].compound_screening_ID == event.srcElement.innerText) {
+        this.wholeData['objectOfInterest'] = this.wholeData.level2[key]
           this.router.navigate(['/third-level'],this.wholeData);
       }
     })
@@ -279,17 +279,21 @@ export class SecondLevelComponent implements OnInit {
 
   populateTableData() {
     // console.log('broke here:',this.wholeData)
-    Object.keys(this.wholeData.level2.docked_compounds).forEach(element => {
-      var subSet = this.getSubsetOfObject(this.wholeData.level2.docked_compounds[element])
+    Object.keys(this.wholeData.level2).forEach(element => {
+      console.log('element: ',element)
+      var subSet = this.getSubsetOfObject(this.wholeData.level2[element])
       this.ELEMENT_DATA_REAL.push(subSet)
       this.ELEMENT_DATA_REAL_decoy.push(subSet)
     })
     this.dataSource.data = this.ELEMENT_DATA_REAL
+    console.log('this.dataSource.data: ',this.dataSource.data)
   }
 
   getSubsetOfObject(objectInput) {
+    console.log('objectInput: ',objectInput)
     let { compound_screening_ID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, docking_score, ...partialObject } = objectInput;
     let subset = { compound_screening_ID, Top_Scores, MW, cLogP, h_acc, h_donors, tpsa, Rotatable_Bonds, docking_score };
+    console.log('subset: ',subset)
     return subset
   }
 
@@ -319,9 +323,9 @@ export class SecondLevelComponent implements OnInit {
 
   validateCompounds() {
     var compoundValid = true;
-    Object.keys(this.wholeData.level2.docked_compounds).forEach(item => {
+    Object.keys(this.wholeData.level2).forEach(item => {
       compoundValid = true;
-      var compoundUnderReview = this.wholeData.level2.docked_compounds[item]
+      var compoundUnderReview = this.wholeData.level2[item]
       Object.keys(compoundUnderReview).forEach(compoundDetail => {
         if (this.validFilterKeyNamesForCheck.includes(compoundDetail)) {
           //Checking filter value here
