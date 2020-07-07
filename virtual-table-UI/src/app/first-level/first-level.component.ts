@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
-import realdata from '../realdata.json'
-
+// import realdata from '../realdata.json'
+import wip_realdata from '../wip_realdata.json'
 @Component({
   selector: 'app-first-level',
   templateUrl: './first-level.component.html',
@@ -15,7 +15,7 @@ export class FirstLevelComponent implements OnInit {
     private router: Router) { }
 
   testData: any = testData
-  realdata: any = realdata;
+  realdata: any = wip_realdata;
 
   ngOnInit(): void {
     console.log('WholeDataJson: ', this.testData);

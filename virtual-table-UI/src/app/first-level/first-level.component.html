@@ -2,7 +2,7 @@
     <div *ngFor="let item of realdata | keyvalue; let i = index">
       <div class="level1Unit" (click)="level1Click(item)" >
         <div [id]="'viewport'+i" class="level1Image"></div>
-        {{item.value.level1?.name}}
+        {{item.value.proteinName}}
       </div>
     </div>
   </div>
