@@ -149,12 +149,12 @@
     <table (matSortChange)="sortData($event)" mat-table  #table [dataSource]="dataSource" class="mat-elevation-z8" style="width:90%">
 
         <!-- Position Column -->
-        <ng-container matColumnDef="compound_screening_ID">
+        <ng-container matColumnDef="Compound_screening_ID">
             <th mat-header-cell *matHeaderCellDef >Compound Identifier</th>
             <!-- <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)"> -->
             <td mat-cell  *matCellDef="let element;" [ngClass]="{'hide':compoundBlacklist.includes(element.CompoudBaseID)}" >
                 <!-- <span *ngIf="!compoundBlacklist.includes(element.CompoudBaseID)"></span> -->
-                {{element.compound_screening_ID}}
+                {{element.Compound_screening_ID}}
                  </td>
                 <!-- </span> -->
         </ng-container>
