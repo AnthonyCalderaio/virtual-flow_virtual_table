@@ -18,7 +18,7 @@ export class FirstLevelComponent implements OnInit {
   realdata: any = wip_realdata;
 
   ngOnInit(): void {
-    console.log('WholeDataJson: ', this.testData);
+    console.log('WholeDataJson: ', this.realdata);
     this.populateMoleculeViewports()
   }
 

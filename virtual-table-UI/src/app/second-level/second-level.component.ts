@@ -278,6 +278,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   populateTableData() {
+    // console.log('broke here:',this.wholeData)
     Object.keys(this.wholeData.level2.docked_compounds).forEach(element => {
       var subSet = this.getSubsetOfObject(this.wholeData.level2.docked_compounds[element])
       this.ELEMENT_DATA_REAL.push(subSet)
@@ -400,6 +401,7 @@ export class SecondLevelComponent implements OnInit {
   }
 
   highValueChange(value: any, label: any) {
+
     if (label == 'MWSlider') {
       this.mwFilterHigh = this.convertToInfinityOrNot(this.molecularWeightRanges[value])
     }
