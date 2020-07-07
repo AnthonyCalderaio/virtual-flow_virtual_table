@@ -32,9 +32,8 @@
                             Molecular Weight (MW):
                             <br>
                             <br>
-                            <ng5-slider [(value)]="mwMinValue" [(highValue)]="mwMaxValue" [options]="MWSliderOptions"
-                                (valueChange)="lowValueChange($event, 'MWSlider')"
-                                (highValueChange)="highValueChange($event,'MWSlider')"></ng5-slider>
+                            <ng5-slider [(value)]="filterValues.MW.min" [(highValue)]="filterValues.MW.max" [options]="MWSliderOptions"
+                                (userChangeEnd)="applyFilter()"></ng5-slider>
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
@@ -50,9 +49,8 @@
                             Partition Coefficient (SlogP):
                             <br>
                             <br>
-                            <ng5-slider [(value)]="slogpMinValue" [(highValue)]="slogpMaxValue"
-                                [options]="SlogpSliderOptions" (valueChange)="lowValueChange($event, 'SlogP')"
-                                (highValueChange)="highValueChange($event,'SlogP')"></ng5-slider>
+                            <ng5-slider [(value)]="filterValues.cLogP.min" [(highValue)]="filterValues.cLogP.max"
+                                [options]="SlogpSliderOptions" (userChangeEnd)="applyFilter()"></ng5-slider>
                             <br>
                             <br>
                         </span>
@@ -63,9 +61,8 @@
                             Topological Polar Surface Area (TPSA):
                             <br>
                             <br>
-                            <ng5-slider [(value)]="TPSAMinValue" [(highValue)]="TPSAMaxValue"
-                                [options]="TPSASliderOptions" (valueChange)="lowValueChange($event, 'tpsa')"
-                                (highValueChange)="highValueChange($event, 'tpsa')"></ng5-slider>
+                            <ng5-slider [(value)]="filterValues.tpsa.min" [(highValue)]="filterValues.tpsa.max"
+                                [options]="TPSASliderOptions" (userChangeEnd)="applyFilter()"></ng5-slider>
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
@@ -83,9 +80,8 @@
                             Hydrogen Bond Acceptors (HBA):
                             <br>
                             <br>
-                            <ng5-slider [(value)]="HBAMinValue" [(highValue)]="HBAMaxValue" [options]="HBASliderOptions"
-                                (valueChange)="lowValueChange($event, 'h-acc')"
-                                (highValueChange)="highValueChange($event, 'h-acc')"></ng5-slider>
+                            <ng5-slider [(value)]="filterValues.h_acc.min" [(highValue)]="filterValues.h_acc.max" [options]="HBASliderOptions"
+                                (userChangeEnd)="applyFilter()"></ng5-slider>
                             <br>
                             <span
                                 style="display: flex; flex-direction: row; justify-content: space-between; width: 600px;">
@@ -100,9 +96,8 @@
                             <br>
                             # H-Donors (HBD):
                             <br>
-                            <ng5-slider [(value)]="hbdMinValue" [(highValue)]="hbdMaxValue" [options]="HBDSliderOptions"
-                                (valueChange)="lowValueChange($event, 'hbd')"
-                                (highValueChange)="highValueChange($event, 'hbd')"></ng5-slider>
+                            <ng5-slider [(value)]="filterValues.h_donors.min" [(highValue)]="filterValues.h_donors.max" [options]="HBDSliderOptions"
+                                (userChangeEnd)="applyFilter()"></ng5-slider>
                             <!-- <mat-slider [value]="8" (input)="onSliderChange($event, 'hbd')" class="my-slider" min="1"
                                 max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
                             </mat-slider>
@@ -121,9 +116,9 @@
                             <br>
                             Rotable Bonds (rotB):
                             <br>
-                            <ng5-slider [(value)]="rotBMinValue" [(highValue)]="rotBMaxValue"
-                                [options]="rotBSliderOptions" (valueChange)="lowValueChange($event, 'rotB')"
-                                (highValueChange)="highValueChange($event, 'rotB')"></ng5-slider>
+                            <ng5-slider [(value)]="filterValues.Rotatable_Bonds.min" [(highValue)]="filterValues.Rotatable_Bonds.max"
+                                [options]="rotBSliderOptions"
+                                (userChangeEnd)="applyFilter()"></ng5-slider>
                             <!-- <mat-slider [value]="8" (input)="onSliderChange($event, 'rotB')" class="my-slider" min="1"
                                 max="8" step="1" value="1.5" tickInterval="1" style="width:600px">
                             </mat-slider> -->
@@ -206,8 +201,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clickedRow($event)" ></tr>
     </table>
     <mat-paginator style="width: 90%;"
-      [pageSize]="initPageSize" [pageSizeOptions]="[2, 4, 6, 10, 20,100,500,1000]"
-      (page)="handlePage($event)">
+      [pageSize]="initPageSize" [pageSizeOptions]="[2, 4, 6, 10, 20,100,500,1000]">
     </mat-paginator>
     <router-outlet></router-outlet>
 </div>
