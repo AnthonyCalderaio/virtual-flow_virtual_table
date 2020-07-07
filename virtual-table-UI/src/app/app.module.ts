@@ -23,6 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { MatPaginatorModule } from "@angular/material/paginator";
 import {MatSortModule} from '@angular/material/sort';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,10 @@ import {MatSortModule} from '@angular/material/sort';
     MatSortModule,
   ],
   exports: [MatPaginatorModule],
-  providers: [],
+  providers: [{
+    useClass: HashLocationStrategy,
+    provide: LocationStrategy
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
