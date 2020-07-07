@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
     private router: Router
   ) {
 
-  } 
+  }
   ngAfterViewChecked(): void {
     // this.router.navigate(['/third-level'], this.testDataParsed)
   }

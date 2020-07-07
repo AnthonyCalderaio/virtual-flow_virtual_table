@@ -17,8 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Ng5SliderModule } from 'ng5-slider';
-
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -41,6 +40,7 @@ import { Ng5SliderModule } from 'ng5-slider';
     MatSliderModule,
     MatCheckboxModule,
     Ng5SliderModule,
+    ScrollingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

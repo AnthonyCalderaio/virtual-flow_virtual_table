@@ -193,27 +193,29 @@
                         </div> -->
                     </mat-card-header>
                 </mat-card>
-                <div *ngFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
+                <cdk-virtual-scroll-viewport class="scroll-viewport" itemSize="299" >
+                  <div *cdkVirtualFor="let item of wholeData.level2.docked_compounds | keyvalue; let i = index">
                     <span *ngIf="!compoundBlacklist.includes(item.value.compound_identifier)">
-                        <mat-card class="compoundCard">
-                            <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt=""
-                                    (click)="clickedDockCompound(i)">
-                                {{item.value.compound_identifier}}
-                            </div>
-                            <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}
-                            </div>
-                            <div>{{item.value.MW}}</div>
-                            <div>{{item.value.cLogP}}</div>
-                            <div>{{item.value.H_Acc}}</div>
-                            <div>{{item.value.hDonors}}</div>
-                            <div>{{item.value.tpsa}}</div>
-                            <div>{{item.value.rotable_bonds}}</div>
-                            <div class="compoundUnitLinkBlock">
-                                See More
-                            </div>
-                        </mat-card>
-                    </span>
-                </div>
+                      <mat-card class="compoundCard">
+                          <div class="compoundUnitFirstColumn"> <img [src]="item.value.compound_image" alt=""
+                                  (click)="clickedDockCompound(i)">
+                              {{item.value.compound_identifier}}
+                          </div>
+                          <div name="scoreBlock" style="max-width: 100px;"> {{item.value.docking_scores}}
+                          </div>
+                          <div>{{item.value.MW}}</div>
+                          <div>{{item.value.cLogP}}</div>
+                          <div>{{item.value.H_Acc}}</div>
+                          <div>{{item.value.hDonors}}</div>
+                          <div>{{item.value.tpsa}}</div>
+                          <div>{{item.value.rotable_bonds}}</div>
+                          <div class="compoundUnitLinkBlock">
+                              See More
+                          </div>
+                      </mat-card>
+                  </span>
+                  </div>
+                </cdk-virtual-scroll-viewport>
             </div>
         </mat-card-content>
     </mat-card>

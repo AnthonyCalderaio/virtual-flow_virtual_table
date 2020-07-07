@@ -113,3 +113,8 @@
 /* .my-slider {
   transform: scale(2);
 } */
+
+.scroll-viewport {
+  height: 367px;
+  display: block;
+}
