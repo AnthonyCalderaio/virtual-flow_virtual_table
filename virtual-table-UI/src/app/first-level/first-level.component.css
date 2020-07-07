@@ -11,7 +11,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
   }
-  
+
   .level1Image {
     height: 300px;
     width: 300px;
@@ -19,8 +19,9 @@
     border-radius: 25px;
     margin: auto;
   }
-  
+
   .level1Unit {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,4 +33,3 @@
     height: 350px;
     width: 350px;
   }
-  

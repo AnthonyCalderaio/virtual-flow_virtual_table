@@ -4,13 +4,16 @@ import {
   ViewChild,
   NgZone,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 import * as NGL from '../../../node_modules/ngl';
-import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
+import { Options } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import realdata from '../wip_realdata.json';
 
 type ValueTypes =
   | 'MW'
@@ -25,12 +28,16 @@ type ValueTypes =
   templateUrl: './second-level.component.html',
   styleUrls: ['./second-level.component.css'],
 })
-export class SecondLevelComponent implements OnInit, AfterViewInit {
+export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private router: Router, private ngZone: NgZone) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private ngZone: NgZone
+  ) {}
 
   initPageSize = 10;
 
@@ -88,52 +95,18 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
       5,
       Number.MAX_SAFE_INTEGER,
     ],
-    tpsa: [
-      0,
-      20,
-      40,
-      60,
-      80,
-      100,
-      120,
-      140,
-      Number.MAX_SAFE_INTEGER,
-    ],
-    Rotatable_Bonds: [
-      0,
-      1,
-      3,
-      5,
-      7,
-      9,
-      10,
-      Number.MAX_SAFE_INTEGER,
-    ],
-    h_donors: [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      Number.MAX_SAFE_INTEGER,
-    ],
-    h_acc: [
-      0,
-      1,
-      3,
-      5,
-      7,
-      9,
-      10,
-      Number.MAX_SAFE_INTEGER,
-    ],
+    tpsa: [0, 20, 40, 60, 80, 100, 120, 140, Number.MAX_SAFE_INTEGER],
+    Rotatable_Bonds: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
+    h_donors: [0, 1, 2, 3, 4, 5, Number.MAX_SAFE_INTEGER],
+    h_acc: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
   };
 
-  filterValues: { [key in ValueTypes]: { min: number; max: number } } = Object.keys(this.ranges).reduce((accum, key) => {
+  filterValues: {
+    [key in ValueTypes]: { min: number; max: number };
+  } = Object.keys(this.ranges).reduce((accum, key) => {
     accum[key] = {
       min: this.ranges[key][0],
-      max: this.ranges[key][this.ranges[key].length - 1]
+      max: this.ranges[key][this.ranges[key].length - 1],
     };
     return accum;
   }, {} as { [key in ValueTypes]: { min: number; max: number } });
@@ -145,14 +118,14 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   HBDSliderOptions = this.getSliderOptions('h_donors');
   rotBSliderOptions = this.getSliderOptions('Rotatable_Bonds');
 
-  wholeData = JSON.parse(
-    JSON.stringify(this.router.getCurrentNavigation().extras)
-  );
+  wholeData: any;
+
   private dataArray: any = [];
+  private stopScrolling: any;
 
   private getSliderOptions(type: ValueTypes): Options {
     return {
-      stepsArray: this.ranges[type].map(c => ({ value: c })),
+      stepsArray: this.ranges[type].map((c) => ({ value: c })),
       translate(value: number) {
         if (value === Number.MAX_SAFE_INTEGER) {
           return 'Infinity';
@@ -167,11 +140,13 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.filterValues);
-    this.populateMoleculeViewports();
-    this.populateTableData();
-    this.dataSource.data = this.dataArray;
-    this.dataSource.sort = this.sort;
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      this.wholeData = realdata[params.proteinId];
+      this.populateMoleculeViewports();
+      this.populateTableData();
+      this.dataSource.data = this.dataArray;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -192,6 +167,7 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   sortData(event: any) {
     // console.log('Sorting for:', event)
   }
@@ -233,29 +209,34 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   }
 
   backClicked() {
-    this.router.navigate(['/first-level'], this.wholeData);
+    this.router.navigate(['/first-level']);
   }
 
   populateMoleculeViewports() {
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
-        const stage = new NGL.Stage('secondLevelviewport' + '1');
+        const stage = new NGL.Stage('secondLevelViewport');
         stage.setParameters({ backgroundColor: 'white', hoverTimeout: -1 });
-        window.addEventListener(
-          'resize',
-          () => {
-            stage.handleResize();
-          },
-          true
-        );
+        window.addEventListener('resize', () => stage.handleResize(), true);
         stage.loadFile('rcsb://1crn', { defaultRepresentation: true });
+        document.getElementById('secondLevelViewport').addEventListener(
+          'mousewheel',
+          (this.stopScrolling = (e) => {
+            e.preventDefault();
+          }),
+          { passive: false }
+        );
       }, 1);
     });
   }
 
+  ngOnDestroy() {
+    document.getElementById('secondLevelViewport').removeEventListener('mousewheel', this.stopScrolling);
+  }
+
   applyFilter() {
     const keys = Object.keys(this.filterValues);
-    this.dataSource.data = this.dataArray.filter(value => {
+    this.dataSource.data = this.dataArray.filter((value) => {
       for (const key of keys) {
         if (value[key] === undefined) {
           return true;

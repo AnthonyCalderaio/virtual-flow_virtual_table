@@ -9,11 +9,11 @@ import { LigandDetailComponent } from '../ligand-detail/ligand-detail.component'
 
 const routes: Routes = [
   { path: '', component: AppComponent },
-  { path: 'first-level',component: FirstLevelComponent},
-  { path: 'second-level', component: SecondLevelComponent },
-  { path: 'third-level', component:ThirdLevelComponent},
+  { path: 'first-level', component: FirstLevelComponent},
+  { path: 'second-level/:proteinId', component: SecondLevelComponent },
+  { path: 'third-level/:proteinId/:compoundId', component: ThirdLevelComponent},
   { path: 'ligand-detail', component: LigandDetailComponent}
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

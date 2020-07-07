@@ -1,14 +1,7 @@
 .container {
   background-color: lightgray;
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   z-index: 0;
   position: relative;
-  /* width:50% */
-  justify-content: center;
   background-color: purple;
 }
 
@@ -18,12 +11,11 @@
   left: 0;
   height: 50px;
   width: 50px;
-  /* background-color: blue; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* float: left; */
   z-index: 2;
+  cursor: pointer;
 }
 
 .secondLevelHeaderName {
@@ -47,23 +39,15 @@
 }
 
 .proteinCard {
-  width: 90%;
-  /* padding: 0px; */
-  /* border-radius: 20px; */
   margin-bottom: 10px;
   background-color: lightgrey;
 }
 
 .proteinInfoHeader {
   background-size: cover;
-  /* height: 30px; */
-  /* background-color: lightpink; */
 }
 
 .proteinInfo {
-  display: flex;
-  flex-direction: row;
-  /* height: 100px; */
   margin-top: 10px;
 }
 
@@ -82,6 +66,7 @@
   background-color: white;
   margin-bottom: 5px;
 }
+
 .compoundUnitFirstColumn {
   display: flex;
   flex-direction: column;
@@ -98,10 +83,6 @@
   border-radius: 50% 50% 0 !important;
 }
 
-.mat-slider-thumb {
-  transform: scale(0) !important;
-}
-
 .mat-slider-thumb-label-text {
   opacity: 1 !important;
 }
@@ -110,10 +91,59 @@
   background: transparent !important;
 }
 
-/* .my-slider {
-  transform: scale(2);
-} */
-
 .hide {
   display: none;
+}
+
+.compound-table {
+  width: 100%;
+}
+
+.slider-container {
+  min-width: 400px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.slider-panel-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.slider-control {
+  height: 105px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.slider-label {
+  display: inline-block;
+  padding: 10px;
+  padding-left: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .slider-panel-wrapper {
+    flex-direction: column;
+  }
+}
+
+#secondLevelViewport {
+  min-width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+.protein-info-wrapper {
+  margin-top: 32px !important;
+}
+
+.protein-summary span {
+  display: block;
+  margin-bottom: 5px;;
+}
+
+.protein-summary {
+  margin-bottom: 10px;
 }
