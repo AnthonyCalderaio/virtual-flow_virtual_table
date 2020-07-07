@@ -48,7 +48,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule,
   ],
-  exports:[MatPaginatorModule,],
+  exports: [MatPaginatorModule],
   providers: [],
   bootstrap: [AppComponent]
 })

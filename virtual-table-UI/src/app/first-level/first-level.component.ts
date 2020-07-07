@@ -1,9 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import testData from '../testData_copy.json';
 import * as NGL from '../../../node_modules/ngl';
-// import realdata from '../realdata.json'
-import wip_realdata from '../wip_realdata.json'
+import realdata from '../testData.json'
 @Component({
   selector: 'app-first-level',
   templateUrl: './first-level.component.html',
@@ -15,8 +13,7 @@ export class FirstLevelComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone) { }
 
-  testData: any = testData
-  realdata: any = wip_realdata;
+  realdata: any = realdata;
 
   ngOnInit(): void {
     console.log('WholeDataJson: ', this.realdata);
@@ -55,6 +52,6 @@ export class FirstLevelComponent implements OnInit {
   }
 
   level1Click(item: any) {
-    this.router.navigate(['/second-level'], this.realdata[item.key]);
+    this.router.navigate(['second-level', item.key]);
   }
 }

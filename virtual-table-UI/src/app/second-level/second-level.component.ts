@@ -5,12 +5,14 @@ import {
   NgZone,
   AfterViewInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 import * as NGL from '../../../node_modules/ngl';
-import { Options, LabelType, CustomStepDefinition } from 'ng5-slider';
+import { Options } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import realdata from '../testData.json'
 
 type ValueTypes =
   | 'MW'
@@ -30,7 +32,7 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private router: Router, private ngZone: NgZone) {}
+  constructor(private router: Router, private route: ActivatedRoute, private ngZone: NgZone) {}
 
   initPageSize = 10;
 
@@ -145,9 +147,8 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   HBDSliderOptions = this.getSliderOptions('h_donors');
   rotBSliderOptions = this.getSliderOptions('Rotatable_Bonds');
 
-  wholeData = JSON.parse(
-    JSON.stringify(this.router.getCurrentNavigation().extras)
-  );
+  wholeData: any;
+
   private dataArray: any = [];
 
   private getSliderOptions(type: ValueTypes): Options {
@@ -167,11 +168,16 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.filterValues);
-    this.populateMoleculeViewports();
-    this.populateTableData();
-    this.dataSource.data = this.dataArray;
-    this.dataSource.sort = this.sort;
+    this.route.params.pipe(
+      take(1)
+    )
+    .subscribe(params => {
+      this.wholeData = realdata[params.proteinId];
+      this.populateMoleculeViewports();
+      this.populateTableData();
+      this.dataSource.data = this.dataArray;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -192,6 +198,7 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   sortData(event: any) {
     // console.log('Sorting for:', event)
   }
@@ -233,7 +240,7 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
   }
 
   backClicked() {
-    this.router.navigate(['/first-level'], this.wholeData);
+    this.router.navigate(['/first-level']);
   }
 
   populateMoleculeViewports() {
@@ -243,9 +250,7 @@ export class SecondLevelComponent implements OnInit, AfterViewInit {
         stage.setParameters({ backgroundColor: 'white', hoverTimeout: -1 });
         window.addEventListener(
           'resize',
-          () => {
-            stage.handleResize();
-          },
+          () => stage.handleResize(),
           true
         );
         stage.loadFile('rcsb://1crn', { defaultRepresentation: true });
