@@ -3,14 +3,17 @@
   <div (click)="backClicked()" class="backButton">
     <mat-icon>keyboard_backspace</mat-icon>
   </div>
-  <div *ngIf="wholeData" class="secondLevelHeaderName">
-    {{ wholeData.protein_name }}
-  </div>
   <mat-card class="proteinCard">
     <mat-card-content class="proteinInfo">
-      <div>
-        <h2>Protein Information</h2>
+      <div class="protein-info-wrapper">
+        <h2 *ngIf="wholeData">Protein Information ({{wholeData.proteinName}})</h2>
+        <div class="protein-summary">
+          <span *ngIf="wholeData && wholeData.level2.Calculations">Calculations: {{wholeData.level2.Calculations}}</span>
+          <span *ngIf="wholeData && wholeData.level2.Compounds_with_docking_data">Compounds with docking data: {{wholeData.level2.Compounds_with_docking_data}}</span>
+        </div>
         <div class="slider-panel-wrapper">
+          <div id="secondLevelViewport" style="height: 300px; width: 300px"></div>
+
           <div class="slider-container">
             <div class="slider-control">
               <span class="slider-label">Molecular Weight (MW):</span>
@@ -211,7 +214,7 @@
   </table>
   <mat-paginator
     [pageSize]="initPageSize"
-    [pageSizeOptions]="[2, 4, 6, 10, 20, 100, 500, 1000]"
+    [pageSizeOptions]="[2, 10, 20, 50]"
   >
   </mat-paginator>
   <router-outlet></router-outlet>

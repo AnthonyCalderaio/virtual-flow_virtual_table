@@ -1,7 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import * as NGL from '../../../node_modules/ngl';
-import realdata from '../testData.json'
+import realdata from '../wip_realdata.json';
+
 @Component({
   selector: 'app-first-level',
   templateUrl: './first-level.component.html',

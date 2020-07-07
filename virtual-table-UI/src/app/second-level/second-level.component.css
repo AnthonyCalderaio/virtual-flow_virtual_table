@@ -107,7 +107,7 @@
 
 .slider-panel-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-direction: row;
 }
 
@@ -127,4 +127,23 @@
   .slider-panel-wrapper {
     flex-direction: column;
   }
+}
+
+#secondLevelViewport {
+  min-width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+.protein-info-wrapper {
+  margin-top: 32px !important;
+}
+
+.protein-summary span {
+  display: block;
+  margin-bottom: 5px;;
+}
+
+.protein-summary {
+  margin-bottom: 10px;
 }
