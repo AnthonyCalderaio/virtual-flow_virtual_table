@@ -87,9 +87,6 @@
 }
 
 .dockingInstancesRow {
-  /* display: flex;
-  justify-content: space-between;
-  flex: 1 1 30%; */
   background-color: indianred;
   margin: 10px;
 }

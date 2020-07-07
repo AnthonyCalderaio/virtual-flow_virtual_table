@@ -17,9 +17,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Ng5SliderModule } from 'ng5-slider';
+import { MatTableModule } from '@angular/material/table';
 
 
 
+import { MatPaginatorModule } from "@angular/material/paginator";
+import {MatSortModule} from '@angular/material/sort';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,8 +45,15 @@ import { Ng5SliderModule } from 'ng5-slider';
     MatSliderModule,
     MatCheckboxModule,
     Ng5SliderModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
-  providers: [],
+  exports: [MatPaginatorModule],
+  providers: [{
+    useClass: HashLocationStrategy,
+    provide: LocationStrategy
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

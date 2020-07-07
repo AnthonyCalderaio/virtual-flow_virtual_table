@@ -1,0 +1,92 @@
+{
+  "0": {
+    "metadata": {
+      "protein_name":"mpro_s1_ds1",
+      "pdb_url": "Receptor.pdb",
+      "pdbqt_url":"Receptor.pdbqt",
+      "ligand_url_prefix":"https://virtualflow-covid.hms.harvard.edu/Structures/mpro_s1_ds1/"
+    },
+    "level1": {
+      "name": "mpro_s1_ds1",
+      "level1_image_path": "./Receptor.pdb"
+    },
+    "level2": {
+      "docked_compounds": {
+        "0": {
+          "compound_screening_ID": "Z1002304178_1_T5",
+          "compound_source_ID": "Z1002304178",
+          "docking_score": "-11.3",
+          "LE": "0.353",
+          "MW": "431.43",
+          "cLogP": "1.4658",
+          "h_acc": "9",
+          "h_donors": "3",
+          "tpsa": "113.31",
+          "Rotatable Bonds": "5",
+          "Heavy Atoms": "32",
+          "Mutagenic": "none",
+          "Tumorigenic": "none",
+          "Reproductive Effective": "none",
+          "Database": "REAL",
+          "SMILES": "C[C@]1(c2cccc(CNc3ccc4nnc(-c5ccccc5F)n4n3)c2)NC(=O)NC1=O"
+        },
+        "1": {
+          "compound_screening_ID": "Z1002304178_1_T1",
+          "compound_source_ID": "Z1002304178",
+          "docking_score": "-11.2",
+          "LE": "0.35",
+          "MW": "431.43",
+          "cLogP": "1.4658",
+          "h_acc": "9",
+          "h_donors": "3",
+          "tpsa": "113.31",
+          "Rotatable Bonds": "5",
+          "Heavy Atoms": "32",
+          "Mutagenic": "none",
+          "Tumorigenic": "none",
+          "Reproductive Effective": "none",
+          "Database": "REAL",
+          "SMILES": "C[C@]1(c2cccc(CNc3ccc4nnc(-c5ccccc5F)n4n3)c2)NC(=O)NC1=O"
+        },
+        "2": {
+          "compound_screening_ID": "Z1000940198_2_T5",
+          "compound_source_ID": "Z1000940198",
+          "docking_score": "-11.2",
+          "LE": "0.32",
+          "MW": "473.488",
+          "cLogP": "2.7378",
+          "h_acc": "10",
+          "h_donors": "3",
+          "tpsa": "139.36",
+          "Rotatable Bonds": "5",
+          "Heavy Atoms": "35",
+          "Mutagenic": "none",
+          "Tumorigenic": "none",
+          "Reproductive Effective": "none",
+          "Database": "REAL",
+          "SMILES": "Cc1cc(-c2cc(C(=O)NCc3cccc([C@@]4(C)NC(=O)NC4=O)c3)c3c(C)noc3n2)c(C)o1"
+        },
+        "3": {
+          "compound_screening_ID": "Z1927967127_1_T1",
+          "compound_source_ID": "Z1927967127",
+          "docking_score": "-11.2",
+          "LE": "0.373",
+          "MW": "407.379",
+          "cLogP": "2.6587",
+          "h_acc": "7",
+          "h_donors": "2",
+          "tpsa": "101.21",
+          "Rotatable Bonds": "1",
+          "Heavy Atoms": "30",
+          "Mutagenic": "none",
+          "Tumorigenic": "none",
+          "Reproductive Effective": "none",
+          "Database": "REAL",
+          "SMILES": "Nc1ncc2c(n1)CCN(C(=O)c1cc(F)cc3c(=O)c4cc(F)ccc4[nH]c13)C2"
+        }
+      }
+      
+
+    }
+  }
+}

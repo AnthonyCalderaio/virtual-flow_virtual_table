@@ -11,24 +11,25 @@
     justify-content: space-around;
     flex-wrap: wrap;
   }
-  
+
   .level1Image {
     height: 300px;
     width: 300px;
-    z-index: 1;
+    z-index: 0;
     border-radius: 25px;
     margin: auto;
   }
-  
+
   .level1Unit {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     background-color: grey;
+    /* opacity: .5; */
     border-radius: 10px;
     margin-top: 20px;
     height: 350px;
     width: 350px;
   }
-  
