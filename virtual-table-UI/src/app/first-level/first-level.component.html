@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngFor="let item of realdata | keyvalue; let i = index">
     <div class="level1Unit" (click)="level1Click(item)" >
-      <img src='{{"/www/virtualflow-covid.hms.harvard.edu/docroot/covid19_compoundtable/virtual-table-UI/dist/virtual-table-UI/Structures/"+ item.proteinName +"/Receptor.png"}}' class="level1Image">
+      <img src='{{"https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Receptor.png"}}' class="level1Image">
       {{item.value.proteinName}}
     </div>
   </div>
