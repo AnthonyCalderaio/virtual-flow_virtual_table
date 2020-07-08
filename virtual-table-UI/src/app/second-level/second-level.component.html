@@ -209,7 +209,7 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      (click)="clickedRow($event)"
+      (click)="clickedRow($event, row)"
     ></tr>
   </table>
   <mat-paginator

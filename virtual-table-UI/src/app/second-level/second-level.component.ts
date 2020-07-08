@@ -153,18 +153,15 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.paginator = this.paginator; // For pagination
   }
 
-  clickedRow(event: any) {
-    // console.log('Clicked row', event.srcElement.innerText);
-    Object.keys(this.wholeData.level2.docked_compounds).forEach((key) => {
-      if (
-        this.wholeData.level2.docked_compounds[key].compound_screening_ID ==
-        event.srcElement.innerText
-      ) {
-        this.wholeData.objectOfInterest = this.wholeData.level2.docked_compounds[
-          key
-        ];
-        this.router.navigate(['/third-level'], this.wholeData);
-      }
+  clickedRow(_: any, row: any) {
+    const compounds = this.wholeData.level2.docked_compounds;
+    const key = Object.keys(compounds)
+      .filter(
+        (k) => compounds[k].Compound_screening_ID === row.Compound_screening_ID
+      )
+      .pop();
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      this.router.navigate(['/third-level', params.proteinId, key]);
     });
   }
 
@@ -183,29 +180,19 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getSubsetOfObject(objectInput) {
-    const {
-      compound_screening_ID,
-      Top_Scores,
-      MW,
-      cLogP,
-      h_acc,
-      h_donors,
-      tpsa,
-      Rotatable_Bonds,
-      docking_score,
-    } = objectInput;
-    const subset = {
-      compound_screening_ID,
-      Top_Scores,
-      MW,
-      cLogP,
-      h_acc,
-      h_donors,
-      tpsa,
-      Rotatable_Bonds,
-      docking_score,
+    // ["Compound_screening_ID", "docking_scores", "compound_image", "MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
+    return {
+      Compound_screening_ID: objectInput.Compound_screening_ID,
+      // Top_Scores,
+      MW: objectInput.MW,
+      cLogP: objectInput.cLogP,
+      h_acc: objectInput.h_acc,
+      h_donors: objectInput.h_donors,
+      tpsa: objectInput.TPSA,
+      Rotatable_Bonds: objectInput.Rotatable_Bonds,
+      docking_score: objectInput.docking_score
     };
-    return subset;
+    // return subset;
   }
 
   backClicked() {
@@ -231,7 +218,9 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    document.getElementById('secondLevelViewport').removeEventListener('mousewheel', this.stopScrolling);
+    document
+      .getElementById('secondLevelViewport')
+      .removeEventListener('mousewheel', this.stopScrolling);
   }
 
   applyFilter() {
