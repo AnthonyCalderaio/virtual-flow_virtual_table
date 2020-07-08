@@ -18,11 +18,10 @@
   left: 0;
   height: 50px;
   width: 50px;
-  /* background-color: blue; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* float: left; */
+  cursor: pointer;
   z-index: 2;
 }
 

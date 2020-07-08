@@ -6,11 +6,11 @@
     <mat-card class="compoundCard">
         <!-- <mat-card-header style="margin-bottom: 10px;">Compound Information</mat-card-header> -->
         <mat-card-content class="compoundInfo">
-            <!-- <img [src]="thirdLevelData.compound_image" alt="" style="margin-right: 10px;"> -->
+            <img *ngIf="compound" [src]="compoundImage" alt="" style="margin-right: 10px;">
             <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                <span>
-                    <strong>SMILES String:</strong> 
-                    {{wholeData.objectOfInterest.SMILES}}
+                <span *ngIf="compound">
+                    <strong>SMILES String:</strong>
+                    {{compound.SMILES}}
                 </span>
                 <br>
                 <!-- <button mat-raised-button color="primary">Download Structure</button> -->
