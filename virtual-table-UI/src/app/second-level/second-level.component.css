@@ -147,3 +147,7 @@
 .protein-summary {
   margin-bottom: 10px;
 }
+
+.mat-row {
+  cursor: pointer;
+}

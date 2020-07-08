@@ -91,18 +91,18 @@
     class="compound-table mat-elevation-z8"
   >
     <!-- Position Column -->
-    <ng-container matColumnDef="compound_identifier">
+    <ng-container matColumnDef="Compound_screening_ID">
       <th mat-header-cell *matHeaderCellDef>Compound Identifier</th>
-      <!-- <div *ngIf="!compoundBlacklist.includes(element.compound_identifier)"> -->
+      <!-- <div *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"> -->
       <td
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
-        <!-- <div *ngIf="!compoundBlacklist.includes(element.compound_identifier)"></div> -->
-        {{ element.compound_identifier }}
+        <!-- <div *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"></div> -->
+        {{ element.Compound_screening_ID }}
       </td>
       <!-- </div> -->
     </ng-container>
@@ -114,7 +114,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.docking_score }}
@@ -128,7 +128,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.MW }}
@@ -142,7 +142,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.cLogP }}
@@ -156,7 +156,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.h_acc }}
@@ -170,7 +170,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.h_donors }}
@@ -184,7 +184,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.tpsa }}
@@ -198,7 +198,7 @@
         mat-cell
         *matCellDef="let element"
         [ngClass]="{
-          hide: compoundBlacklist.includes(element.compound_identifier)
+          hide: compoundBlacklist.includes(element.Compound_screening_ID)
         }"
       >
         {{ element.Rotatable_Bonds }}

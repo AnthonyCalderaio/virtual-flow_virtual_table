@@ -13,7 +13,7 @@ import { Options } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import realdata from '../testData.json';
+import realdata from '../wip_realdata.json';
 
 type ValueTypes =
   | 'MW'
@@ -45,7 +45,7 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   dataSource = new MatTableDataSource();
 
   displayedColumns: string[] = [
-    'compound_identifier',
+    'Compound_screening_ID',
     'docking_score',
     'MW',
     'cLogP',
@@ -157,7 +157,7 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
     const compounds = this.wholeData.level2.docked_compounds;
     const key = Object.keys(compounds)
       .filter(
-        (k) => compounds[k].compound_identifier === row.compound_identifier
+        (k) => compounds[k].Compound_screening_ID === row.Compound_screening_ID
       )
       .pop();
     this.route.params.pipe(take(1)).subscribe((params) => {
@@ -180,17 +180,17 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getSubsetOfObject(objectInput) {
-    // ["compound_identifier", "docking_scores", "compound_image", "MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
+    // ["Compound_screening_ID", "docking_scores", "compound_image", "MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
     return {
-      compound_identifier: objectInput.compound_identifier,
+      Compound_screening_ID: objectInput.Compound_screening_ID,
       // Top_Scores,
       MW: objectInput.MW,
       cLogP: objectInput.cLogP,
-      h_acc: objectInput.H_Acc,
-      h_donors: objectInput.hDonors,
-      tpsa: objectInput.tpsa,
-      Rotatable_Bonds: objectInput.rotable_bonds,
-      docking_score: objectInput.docking_scores
+      h_acc: objectInput.h_acc,
+      h_donors: objectInput.h_donors,
+      tpsa: objectInput.TPSA,
+      Rotatable_Bonds: objectInput.Rotatable_Bonds,
+      docking_score: objectInput.docking_score
     };
     // return subset;
   }
