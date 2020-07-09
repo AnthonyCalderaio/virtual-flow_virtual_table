@@ -6,7 +6,7 @@
 }
 
 .view-wrapper {
-  width: calc(100% - 250px);
+  width: calc(100% - 300px);
   position: absolute;
   height: 100%;
 }
@@ -14,7 +14,7 @@
 .compound-details {
   position: absolute;
   right: 0px;
-  width: 228px;
+  width: 280px;
 }
 
 .compound-field {
