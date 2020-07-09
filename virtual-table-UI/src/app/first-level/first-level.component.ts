@@ -12,7 +12,9 @@ export class FirstLevelComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone) {
+      this.router.getCurrentNavigation().extras
+     }
 
   realdata: any = realdata;
 
@@ -53,6 +55,7 @@ export class FirstLevelComponent implements OnInit {
   }
 
   level1Click(item: any) {
-    this.router.navigate(['second-level', item.key]);
+    console.log('CLicked',item)
+    this.router.navigate(['second-level', item.key],item.value.proteinName);
   }
 }
