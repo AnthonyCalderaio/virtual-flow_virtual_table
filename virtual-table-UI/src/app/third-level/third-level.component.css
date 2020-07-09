@@ -1,103 +1,37 @@
-.container {
-  background-color: purple;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* z-index: 0; */
-  position: relative;
-  top: 15%;
-  /* width:50% */
-  /* justify-content: center; */
-}
-
-.backButton {
+.compound-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 50px;
-  width: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.secondLevelHeaderName {
-  font-size: 55px;
-  margin-bottom: 25px;
-}
-
-.chemicalDescriptorCard {
-  width: 80%;
-  margin-bottom: 10px;
-  background-color: darkgray;
-}
-
-.dockedInfoHeader {
-  height: 35px;
-}
-
-.dockedInfo {
-  display: flex;
-  flex-direction: row;
-  /* height: 400px; */
-  /* margin-bottom: 10px; */
-}
-
-.compoundCard {
-  width: 80%;
-  background-color: darkgray;
-  margin-bottom: 20px;
-  margin-top: 3%;
-  max-height: 50vh;
-}
-
-.chemicalDescriptorsHeader {
-  background-size: cover;
-}
-
-.descriptorCardInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  border-radius: 5px;
-  margin: 10px;
-}
-
-.compoundScroller {
-  height: 100%;
   width: 100%;
-  /* background-color: lightseagreen; */
-  overflow: auto;
+  height: 100%;
+  background: white;
 }
 
-.compoundUnitRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.view-wrapper {
+  width: calc(100% - 250px);
+  position: absolute;
+  height: 100%;
 }
 
-.compoundInfo {
-  display: flex;
+.compound-details {
+  position: absolute;
+  right: 0px;
+  width: 228px;
 }
 
-.dockingInstancesRow {
-  background-color: indianred;
-  margin: 10px;
+.compound-field {
+  margin-bottom: 10px;
 }
 
-.gridLayout {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
+.compound-field span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.compound-details h2 {
+  margin-top: 0;
+}
+
+.back-button {
+  cursor: pointer;
   padding: 10px;
-}
-
-.viewer {
-  max-height: 30px !important;
-  max-width: 30px !important;
-  background-color: red;
+  padding-left: 20px;
 }

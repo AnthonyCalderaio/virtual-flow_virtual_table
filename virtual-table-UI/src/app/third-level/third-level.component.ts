@@ -30,6 +30,7 @@ export class ThirdLevelComponent implements OnInit {
         this._renderVisualization(this.protein, this.compound);
       });
     });
+    document.documentElement.scrollTop = 0;
   }
 
   private _renderVisualization(protein: any, compound: any) {
@@ -59,7 +60,6 @@ export class ThirdLevelComponent implements OnInit {
       },
     ]);
     this.HTMLElement = document.getElementsByClassName('msp-plugin')[0];
-    this.HTMLElement.setAttribute('style', 'top: 32%; margin:5%;');
     viewer.plugin.canvas3d.handleResize();
   }
 
@@ -75,5 +75,9 @@ export class ThirdLevelComponent implements OnInit {
       return '';
     }
     return `https://virtualflow-covid.hms.harvard.edu/Structures/${this.protein.proteinName}/Ligands/png/${this.compound.Compound_screening_ID}.png`;
+  }
+
+  get zincCompound() {
+    return this.compound.Compound_source_ID.startsWith('ZINC');
   }
 }

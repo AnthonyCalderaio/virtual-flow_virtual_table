@@ -1,23 +1,84 @@
 <div class="container">
-    <div (click)="backClicked()" class="backButton">
+    <div (click)="backClicked()" class="back-button">
         <mat-icon>keyboard_backspace</mat-icon>
     </div>
-    <div class="secondLevelHeaderName"></div>
-    <mat-card class="compoundCard">
-        <!-- <mat-card-header style="margin-bottom: 10px;">Compound Information</mat-card-header> -->
-        <mat-card-content class="compoundInfo">
-            <img *ngIf="compound" [src]="compoundImage" alt="" style="margin-right: 10px;">
-            <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                <span *ngIf="compound">
-                    <strong>SMILES String:</strong>
-                    {{compound.SMILES}}
-                </span>
-                <br>
-                <!-- <button mat-raised-button color="primary">Download Structure</button> -->
-            </div>
-        </mat-card-content>
-    </mat-card>
-    <div class="viewer" id="viewer"></div>
 
+    <div class="compound-wrapper">
+
+      <div class="view-wrapper">
+        <div class="viewer" id="viewer"></div>
+      </div>
+
+      <div class="compound-details">
+        <h2>Compound details</h2>
+        <img *ngIf="compound" [src]="compoundImage" alt="">
+        <div *ngIf="compound">
+          <div class="compound-field">
+            <strong>VirtualFlow ID:</strong>
+            <span>{{compound.Compound_screening_ID}}</span>
+          </div>
+          <div *ngIf="zincCompound" class="compound-field">
+            <strong>Compound catalog ID:</strong>
+            <a target="_blank" [href]="'https://zinc15.docking.org/substances/' + compound.Compound_source_ID">
+              <span>{{compound.Compound_source_ID}}</span>
+            </a>
+          </div>
+          <div *ngIf="!zincCompound" class="compound-field">
+            <strong>Compound catalog ID:</strong>
+            <span>{{compound.Compound_source_ID}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Molecular weight (dalton):</strong>
+            <span>{{compound.MW}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>QuickVina docking score (kcal/mol):</strong>
+            <span>{{compound.docking_score}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>cLogP:</strong>
+            <span>{{compound.cLogP}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Hydrogen bond acceptors:</strong>
+            <span>{{compound.h_acc}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Hydrogen bond donors:</strong>
+            <span>{{compound.h_donors}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Topological polar surface area:</strong>
+            <span>{{compound.TPSA}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Rotatable bonds:</strong>
+            <span>{{compound.Rotatable_Bonds}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Heavy atoms:</strong>
+            <span>{{compound.Heavy_Atoms}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Mutagenic effects:</strong>
+            <span>{{compound.Mutagenic}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Tumorigenic effects:</strong>
+            <span>{{compound.Tumorigenic}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>Reproductive Effective:</strong>
+            <span>{{compound['Reproductive Effective']}}</span>
+          </div>
+          <div class="compound-field">
+            <strong>SMILES String:</strong>
+            <span>{{compound.SMILES}}</span>
+        </div>
+        <!-- <button mat-raised-button color="primary">Download Structure</button> -->
+        </div>
+      </div>
+
+    </div>
 
 </div>
