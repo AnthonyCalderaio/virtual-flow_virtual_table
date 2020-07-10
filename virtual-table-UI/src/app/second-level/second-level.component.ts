@@ -32,19 +32,22 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone
-  ) {}
-
+  ) {
+    this.setProteinName(this.router.getCurrentNavigation().extras)
+  }
+  proteinNameFromLevel1: string;
   initPageSize = 10;
-
+  
   removedCompounds: any = [];
   dataSource = new MatTableDataSource();
 
   displayedColumns: string[] = [
+    'Compound_source_ID',
     'Compound_screening_ID',
     'docking_score',
     'MW',
@@ -205,7 +208,7 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
         const stage = new NGL.Stage('secondLevelViewport');
         stage.setParameters({ backgroundColor: 'white', hoverTimeout: -1 });
         window.addEventListener('resize', () => stage.handleResize(), true);
-        stage.loadFile('rcsb://1crn', { defaultRepresentation: true });
+        stage.loadFile('https://virtualflow-covid.hms.harvard.edu/Structures/'+this.proteinNameFromLevel1+'/Receptor.pdb', { defaultRepresentation: true });
         document.getElementById('secondLevelViewport').addEventListener(
           'mousewheel',
           (this.stopScrolling = (e) => {
@@ -238,5 +241,8 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       return true;
     });
+  }
+  setProteinName(input:any){
+    this.proteinNameFromLevel1 = input;
   }
 }
