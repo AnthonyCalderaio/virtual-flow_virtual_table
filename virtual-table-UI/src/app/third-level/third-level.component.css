@@ -6,7 +6,7 @@
 }
 
 .view-wrapper {
-  width: calc(100% - 300px);
+  width: calc(100% - 335px);
   position: absolute;
   height: 100%;
   z-index: 2;
@@ -15,7 +15,7 @@
 .compound-details {
   position: absolute;
   right: 0px;
-  width: 280px;
+  width: 310px;
   z-index: 1;
 }
 

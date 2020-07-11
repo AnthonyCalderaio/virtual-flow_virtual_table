@@ -14,12 +14,12 @@
         <img *ngIf="compound" [src]="compoundImage" alt="">
         <div *ngIf="compound">
           <div class="compound-field">
-            <strong>VirtualFlow ID:</strong>
+            <strong>VirtualFlow compound ID:</strong>
             <span>{{compound.Compound_screening_ID}}</span>
           </div>
           <div *ngIf="zincCompound" class="compound-field">
             <strong>Compound catalog ID:</strong>
-            <a target="_blank" [href]="'https://zinc15.docking.org/substances/' + compound.Compound_source_ID">
+            <a target="_blank" [href]="zincUrl">
               <span>{{compound.Compound_source_ID}}</span>
             </a>
           </div>
@@ -68,13 +68,25 @@
             <span>{{compound.Tumorigenic}}</span>
           </div>
           <div class="compound-field">
-            <strong>Reproductive Effective:</strong>
+            <strong>Reproductive effects:</strong>
             <span>{{compound['Reproductive Effective']}}</span>
           </div>
           <div class="compound-field">
-            <strong>SMILES String:</strong>
+            <strong>SMILES:</strong>
             <span>{{compound.SMILES}}</span>
-        </div>
+          </div>
+          <div class="compound-field">
+            <strong>Vendors:</strong>
+            <a *ngIf="zincCompound" target="_blank" [href]="zincUrl">
+              <span>See ZINC 15 database</span>
+            </a>
+            <a *ngIf="!zincCompound" target="_blank" href="https://enamine.net/">
+              <span>Enamine</span>
+            </a>
+            <a *ngIf="!zincCompound" target="_blank" href="https://chem-space.com/">
+              <span>ChemSpace</span>
+            </a>
+          </div>
         <!-- <button mat-raised-button color="primary">Download Structure</button> -->
         </div>
       </div>

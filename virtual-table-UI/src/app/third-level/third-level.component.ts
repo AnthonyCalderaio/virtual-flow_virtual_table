@@ -77,7 +77,23 @@ export class ThirdLevelComponent implements OnInit {
     return `https://virtualflow-covid.hms.harvard.edu/Structures/${this.protein.proteinName}/Ligands/png/${this.compound.Compound_screening_ID}.png`;
   }
 
+  get zincUrl() {
+    return 'https://zinc15.docking.org/substances/' + this.compound.Compound_source_ID;
+  }
+
   get zincCompound() {
     return this.compound.Compound_source_ID.startsWith('ZINC');
+  }
+
+  get vendorUrl() {
+    if (this.zincCompound) {
+      return this.zincUrl;
+    }
+  }
+
+  get vendorLabel() {
+    if (this.zincCompound) {
+      return 'See ZINC 15 database';
+    }
   }
 }

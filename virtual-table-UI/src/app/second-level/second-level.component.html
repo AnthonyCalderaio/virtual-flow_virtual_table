@@ -6,75 +6,89 @@
   <mat-card class="proteinCard">
     <mat-card-content class="proteinInfo">
       <div class="protein-info-wrapper">
-        <h2 *ngIf="proteinData">Protein Information ({{proteinData.proteinName}})</h2>
+        <h1 *ngIf="proteinData">Virtual screen {{proteinData.screenId}} ({{proteinData.realName}})</h1>
         <div class="protein-summary">
           <span *ngIf="proteinData && proteinData.level2.Calculations">Calculations: {{proteinData.level2.Calculations}}</span>
           <span *ngIf="proteinData && proteinData.level2.Compounds_with_docking_data">Compounds with docking data: {{proteinData.level2.Compounds_with_docking_data}}</span>
         </div>
-        <div class="slider-panel-wrapper">
-          <div id="secondLevelViewport" style="height: 300px; width: 300px"></div>
 
-          <div class="slider-container">
-            <div class="slider-control">
-              <span class="slider-label">Molecular Weight (MW):</span>
-              <ng5-slider
-                [(value)]="filterValues.MW.min"
-                [(highValue)]="filterValues.MW.max"
-                [options]="MWSliderOptions"
-                (userChangeEnd)="applyFilter()"
-              ></ng5-slider>
-            </div>
-
-            <div class="slider-control">
-              <span class="slider-label">Partition Coefficient (SlogP):</span>
-              <ng5-slider
-                [(value)]="filterValues.cLogP.min"
-                [(highValue)]="filterValues.cLogP.max"
-                [options]="SlogpSliderOptions"
-                (userChangeEnd)="applyFilter()"
-              ></ng5-slider>
-            </div>
-
-            <div class="slider-control">
-              <span class="slider-label">Topological Polar Surface Area (TPSA):</span>
-              <ng5-slider
-                [(value)]="filterValues.tpsa.min"
-                [(highValue)]="filterValues.tpsa.max"
-                [options]="TPSASliderOptions"
-                (userChangeEnd)="applyFilter()"
-              ></ng5-slider>
-            </div>
+        <div class="protein-controls-wrapper">
+          <div class="protein-details">
+            <div id="secondLevelViewport" style="height: 300px; width: 300px"></div>
+            <div class="protein-info">
+              <div><strong>Protein index: </strong>{{proteinData.proteinIndex}}</div>
+              <div><strong>Protein name: </strong>{{proteinData.realName}}</div>
+              <div><strong>Alternative protein names: </strong>{{proteinData.alternativeNames}}</div>
+              <div><strong>Target site: </strong>{{proteinData.targetSite}}</div>
+              <div><strong>Used structure: </strong>{{proteinData.usedStructure}}</div>
+              <div><strong>Compounds screened: </strong>{{proteinData.compoundsScreened}}</div>
+            </div >
           </div>
 
-          <div class="slider-container">
-            <div class="slider-control">
-              <span class="slider-label">Hydrogen Bond Acceptors (HBA):</span>
-              <ng5-slider
-                [(value)]="filterValues.h_acc.min"
-                [(highValue)]="filterValues.h_acc.max"
-                [options]="HBASliderOptions"
-                (userChangeEnd)="applyFilter()"
-              ></ng5-slider>
+          <div class="slider-panel-wrapper">
+
+            <div class="slider-container">
+              <div class="slider-control">
+                <span class="slider-label">Molecular Weight (MW):</span>
+                <ng5-slider
+                  [(value)]="filterValues.MW.min"
+                  [(highValue)]="filterValues.MW.max"
+                  [options]="MWSliderOptions"
+                  (userChangeEnd)="applyFilter()"
+                ></ng5-slider>
+              </div>
+
+              <div class="slider-control">
+                <span class="slider-label">Partition Coefficient (SlogP):</span>
+                <ng5-slider
+                  [(value)]="filterValues.cLogP.min"
+                  [(highValue)]="filterValues.cLogP.max"
+                  [options]="SlogpSliderOptions"
+                  (userChangeEnd)="applyFilter()"
+                ></ng5-slider>
+              </div>
+
+              <div class="slider-control">
+                <span class="slider-label">Topological Polar Surface Area (TPSA):</span>
+                <ng5-slider
+                  [(value)]="filterValues.tpsa.min"
+                  [(highValue)]="filterValues.tpsa.max"
+                  [options]="TPSASliderOptions"
+                  (userChangeEnd)="applyFilter()"
+                ></ng5-slider>
+              </div>
             </div>
 
-            <div class="slider-control">
-              <span class="slider-label"># H-Donors (HBD):</span>
-              <ng5-slider
-                [(value)]="filterValues.h_donors.min"
-                [(highValue)]="filterValues.h_donors.max"
-                [options]="HBDSliderOptions"
-                (userChangeEnd)="applyFilter()"
-              ></ng5-slider>
-            </div>
+            <div class="slider-container">
+              <div class="slider-control">
+                <span class="slider-label">Hydrogen Bond Acceptors (HBA):</span>
+                <ng5-slider
+                  [(value)]="filterValues.h_acc.min"
+                  [(highValue)]="filterValues.h_acc.max"
+                  [options]="HBASliderOptions"
+                  (userChangeEnd)="applyFilter()"
+                ></ng5-slider>
+              </div>
 
-            <div class="slider-control">
-              <span class="slider-label">Rotable Bonds (rotB):</span>
-              <ng5-slider
-                [(value)]="filterValues.Rotatable_Bonds.min"
-                [(highValue)]="filterValues.Rotatable_Bonds.max"
-                [options]="rotBSliderOptions"
-                (userChangeEnd)="applyFilter()"
-              ></ng5-slider>
+              <div class="slider-control">
+                <span class="slider-label"># H-Donors (HBD):</span>
+                <ng5-slider
+                  [(value)]="filterValues.h_donors.min"
+                  [(highValue)]="filterValues.h_donors.max"
+                  [options]="HBDSliderOptions"
+                  (userChangeEnd)="applyFilter()"
+                ></ng5-slider>
+              </div>
+
+              <div class="slider-control">
+                <span class="slider-label">Rotable Bonds (rotB):</span>
+                <ng5-slider
+                  [(value)]="filterValues.Rotatable_Bonds.min"
+                  [(highValue)]="filterValues.Rotatable_Bonds.max"
+                  [options]="rotBSliderOptions"
+                  (userChangeEnd)="applyFilter()"
+                ></ng5-slider>
+              </div>
             </div>
           </div>
         </div>

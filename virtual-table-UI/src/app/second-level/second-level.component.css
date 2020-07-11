@@ -1,3 +1,7 @@
+h1 {
+  text-align: center;
+}
+
 .container {
   z-index: 0;
   position: relative;
@@ -23,7 +27,7 @@
 
 .dockedCard {
   width: 90%;
-  background-color: lightgray;
+  background-color: #fff;
 }
 
 .dockedInfoHeader {
@@ -38,7 +42,7 @@
 
 .proteinCard {
   margin-bottom: 10px;
-  background-color: lightgrey;
+  background-color: #fff;
 }
 
 .proteinInfoHeader {
@@ -130,7 +134,7 @@
 #secondLevelViewport {
   min-width: 300px;
   height: 300px;
-  margin: auto;
+  margin-right: 40px;
 }
 
 .protein-info-wrapper {
@@ -148,4 +152,23 @@
 
 .mat-row {
   cursor: pointer;
+}
+
+.protein-controls-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.protein-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.protein-info {
+  margin-left: 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 17px;
 }
