@@ -6,10 +6,10 @@
   <mat-card class="proteinCard">
     <mat-card-content class="proteinInfo">
       <div class="protein-info-wrapper">
-        <h2 *ngIf="wholeData">Protein Information ({{wholeData.proteinName}})</h2>
+        <h2 *ngIf="proteinData">Protein Information ({{proteinData.proteinName}})</h2>
         <div class="protein-summary">
-          <span *ngIf="wholeData && wholeData.level2.Calculations">Calculations: {{wholeData.level2.Calculations}}</span>
-          <span *ngIf="wholeData && wholeData.level2.Compounds_with_docking_data">Compounds with docking data: {{wholeData.level2.Compounds_with_docking_data}}</span>
+          <span *ngIf="proteinData && proteinData.level2.Calculations">Calculations: {{proteinData.level2.Calculations}}</span>
+          <span *ngIf="proteinData && proteinData.level2.Compounds_with_docking_data">Compounds with docking data: {{proteinData.level2.Compounds_with_docking_data}}</span>
         </div>
         <div class="slider-panel-wrapper">
           <div id="secondLevelViewport" style="height: 300px; width: 300px"></div>
@@ -101,7 +101,7 @@
         hide: compoundBlacklist.includes(element.Compound_screening_ID)
       }"
     >
-      <img src='{{"Structures/"+proteinNameFromLevel1+"/Ligands/png/"+element.Compound_screening_ID+".png"}}' style=" height: 300px;
+      <img [src]="'https://virtualflow-covid.hms.harvard.edu/Structures/'+proteinNameFromLevel1+'/Ligands/png/'+element.Compound_screening_ID+'.png'" style=" height: 300px;
       width: 180px;
       height: 180px;
       border-radius: 25px;

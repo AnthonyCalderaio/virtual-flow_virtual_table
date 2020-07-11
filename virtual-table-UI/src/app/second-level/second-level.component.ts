@@ -32,17 +32,16 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone
-  ) {
-    this.setProteinName(this.router.getCurrentNavigation().extras)
-  }
+  ) {}
+
   proteinNameFromLevel1: string;
   initPageSize = 10;
-  
+
   removedCompounds: any = [];
   dataSource = new MatTableDataSource();
 
@@ -121,7 +120,7 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   HBDSliderOptions = this.getSliderOptions('h_donors');
   rotBSliderOptions = this.getSliderOptions('Rotatable_Bonds');
 
-  wholeData: any;
+  proteinData: any;
 
   private dataArray: any = [];
   private stopScrolling: any;
@@ -144,7 +143,8 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe((params) => {
-      this.wholeData = realdata[params.proteinId];
+      this.proteinData = realdata[params.proteinId];
+      this.setProteinName(this.proteinData.proteinName);
       this.populateMoleculeViewports();
       this.populateTableData();
       this.dataSource.data = this.dataArray;
@@ -157,7 +157,7 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   clickedRow(_: any, row: any) {
-    const compounds = this.wholeData.level2.docked_compounds;
+    const compounds = this.proteinData.level2.docked_compounds;
     const key = Object.keys(compounds)
       .filter(
         (k) => compounds[k].Compound_screening_ID === row.Compound_screening_ID
@@ -173,9 +173,9 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   populateTableData() {
-    Object.keys(this.wholeData.level2.docked_compounds).forEach((element) => {
+    Object.keys(this.proteinData.level2.docked_compounds).forEach((element) => {
       const subSet = this.getSubsetOfObject(
-        this.wholeData.level2.docked_compounds[element]
+        this.proteinData.level2.docked_compounds[element]
       );
       this.dataArray.push(subSet);
     });
