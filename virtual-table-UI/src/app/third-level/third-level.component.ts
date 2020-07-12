@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as molstar from 'src/assets/outsider_projects/version1/molstar.js';
+import * as molstar from 'src/assets/outsider_projects/molstar/molstar.js';
 import { take } from 'rxjs/operators';
 import { StoreService } from '../store.service';
 
@@ -9,7 +9,8 @@ import { StoreService } from '../store.service';
   templateUrl: './third-level.component.html',
   styleUrls: ['./third-level.component.css'],
 })
-export class ThirdLevelComponent implements OnInit {
+export class ThirdLevelComponent implements OnInit
+{
   compound: any;
   protein: any;
 
@@ -19,8 +20,6 @@ export class ThirdLevelComponent implements OnInit {
     private ngZone: NgZone,
     private store: StoreService
   ) {}
-
-  HTMLElement: any;
 
   ngOnInit(): void {
     this.ngZone.runOutsideAngular(() => {
@@ -35,33 +34,27 @@ export class ThirdLevelComponent implements OnInit {
   }
 
   private _renderVisualization(protein: any, compound: any) {
-    const viewer = new molstar.Viewer('viewer', {
-      layoutIsExpanded: false,
-      layoutShowControls: false,
-      layoutShowRemoteState: false,
-      layoutShowSequence: true,
-      layoutShowLog: false,
-      layoutShowLeftPanel: true,
-
-      viewportShowExpand: true,
-      viewportShowControls: false,
-      viewportShowSettings: false,
-      viewportShowSelectionMode: false,
-      viewportShowAnimation: false,
-    });
+    const viewer = new molstar.DockingViewer('viewer', [
+      // add colors as hex numbers here, one for each protein chain
+      0x33DD22,
+      0x1133EE
+    ], true);
 
     viewer.loadStructuresFromUrlsAndMerge([
       {
         url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Receptor.pdbqt`,
+        // url: './assets/sample_urls/Receptor.pdbqt',
         format: 'pdbqt',
       },
       {
         url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Ligands/${compound.Compound_screening_ID}.mol2`,
+        // url: './assets/sample_urls/Ligand.mol2',
         format: 'mol2',
       },
     ]);
-    this.HTMLElement = document.getElementsByClassName('msp-plugin')[0];
-    viewer.plugin.canvas3d.handleResize();
+    viewer.plugin.behaviors.canvas3d.initialized.subscribe(() => {
+      viewer.plugin.canvas3d.handleResize();
+    });
   }
 
   backClicked() {

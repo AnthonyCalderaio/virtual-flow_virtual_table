@@ -27,11 +27,10 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
-              "src/assets/outsider_projects/version1/molstar.css"
+              "src/assets/outsider_projects/molstar/molstar.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "src/assets/outsider_projects/version1/molstar.js",
               "src/custom.js"
             ]
           },
