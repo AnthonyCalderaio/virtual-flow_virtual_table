@@ -199,7 +199,8 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
   }
 
   backClicked() {
-    this.router.navigate(['/first-level']);
+    // this.router.navigate(['/first-level']);
+    window.location.href = 'https://vf4covid19.hms.harvard.edu/';
   }
 
   populateMoleculeViewports() {
