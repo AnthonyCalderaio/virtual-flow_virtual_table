@@ -11,7 +11,7 @@
 
       <div class="compound-details">
         <h2>Compound details</h2>
-        <img *ngIf="compound" [src]="compoundImage" alt="">
+        <app-image *ngIf="compound" [src]="compoundImage" [width]="300" [height]="300"></app-image>
         <div *ngIf="compound">
           <div class="compound-field">
             <strong>VirtualFlow compound ID:</strong>

@@ -1,0 +1,2 @@
+<img *ngIf="loaded" [src]="source" [width]="width" [height]="height">
+<div [style.width.px]="width" [style.height.px]="height" class="no-image" *ngIf="notFound">No image</div>

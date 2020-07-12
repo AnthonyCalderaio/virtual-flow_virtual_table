@@ -115,11 +115,8 @@
         hide: compoundBlacklist.includes(element.Compound_screening_ID)
       }"
     >
-      <img [src]="'https://virtualflow-covid.hms.harvard.edu/Structures/'+proteinNameFromLevel1+'/Ligands/png/'+element.Compound_screening_ID+'.png'" style=" height: 300px;
-      width: 180px;
-      height: 180px;
-      border-radius: 25px;
-      margin: auto;">
+      <app-image [width]="180" [height]="180" [src]="'https://virtualflow-covid.hms.harvard.edu/Structures/'+proteinNameFromLevel1+'/Ligands/png/'+element.Compound_screening_ID+'.png'">
+      </app-image>
     </td>
   </ng-container>
 
