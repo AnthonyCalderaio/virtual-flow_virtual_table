@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as molstar from 'src/assets/outsider_projects/molstar/molstar.js';
 import { take } from 'rxjs/operators';
@@ -9,8 +9,7 @@ import { StoreService } from '../store.service';
   templateUrl: './third-level.component.html',
   styleUrls: ['./third-level.component.css'],
 })
-export class ThirdLevelComponent implements OnInit
-{
+export class ThirdLevelComponent implements OnInit, AfterViewInit {
   compound: any;
   protein: any;
 
@@ -21,14 +20,19 @@ export class ThirdLevelComponent implements OnInit
     private store: StoreService
   ) {}
 
-  ngOnInit(): void {
+  HTMLElement: any;
+
+  ngOnInit() {
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      const { proteinId, compoundId } = params;
+      this.protein = this.store.data[proteinId];
+      this.compound = this.protein.level2.docked_compounds[compoundId];
+    });
+  }
+
+  ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.route.params.pipe(take(1)).subscribe((params) => {
-        const { proteinId, compoundId } = params;
-        this.protein = this.store.data[proteinId];
-        this.compound = this.protein.level2.docked_compounds[compoundId];
-        this._renderVisualization(this.protein, this.compound);
-      });
+      this._renderVisualization(this.protein, this.compound);
     });
     document.documentElement.scrollTop = 0;
   }
