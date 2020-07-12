@@ -1,14 +1,13 @@
 import {
   Component,
-  OnInit,
   ViewChild,
   NgZone,
   AfterViewInit,
-  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import * as NGL from '../../../node_modules/ngl';
+import * as molstar from 'src/assets/outsider_projects/molstar/molstar.js';
 import { Options } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -28,7 +27,7 @@ type ValueTypes =
   templateUrl: './second-level.component.html',
   styleUrls: ['./second-level.component.css'],
 })
-export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SecondLevelComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -204,26 +203,23 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
 
   populateMoleculeViewports() {
     this.ngZone.runOutsideAngular(() => {
-      setTimeout(() => {
-        const stage = new NGL.Stage('secondLevelViewport');
-        stage.setParameters({ backgroundColor: 'white', hoverTimeout: -1 });
-        window.addEventListener('resize', () => stage.handleResize(), true);
-        stage.loadFile('https://virtualflow-covid.hms.harvard.edu/Structures/'+this.proteinNameFromLevel1+'/Receptor.pdb', { defaultRepresentation: true });
-        document.getElementById('secondLevelViewport').addEventListener(
-          'mousewheel',
-          (this.stopScrolling = (e) => {
-            e.preventDefault();
-          }),
-          { passive: false }
-        );
-      }, 1);
+      const viewer = new molstar.DockingViewer('viewer', [
+        // add colors as hex numbers here, one for each protein chain
+        0x33DD22,
+        0x1133EE
+      ], false);
+  
+      viewer.loadStructuresFromUrlsAndMerge([
+        {
+          url: `https://virtualflow-covid.hms.harvard.edu/Structures/${this.proteinNameFromLevel1}/Receptor.pdbqt`,
+          // url: './assets/sample_urls/Receptor.pdbqt',
+          format: 'pdbqt',
+        },
+      ]);
+      viewer.plugin.behaviors.canvas3d.initialized.subscribe(() => {
+        viewer.plugin.canvas3d.handleResize();
+      });
     });
-  }
-
-  ngOnDestroy() {
-    document
-      .getElementById('secondLevelViewport')
-      .removeEventListener('mousewheel', this.stopScrolling);
   }
 
   applyFilter() {
