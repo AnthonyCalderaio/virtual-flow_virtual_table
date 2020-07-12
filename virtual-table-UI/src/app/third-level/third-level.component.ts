@@ -20,8 +20,6 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
     private store: StoreService
   ) {}
 
-  HTMLElement: any;
-
   ngOnInit() {
     this.route.params.pipe(take(1)).subscribe((params) => {
       const { proteinId, compoundId } = params;
