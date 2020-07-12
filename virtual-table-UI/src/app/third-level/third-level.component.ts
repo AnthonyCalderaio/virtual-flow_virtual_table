@@ -36,7 +36,7 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
   }
 
   private _renderVisualization(protein: any, compound: any) {
-    const viewer = new molstar.DockingViewer('viewer', [
+    const viewer = new molstar.DockingViewer('level-3-viewer', [
       // add colors as hex numbers here, one for each protein chain
       0x33DD22,
       0x1133EE
@@ -45,12 +45,10 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
     viewer.loadStructuresFromUrlsAndMerge([
       {
         url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Receptor.pdbqt`,
-        // url: './assets/sample_urls/Receptor.pdbqt',
         format: 'pdbqt',
       },
       {
         url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Ligands/${compound.Compound_screening_ID}.mol2`,
-        // url: './assets/sample_urls/Ligand.mol2',
         format: 'mol2',
       },
     ]);
