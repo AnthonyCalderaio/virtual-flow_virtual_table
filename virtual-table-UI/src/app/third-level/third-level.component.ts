@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as molstar from 'src/assets/outsider_projects/version1/molstar.js';
 import { take } from 'rxjs/operators';
-import realdata from '../wip_realdata.json';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-third-level',
@@ -16,7 +16,8 @@ export class ThirdLevelComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private store: StoreService
   ) {}
 
   HTMLElement: any;
@@ -25,7 +26,7 @@ export class ThirdLevelComponent implements OnInit {
     this.ngZone.runOutsideAngular(() => {
       this.route.params.pipe(take(1)).subscribe((params) => {
         const { proteinId, compoundId } = params;
-        this.protein = realdata[proteinId];
+        this.protein = this.store.data[proteinId];
         this.compound = this.protein.level2.docked_compounds[compoundId];
         this._renderVisualization(this.protein, this.compound);
       });
@@ -83,17 +84,5 @@ export class ThirdLevelComponent implements OnInit {
 
   get zincCompound() {
     return this.compound.Compound_source_ID.startsWith('ZINC');
-  }
-
-  get vendorUrl() {
-    if (this.zincCompound) {
-      return this.zincUrl;
-    }
-  }
-
-  get vendorLabel() {
-    if (this.zincCompound) {
-      return 'See ZINC 15 database';
-    }
   }
 }

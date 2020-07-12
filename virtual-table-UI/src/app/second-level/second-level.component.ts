@@ -13,7 +13,7 @@ import { Options } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import realdata from '../wip_realdata.json';
+import { StoreService } from '../store.service';
 
 type ValueTypes =
   | 'MW'
@@ -36,7 +36,8 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private store: StoreService
   ) {}
 
   proteinNameFromLevel1: string;
@@ -143,7 +144,7 @@ export class SecondLevelComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe((params) => {
-      this.proteinData = realdata[params.proteinId];
+      this.proteinData = this.store.data[params.proteinId];
       this.setProteinName(this.proteinData.proteinName);
       this.populateMoleculeViewports();
       this.populateTableData();

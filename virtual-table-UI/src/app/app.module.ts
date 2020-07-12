@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { FirstLevelComponent } from './first-level/first-level.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,11 +19,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Ng5SliderModule } from 'ng5-slider';
 import { MatTableModule } from '@angular/material/table';
 
-
-
-import { MatPaginatorModule } from "@angular/material/paginator";
-import {MatSortModule} from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -48,12 +48,17 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   exports: [MatPaginatorModule],
-  providers: [{
-    useClass: HashLocationStrategy,
-    provide: LocationStrategy
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      useClass: HashLocationStrategy,
+      provide: LocationStrategy,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
