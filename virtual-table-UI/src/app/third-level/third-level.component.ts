@@ -1,41 +1,44 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as molstar from 'src/assets/outsider_projects/molstar/molstar.js';
 import { take } from 'rxjs/operators';
-import realdata from '../wip_realdata.json';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-third-level',
   templateUrl: './third-level.component.html',
   styleUrls: ['./third-level.component.css'],
 })
-export class ThirdLevelComponent implements OnInit
-{
+export class ThirdLevelComponent implements OnInit, AfterViewInit {
   compound: any;
   protein: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private store: StoreService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      const { proteinId, compoundId } = params;
+      this.protein = this.store.data[proteinId];
+      this.compound = this.protein.level2.docked_compounds[compoundId];
+    });
+  }
+
+  ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.route.params.pipe(take(1)).subscribe((params) => {
-        const { proteinId, compoundId } = params;
-        this.protein = realdata[proteinId];
-        this.compound = this.protein.level2.docked_compounds[compoundId];
-        this._renderVisualization(this.protein, this.compound);
-      });
+      this._renderVisualization(this.protein, this.compound);
     });
     document.documentElement.scrollTop = 0;
   }
 
   private _renderVisualization(protein: any, compound: any) {
-    const viewer = new molstar.DockingViewer('viewer', [
+    const viewer = new molstar.DockingViewer('level-3-viewer', [
       // add colors as hex numbers here, one for each protein chain
-      0x33DD22,
+      this.protein.color,
       0x1133EE
     ], true);
 
@@ -76,17 +79,5 @@ export class ThirdLevelComponent implements OnInit
 
   get zincCompound() {
     return this.compound.Compound_source_ID.startsWith('ZINC');
-  }
-
-  get vendorUrl() {
-    if (this.zincCompound) {
-      return this.zincUrl;
-    }
-  }
-
-  get vendorLabel() {
-    if (this.zincCompound) {
-      return 'See ZINC 15 database';
-    }
   }
 }

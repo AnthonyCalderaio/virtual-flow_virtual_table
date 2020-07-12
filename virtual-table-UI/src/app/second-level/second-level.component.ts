@@ -12,7 +12,7 @@ import { Options } from 'ng5-slider';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import realdata from '../wip_realdata.json';
+import { StoreService } from '../store.service';
 
 type ValueTypes =
   | 'MW'
@@ -35,7 +35,8 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private store: StoreService
   ) {}
 
   proteinNameFromLevel1: string;
@@ -122,7 +123,6 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
   proteinData: any;
 
   private dataArray: any = [];
-  private stopScrolling: any;
 
   private getSliderOptions(type: ValueTypes): Options {
     return {
@@ -142,9 +142,8 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe((params) => {
-      this.proteinData = realdata[params.proteinId];
+      this.proteinData = this.store.data[params.proteinId];
       this.setProteinName(this.proteinData.proteinName);
-      this.populateMoleculeViewports();
       this.populateTableData();
       this.dataSource.data = this.dataArray;
       this.dataSource.sort = this.sort;
@@ -153,6 +152,9 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator; // For pagination
+    this.ngZone.runOutsideAngular(() => {
+      this.populateMoleculeViewports();
+    });
   }
 
   clickedRow(_: any, row: any) {
@@ -192,33 +194,36 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       h_donors: objectInput.h_donors,
       tpsa: objectInput.TPSA,
       Rotatable_Bonds: objectInput.Rotatable_Bonds,
-      docking_score: objectInput.docking_score
+      docking_score: objectInput.docking_score,
     };
     // return subset;
   }
 
   backClicked() {
-    this.router.navigate(['/first-level']);
+    // this.router.navigate(['/first-level']);
+    window.location.href = 'https://vf4covid19.hms.harvard.edu/';
   }
 
   populateMoleculeViewports() {
-    this.ngZone.runOutsideAngular(() => {
-      const viewer = new molstar.DockingViewer('viewer', [
+    const viewer = new molstar.DockingViewer(
+      'level-2-viewer',
+      [
         // add colors as hex numbers here, one for each protein chain
-        0x33DD22,
-        0x1133EE
-      ], false);
-  
-      viewer.loadStructuresFromUrlsAndMerge([
-        {
-          url: `https://virtualflow-covid.hms.harvard.edu/Structures/${this.proteinNameFromLevel1}/Receptor.pdbqt`,
-          // url: './assets/sample_urls/Receptor.pdbqt',
-          format: 'pdbqt',
-        },
-      ]);
-      viewer.plugin.behaviors.canvas3d.initialized.subscribe(() => {
-        viewer.plugin.canvas3d.handleResize();
-      });
+        this.proteinData.color,
+        0x1133ee,
+      ],
+      false
+    );
+
+    viewer.loadStructuresFromUrlsAndMerge([
+      {
+        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${this.proteinNameFromLevel1}/Receptor.pdbqt`,
+        // url: './assets/sample_urls/Receptor.pdbqt',
+        format: 'pdbqt',
+      },
+    ]);
+    viewer.plugin.behaviors.canvas3d.initialized.subscribe(() => {
+      viewer.plugin.canvas3d.handleResize();
     });
   }
 
@@ -238,7 +243,7 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       return true;
     });
   }
-  setProteinName(input:any){
+  setProteinName(input: any) {
     this.proteinNameFromLevel1 = input;
   }
 }
