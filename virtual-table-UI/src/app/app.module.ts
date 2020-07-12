@@ -11,7 +11,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ThirdLevelComponent } from './third-level/third-level.component';
 import { LigandDetailComponent } from './ligand-detail/ligand-detail.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
@@ -24,6 +23,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ImageComponent } from './shared/image.component';
+import { ThirdLevelComponent } from './third-level/third-level.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { environment } from '../environments/environment';
     SecondLevelComponent,
     ThirdLevelComponent,
     LigandDetailComponent,
+    ImageComponent
   ],
   imports: [
     BrowserModule,
