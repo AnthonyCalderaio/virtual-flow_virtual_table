@@ -38,7 +38,7 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
   private _renderVisualization(protein: any, compound: any) {
     const viewer = new molstar.DockingViewer('level-3-viewer', [
       // add colors as hex numbers here, one for each protein chain
-      0x33DD22,
+      this.protein.color,
       0x1133EE
     ], true);
 

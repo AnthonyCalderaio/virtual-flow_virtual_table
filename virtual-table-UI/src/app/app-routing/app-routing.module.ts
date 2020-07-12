@@ -3,7 +3,6 @@ import { Routes, RouterModule, Resolve } from '@angular/router'; // CLI imports 
 import { SecondLevelComponent } from '../second-level/second-level.component';
 import { FirstLevelComponent } from '../first-level/first-level.component';
 import { ThirdLevelComponent } from '../third-level/third-level.component';
-import { LigandDetailComponent } from '../ligand-detail/ligand-detail.component';
 import { StoreService } from '../store.service';
 
 @Injectable({
@@ -33,8 +32,7 @@ const routes: Routes = [
     path: 'third-level/:proteinId/:compoundId',
     component: ThirdLevelComponent,
     resolve: { StoreResolver },
-  },
-  { path: 'ligand-detail', component: LigandDetailComponent },
+  }
 ];
 
 @NgModule({

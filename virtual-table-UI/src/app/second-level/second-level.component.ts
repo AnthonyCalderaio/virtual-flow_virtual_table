@@ -209,7 +209,7 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       'level-2-viewer',
       [
         // add colors as hex numbers here, one for each protein chain
-        0x33dd22,
+        this.proteinData.color,
         0x1133ee,
       ],
       false
