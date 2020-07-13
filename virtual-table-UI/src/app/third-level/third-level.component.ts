@@ -35,20 +35,28 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
     document.documentElement.scrollTop = 0;
   }
 
+  private _hexColor(color: string) {
+    const r = parseInt(color.substr(1, 2), 16);
+    const g = parseInt(color.substr(3, 2), 16);
+    const b = parseInt(color.substr(5, 2), 16);
+    return ((r << 16) | (g << 8) | b);
+  }
+
   private _renderVisualization(protein: any, compound: any) {
     const viewer = new molstar.DockingViewer('level-3-viewer', [
       // add colors as hex numbers here, one for each protein chain
-      this.protein.color,
-      0x1133EE
+      this._hexColor(this.protein.color)
     ], true);
 
     viewer.loadStructuresFromUrlsAndMerge([
       {
         url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Receptor.pdbqt`,
+        // url: './assets/sample_urls/Receptor.pdbqt',
         format: 'pdbqt',
       },
       {
         url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Ligands/${compound.Compound_screening_ID}.mol2`,
+        // url: './assets/sample_urls/Ligand.mol2',
         format: 'mol2',
       },
     ]);

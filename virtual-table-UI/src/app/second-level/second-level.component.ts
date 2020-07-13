@@ -204,13 +204,19 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
     window.location.href = 'https://vf4covid19.hms.harvard.edu/';
   }
 
+  private _hexColor(color: string) {
+    const r = parseInt(color.substr(1, 2), 16);
+    const g = parseInt(color.substr(3, 2), 16);
+    const b = parseInt(color.substr(5, 2), 16);
+    return ((r << 16) | (g << 8) | b);
+  }
+
   populateMoleculeViewports() {
     const viewer = new molstar.DockingViewer(
       'level-2-viewer',
       [
         // add colors as hex numbers here, one for each protein chain
-        this.proteinData.color,
-        0x1133ee,
+        this._hexColor(this.proteinData.color)
       ],
       false
     );
