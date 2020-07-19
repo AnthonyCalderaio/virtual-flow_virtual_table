@@ -1,6 +1,5 @@
 # Raw to JSON
 
-1. Convert `proteins.csv` from `raw-data` to JSON and save it to the current directory as `proteins.json`. For the CSV to JSON transform you can use https://csvjson.com/csv2json.
-2. Convert `colors.csv` from `raw-data` to JSON and save it to the current directory as `colors.json`. For the CSV to JSON transform you can use https://csvjson.com/csv2json.
-3. Run `index.js` to get the output `data.json` file.
+1. Make sure you follow the directory structure and format of the CVS files from the current directory. Even a single column with a wrong number will cause generation of corrupted data.
+2. Run `index.js` and move the output `data.json` file to the `assets` directory in the project, under `src`.
 
