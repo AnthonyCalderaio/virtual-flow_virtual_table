@@ -1,0 +1,12 @@
+{
+  "name": "data",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Minko Gechev <mgechev@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "dot-case": "^3.0.3"
+  }
+}

@@ -1,0 +1,43 @@
+Arguments: 
+  /Users/mgechev/.nvm/versions/node/v12.0.0/bin/node /Users/mgechev/.nvm/versions/node/v12.0.0/bin/yarn add cvstojson
+
+PATH: 
+  /Users/mgechev/.nvm/versions/node/v12.0.0/bin:/Users/mgechev/.node/bin:/usr/texbin:/usr/local/heroku/bin:/Users/mgechev/bin:/opt/local/bin:/opt/local/sbin:/Users/mgechev/Projects/golang/bin:~/.rvm/gems/ruby-1.9.2-p320/bin:~/.rvm/gems/ruby-1.9.2-p320@global/bin:~/.rvm/rubies/ruby-1.9.2-p320/bin:~/.rvm/bin:~/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Applications/apache-ant-1.9.2/bin/:~/Development/android/sdk/tools/:~/Development/android/sdk/platform-tools/:/Development/android-sdk-macosx/platform-tools:/Development/android-sdk-macosx/tools:/Users/mgechev/Development/wabt/out/clang/Debug:/Users/mgechev/Library/Haskell/bin:/usr/local/git/bin:/Users/mgechev/.rvm/bin:/usr/local/git/bin:/Users/mgechev/.golang/bin:/usr/local/opt/dart/libexec/bin:/usr/local/git/bin:/usr/local/bin:/usr/local/sbin:/usr/texbin:/usr/local/heroku/bin:~/bin:/bin:/opt/local/bin:/opt/local/sbin:~/.rvm/gems/ruby-2.0.0-p576/bin:~/.rvm/gems/ruby-2.0.0-p576@global/bin:~/.rvm/rubies/ruby-2.0.0-p576/bin:~/.rvm/bin:~/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Applications/apache-ant-1.9.2/bin:~/Development/android/sdk/tools:~/Development/android/sdk/platform-tools/:/Development/android-sdk-macosx/platform-tools:/Development/android-sdk-macosx/tools:/usr/local/git/bin:~/.rvm/bin:/usr/local/git/bin:/usr/local/opt/dart/libexec/bin:/Applications/Julia-0.6.app/Contents/Resources/julia/bin:/Users/mgechev/.npm-packages/bin
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  12.0.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/cvstojson: Not found
+      at Request.params.callback [as _callback] (/Users/mgechev/.nvm/versions/node/v12.0.0/lib/node_modules/yarn/lib/cli.js:66830:18)
+      at Request.self.callback (/Users/mgechev/.nvm/versions/node/v12.0.0/lib/node_modules/yarn/lib/cli.js:140464:22)
+      at Request.emit (events.js:196:13)
+      at Request.<anonymous> (/Users/mgechev/.nvm/versions/node/v12.0.0/lib/node_modules/yarn/lib/cli.js:141436:10)
+      at Request.emit (events.js:196:13)
+      at IncomingMessage.<anonymous> (/Users/mgechev/.nvm/versions/node/v12.0.0/lib/node_modules/yarn/lib/cli.js:141358:12)
+      at Object.onceWrapper (events.js:284:20)
+      at IncomingMessage.emit (events.js:201:15)
+      at endReadableNT (_stream_readable.js:1130:12)
+      at processTicksAndRejections (internal/process/task_queues.js:83:17)
+
+npm manifest: 
+  {
+    "name": "data",
+    "version": "0.0.0",
+    "main": "index.js",
+    "author": "Minko Gechev <mgechev@gmail.com>",
+    "license": "MIT",
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
