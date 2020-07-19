@@ -24,7 +24,7 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
     this.route.params.pipe(take(1)).subscribe((params) => {
       const { proteinId, compoundId } = params;
       this.protein = this.store.data[proteinId];
-      this.compound = this.protein.level2.docked_compounds[compoundId];
+      this.compound = this.protein.compounds[compoundId];
     });
   }
 
@@ -50,12 +50,12 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
 
     viewer.loadStructuresFromUrlsAndMerge([
       {
-        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Receptor.pdbqt`,
+        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.inter_screen_id}/Receptor.pdbqt`,
         // url: './assets/sample_urls/Receptor.pdbqt',
         format: 'pdbqt',
       },
       {
-        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.proteinName}/Ligands/${compound.Compound_screening_ID}.mol2`,
+        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${protein.inter_screen_id}/Ligands/${compound.compound_screening_id}.mol2`,
         // url: './assets/sample_urls/Ligand.mol2',
         format: 'mol2',
       },
@@ -76,14 +76,14 @@ export class ThirdLevelComponent implements OnInit, AfterViewInit {
     if (!this.protein || !this.compound) {
       return '';
     }
-    return `https://virtualflow-covid.hms.harvard.edu/Structures/${this.protein.proteinName}/Ligands/png/${this.compound.Compound_screening_ID}.png`;
+    return `https://virtualflow-covid.hms.harvard.edu/Structures/${this.protein.inter_screen_id}/Ligands/png/${this.compound.compound_screening_id}.png`;
   }
 
   get zincUrl() {
-    return 'https://zinc15.docking.org/substances/' + this.compound.Compound_source_ID;
+    return 'https://zinc15.docking.org/substances/' + this.compound.compound_source_id;
   }
 
   get zincCompound() {
-    return this.compound.Compound_source_ID.startsWith('ZINC');
+    return this.compound.compound_source_id.startsWith('ZINC');
   }
 }

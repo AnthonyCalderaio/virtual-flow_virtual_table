@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import testData from '../testData.json';
+// import testData from '../testData.json';
 import * as NGL from '../../../node_modules/ngl';
 import { DOCUMENT } from '@angular/common';
 
@@ -37,7 +37,7 @@ export class LigandDetailComponent implements OnInit {
 
 
 
-  testData: any = testData
+  testData: any = {}
 
 
   populateMoleculeViewports() {

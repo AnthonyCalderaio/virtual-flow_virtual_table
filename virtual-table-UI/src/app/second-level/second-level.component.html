@@ -6,22 +6,22 @@
   <mat-card class="proteinCard">
     <mat-card-content class="proteinInfo">
       <div class="protein-info-wrapper">
-        <h1 *ngIf="proteinData">Virtual screen {{proteinData.screenId}} ({{proteinData.realName}})</h1>
+        <h1 *ngIf="proteinData">Virtual screen {{proteinData.screen_id}} ({{proteinData.real_name}})</h1>
         <div class="protein-summary">
-          <span *ngIf="proteinData && proteinData.level2.Calculations">Calculations: {{proteinData.level2.Calculations}}</span>
-          <span *ngIf="proteinData && proteinData.level2.Compounds_with_docking_data">Compounds with docking data: {{proteinData.level2.Compounds_with_docking_data}}</span>
+          <span *ngIf="proteinData && proteinData.calculations">Calculations: {{proteinData.calculations}}</span>
+          <span *ngIf="proteinData && proteinData.compounds_with_docking_data">Compounds with docking data: {{proteinData.compounds_with_docking_data}}</span>
         </div>
 
         <div class="protein-controls-wrapper">
           <div class="protein-details">
             <div id="level-2-viewer" style="height: 300px; width: 300px; position: relative;"></div>
             <div class="protein-info">
-              <div><strong>Protein index: </strong>{{proteinData.proteinIndex}}</div>
-              <div><strong>Protein name: </strong>{{proteinData.realName}}</div>
-              <div><strong>Alternative protein names: </strong>{{proteinData.alternativeNames}}</div>
-              <div><strong>Target site: </strong>{{proteinData.targetSite}}</div>
-              <div><strong>Used structure: </strong>{{proteinData.usedStructure}}</div>
-              <div><strong>Compounds screened: </strong>{{proteinData.compoundsScreened}}</div>
+              <div><strong>Protein index: </strong>{{proteinData.protein_index}}</div>
+              <div><strong>Protein name: </strong>{{proteinData.real_name}}</div>
+              <div><strong>Alternative protein names: </strong>{{proteinData.alternative_names}}</div>
+              <div><strong>Target site: </strong>{{proteinData.target_site}}</div>
+              <div><strong>Used structure: </strong>{{proteinData.used_structure}}</div>
+              <div><strong>Compounds screened: </strong>{{proteinData.compounds_screened}}</div>
             </div >
           </div>
 
@@ -31,8 +31,8 @@
               <div class="slider-control">
                 <span class="slider-label">Molecular Weight (MW):</span>
                 <ng5-slider
-                  [(value)]="filterValues.MW.min"
-                  [(highValue)]="filterValues.MW.max"
+                  [(value)]="filterValues.m_w.min"
+                  [(highValue)]="filterValues.m_w.max"
                   [options]="MWSliderOptions"
                   (userChangeEnd)="applyFilter()"
                 ></ng5-slider>
@@ -41,8 +41,8 @@
               <div class="slider-control">
                 <span class="slider-label">Partition Coefficient (SlogP):</span>
                 <ng5-slider
-                  [(value)]="filterValues.cLogP.min"
-                  [(highValue)]="filterValues.cLogP.max"
+                  [(value)]="filterValues.c_log_p.min"
+                  [(highValue)]="filterValues.c_log_p.max"
                   [options]="SlogpSliderOptions"
                   (userChangeEnd)="applyFilter()"
                 ></ng5-slider>
@@ -51,8 +51,8 @@
               <div class="slider-control">
                 <span class="slider-label">Topological Polar Surface Area (TPSA):</span>
                 <ng5-slider
-                  [(value)]="filterValues.tpsa.min"
-                  [(highValue)]="filterValues.tpsa.max"
+                  [(value)]="filterValues.t_psa.min"
+                  [(highValue)]="filterValues.t_psa.max"
                   [options]="TPSASliderOptions"
                   (userChangeEnd)="applyFilter()"
                 ></ng5-slider>
@@ -83,8 +83,8 @@
               <div class="slider-control">
                 <span class="slider-label">Rotable Bonds (rotB):</span>
                 <ng5-slider
-                  [(value)]="filterValues.Rotatable_Bonds.min"
-                  [(highValue)]="filterValues.Rotatable_Bonds.max"
+                  [(value)]="filterValues.rotatable_bonds.min"
+                  [(highValue)]="filterValues.rotatable_bonds.max"
                   [options]="rotBSliderOptions"
                   (userChangeEnd)="applyFilter()"
                 ></ng5-slider>
@@ -98,41 +98,34 @@
   </mat-card>
 
   <table
-    (matSortChange)="sortData($event)"
     mat-table
     #table
     [dataSource]="dataSource"
     class="compound-table mat-elevation-z8"
   >
   <!-- Position Column -->
-  <ng-container matColumnDef="Compound_source_ID">
+  <ng-container matColumnDef="compound_source_id">
     <th mat-header-cell *matHeaderCellDef>Image</th>
-    <!-- <div *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"> -->
+    <!-- <div *ngIf="!compoundBlacklist.includes(element.compound_screening_id)"> -->
     <td
       mat-cell
       *matCellDef="let element"
-      [ngClass]="{
-        hide: compoundBlacklist.includes(element.Compound_screening_ID)
-      }"
     >
-      <app-image [width]="180" [height]="180" [src]="'https://virtualflow-covid.hms.harvard.edu/Structures/'+proteinNameFromLevel1+'/Ligands/png/'+element.Compound_screening_ID+'.png'">
+      <app-image [width]="180" [height]="180" [src]="'https://virtualflow-covid.hms.harvard.edu/Structures/'+proteinData.inter_screen_id+'/Ligands/png/'+element.compound_screening_id+'.png'">
       </app-image>
     </td>
   </ng-container>
 
     <!-- Position Column -->
-    <ng-container matColumnDef="Compound_screening_ID">
+    <ng-container matColumnDef="compound_screening_id">
       <th mat-header-cell *matHeaderCellDef>Compound Identifier</th>
-      <!-- <div *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"> -->
+      <!-- <div *ngIf="!compoundBlacklist.includes(element.compound_screening_id)"> -->
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
-        <!-- <div *ngIf="!compoundBlacklist.includes(element.Compound_screening_ID)"></div> -->
-        {{ element.Compound_screening_ID }}
+        <!-- <div *ngIf="!compoundBlacklist.includes(element.compound_screening_id)"></div> -->
+        {{ element.compound_screening_id }}
       </td>
       <!-- </div> -->
     </ng-container>
@@ -143,39 +136,30 @@
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
         {{ element.docking_score }}
       </td>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="MW">
+    <ng-container matColumnDef="m_w">
       <th mat-header-cell *matHeaderCellDef>Molecular Weight</th>
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
-        {{ element.MW }}
+        {{ element.m_w }}
       </td>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="cLogP">
+    <ng-container matColumnDef="c_log_p">
       <th mat-header-cell *matHeaderCellDef>cLogP</th>
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
-        {{ element.cLogP }}
+        {{ element.c_log_p }}
       </td>
     </ng-container>
 
@@ -185,9 +169,6 @@
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
         {{ element.h_acc }}
       </td>
@@ -199,39 +180,30 @@
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
         {{ element.h_donors }}
       </td>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="tpsa">
+    <ng-container matColumnDef="t_psa">
       <th mat-header-cell *matHeaderCellDef>tpsa</th>
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
-        {{ element.tpsa }}
+        {{ element.t_psa }}
       </td>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="Rotatable_Bonds">
+    <ng-container matColumnDef="rotatable_bonds">
       <th mat-header-cell *matHeaderCellDef>rotb</th>
       <td
         mat-cell
         *matCellDef="let element"
-        [ngClass]="{
-          hide: compoundBlacklist.includes(element.Compound_screening_ID)
-        }"
       >
-        {{ element.Rotatable_Bonds }}
+        {{ element.rotatable_bonds }}
       </td>
     </ng-container>
 

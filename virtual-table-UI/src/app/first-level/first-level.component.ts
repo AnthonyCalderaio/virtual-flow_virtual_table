@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { StoreService } from '../store.service';
 
@@ -11,6 +11,6 @@ export class FirstLevelComponent {
   constructor(private router: Router, public store: StoreService) {}
 
   level1Click(item: any) {
-    this.router.navigate(['second-level', item.key], item.value.proteinName);
+    this.router.navigate(['second-level', item.key], item.value.inter_screen_id);
   }
 }

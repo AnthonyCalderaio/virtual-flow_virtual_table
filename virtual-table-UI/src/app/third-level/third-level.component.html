@@ -15,21 +15,21 @@
         <div *ngIf="compound">
           <div class="compound-field">
             <strong>VirtualFlow compound ID:</strong>
-            <span>{{compound.Compound_screening_ID}}</span>
+            <span>{{compound.compound_screening_id}}</span>
           </div>
           <div *ngIf="zincCompound" class="compound-field">
             <strong>Compound catalog ID:</strong>
             <a target="_blank" [href]="zincUrl">
-              <span>{{compound.Compound_source_ID}}</span>
+              <span>{{compound.compound_source_id}}</span>
             </a>
           </div>
           <div *ngIf="!zincCompound" class="compound-field">
             <strong>Compound catalog ID:</strong>
-            <span>{{compound.Compound_source_ID}}</span>
+            <span>{{compound.compound_source_id}}</span>
           </div>
           <div class="compound-field">
             <strong>Molecular weight (dalton):</strong>
-            <span>{{compound.MW}}</span>
+            <span>{{compound.m_w}}</span>
           </div>
           <div class="compound-field">
             <strong>QuickVina docking score (kcal/mol):</strong>
@@ -37,7 +37,7 @@
           </div>
           <div class="compound-field">
             <strong>cLogP:</strong>
-            <span>{{compound.cLogP}}</span>
+            <span>{{compound.c_log_p}}</span>
           </div>
           <div class="compound-field">
             <strong>Hydrogen bond acceptors:</strong>
@@ -49,27 +49,27 @@
           </div>
           <div class="compound-field">
             <strong>Topological polar surface area:</strong>
-            <span>{{compound.TPSA}}</span>
+            <span>{{compound.t_psa}}</span>
           </div>
           <div class="compound-field">
             <strong>Rotatable bonds:</strong>
-            <span>{{compound.Rotatable_Bonds}}</span>
+            <span>{{compound.rotatable_bonds}}</span>
           </div>
           <div class="compound-field">
             <strong>Heavy atoms:</strong>
-            <span>{{compound.Heavy_Atoms}}</span>
+            <span>{{compound.heavy_atoms}}</span>
           </div>
           <div class="compound-field">
             <strong>Mutagenic effects:</strong>
-            <span>{{compound.Mutagenic}}</span>
+            <span>{{compound.mutagenic}}</span>
           </div>
           <div class="compound-field">
             <strong>Tumorigenic effects:</strong>
-            <span>{{compound.Tumorigenic}}</span>
+            <span>{{compound.tumorigenic}}</span>
           </div>
           <div class="compound-field">
             <strong>Reproductive effects:</strong>
-            <span>{{compound['Reproductive Effective']}}</span>
+            <span>{{compound.reproductive}}</span>
           </div>
           <div class="compound-field">
             <strong>Vendors:</strong>
@@ -85,7 +85,7 @@
           </div>
           <div class="compound-field">
             <strong>SMILES:</strong>
-            <span>{{compound.SMILES}}</span>
+            <span>{{compound.s_miles}}</span>
           </div>
         <!-- <button mat-raised-button color="primary">Download Structure</button> -->
         </div>

@@ -15,12 +15,12 @@ import { MatSort } from '@angular/material/sort';
 import { StoreService } from '../store.service';
 
 type ValueTypes =
-  | 'MW'
-  | 'cLogP'
+  | 'm_w'
+  | 'c_log_p'
   | 'h_acc'
   | 'h_donors'
-  | 'tpsa'
-  | 'Rotatable_Bonds';
+  | 't_psa'
+  | 'rotatable_bonds';
 
 @Component({
   selector: 'app-second-level',
@@ -39,37 +39,35 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
     private store: StoreService
   ) {}
 
-  proteinNameFromLevel1: string;
+  inter_screen_idFromLevel1: string;
   initPageSize = 10;
 
   removedCompounds: any = [];
   dataSource = new MatTableDataSource();
 
   displayedColumns: string[] = [
-    'Compound_source_ID',
-    'Compound_screening_ID',
+    'compound_source_id',
+    'compound_screening_id',
     'docking_score',
-    'MW',
-    'cLogP',
+    'm_w',
+    'c_log_p',
     'h_acc',
     'h_donors',
-    'tpsa',
-    'Rotatable_Bonds',
+    't_psa',
+    'rotatable_bonds',
   ];
 
   validFilterKeyNamesForCheck = new Set([
-    'MW',
-    'cLogP',
+    'm_w',
+    'c_log_p',
     'h_acc',
     'h_donors',
-    'tpsa',
-    'Rotatable_Bonds',
+    't_psa',
+    'rotatable_bonds',
   ]);
 
-  compoundBlacklist = [];
-
   ranges: { [key in ValueTypes]: number[] } = {
-    MW: [
+    m_w: [
       0,
       200,
       250,
@@ -83,7 +81,7 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       500,
       Number.MAX_SAFE_INTEGER,
     ],
-    cLogP: [
+    c_log_p: [
       Number.MIN_SAFE_INTEGER,
       -1,
       0,
@@ -97,8 +95,8 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       5,
       Number.MAX_SAFE_INTEGER,
     ],
-    tpsa: [0, 20, 40, 60, 80, 100, 120, 140, Number.MAX_SAFE_INTEGER],
-    Rotatable_Bonds: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
+    t_psa: [0, 20, 40, 60, 80, 100, 120, 140, Number.MAX_SAFE_INTEGER],
+    rotatable_bonds: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
     h_donors: [0, 1, 2, 3, 4, 5, Number.MAX_SAFE_INTEGER],
     h_acc: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
   };
@@ -113,12 +111,12 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
     return accum;
   }, {} as { [key in ValueTypes]: { min: number; max: number } });
 
-  MWSliderOptions = this.getSliderOptions('MW');
-  SlogpSliderOptions = this.getSliderOptions('cLogP');
-  TPSASliderOptions = this.getSliderOptions('tpsa');
+  MWSliderOptions = this.getSliderOptions('m_w');
+  SlogpSliderOptions = this.getSliderOptions('c_log_p');
+  TPSASliderOptions = this.getSliderOptions('t_psa');
   HBASliderOptions = this.getSliderOptions('h_acc');
   HBDSliderOptions = this.getSliderOptions('h_donors');
-  rotBSliderOptions = this.getSliderOptions('Rotatable_Bonds');
+  rotBSliderOptions = this.getSliderOptions('rotatable_bonds');
 
   proteinData: any;
 
@@ -143,7 +141,6 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.proteinData = this.store.data[params.proteinId];
-      this.setProteinName(this.proteinData.proteinName);
       this.populateTableData();
       this.dataSource.data = this.dataArray;
       this.dataSource.sort = this.sort;
@@ -158,10 +155,10 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
   }
 
   clickedRow(_: any, row: any) {
-    const compounds = this.proteinData.level2.docked_compounds;
+    const compounds = this.proteinData.compounds;
     const key = Object.keys(compounds)
       .filter(
-        (k) => compounds[k].Compound_screening_ID === row.Compound_screening_ID
+        (k) => compounds[k].compound_screening_id === row.compound_screening_id
       )
       .pop();
     this.route.params.pipe(take(1)).subscribe((params) => {
@@ -169,34 +166,11 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
     });
   }
 
-  sortData(event: any) {
-    // console.log('Sorting for:', event)
-  }
-
   populateTableData() {
-    Object.keys(this.proteinData.level2.docked_compounds).forEach((element) => {
-      const subSet = this.getSubsetOfObject(
-        this.proteinData.level2.docked_compounds[element]
-      );
-      this.dataArray.push(subSet);
+    Object.keys(this.proteinData.compounds).forEach((compound) => {
+      this.dataArray.push(this.proteinData.compounds[compound]);
     });
     this.dataSource.data = this.dataArray;
-  }
-
-  getSubsetOfObject(objectInput) {
-    // ["Compound_screening_ID", "docking_scores", "compound_image", "MW", "cLogP", "H_Acc", "hDonors", "tpsa", "rotable_bonds"]
-    return {
-      Compound_screening_ID: objectInput.Compound_screening_ID,
-      // Top_Scores,
-      MW: objectInput.MW,
-      cLogP: objectInput.cLogP,
-      h_acc: objectInput.h_acc,
-      h_donors: objectInput.h_donors,
-      tpsa: objectInput.TPSA,
-      Rotatable_Bonds: objectInput.Rotatable_Bonds,
-      docking_score: objectInput.docking_score,
-    };
-    // return subset;
   }
 
   backClicked() {
@@ -223,7 +197,7 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
 
     viewer.loadStructuresFromUrlsAndMerge([
       {
-        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${this.proteinNameFromLevel1}/Receptor.pdbqt`,
+        url: `https://virtualflow-covid.hms.harvard.edu/Structures/${this.proteinData.inter_screen_id}/Receptor.pdbqt`,
         // url: './assets/sample_urls/Receptor.pdbqt',
         format: 'pdbqt',
       },
@@ -248,8 +222,5 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       }
       return true;
     });
-  }
-  setProteinName(input: any) {
-    this.proteinNameFromLevel1 = input;
   }
 }
