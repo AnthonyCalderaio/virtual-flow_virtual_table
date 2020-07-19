@@ -41,16 +41,10 @@ const toMap = (arr, key) => {
 const normalizeObject = (o) => {
   const result = {};
   Object.keys(o).forEach((c) => {
-    const normalized = normalizeName(c);
+    const normalized = snakeCase(c);
     result[normalized] = o[c];
   });
   return result;
-};
-
-const normalizeName = (name) => {
-  const first = name[0].toLowerCase();
-  const rest = name.slice(1);
-  return snakeCase(first + rest);
 };
 
 const snakeCase = (input, options) => {

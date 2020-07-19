@@ -31,8 +31,8 @@
               <div class="slider-control">
                 <span class="slider-label">Molecular Weight (MW):</span>
                 <ng5-slider
-                  [(value)]="filterValues.m_w.min"
-                  [(highValue)]="filterValues.m_w.max"
+                  [(value)]="filterValues.mw.min"
+                  [(highValue)]="filterValues.mw.max"
                   [options]="MWSliderOptions"
                   (userChangeEnd)="applyFilter()"
                 ></ng5-slider>
@@ -51,8 +51,8 @@
               <div class="slider-control">
                 <span class="slider-label">Topological Polar Surface Area (TPSA):</span>
                 <ng5-slider
-                  [(value)]="filterValues.t_psa.min"
-                  [(highValue)]="filterValues.t_psa.max"
+                  [(value)]="filterValues.tpsa.min"
+                  [(highValue)]="filterValues.tpsa.max"
                   [options]="TPSASliderOptions"
                   (userChangeEnd)="applyFilter()"
                 ></ng5-slider>
@@ -142,13 +142,13 @@
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="m_w">
+    <ng-container matColumnDef="mw">
       <th mat-header-cell *matHeaderCellDef>Molecular Weight</th>
       <td
         mat-cell
         *matCellDef="let element"
       >
-        {{ element.m_w }}
+        {{ element.mw }}
       </td>
     </ng-container>
 
@@ -186,13 +186,13 @@
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="t_psa">
+    <ng-container matColumnDef="tpsa">
       <th mat-header-cell *matHeaderCellDef>tpsa</th>
       <td
         mat-cell
         *matCellDef="let element"
       >
-        {{ element.t_psa }}
+        {{ element.tpsa }}
       </td>
     </ng-container>
 

@@ -15,11 +15,11 @@ import { MatSort } from '@angular/material/sort';
 import { StoreService } from '../store.service';
 
 type ValueTypes =
-  | 'm_w'
+  | 'mw'
   | 'c_log_p'
   | 'h_acc'
   | 'h_donors'
-  | 't_psa'
+  | 'tpsa'
   | 'rotatable_bonds';
 
 @Component({
@@ -49,25 +49,25 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
     'compound_source_id',
     'compound_screening_id',
     'docking_score',
-    'm_w',
+    'mw',
     'c_log_p',
     'h_acc',
     'h_donors',
-    't_psa',
+    'tpsa',
     'rotatable_bonds',
   ];
 
   validFilterKeyNamesForCheck = new Set([
-    'm_w',
+    'mw',
     'c_log_p',
     'h_acc',
     'h_donors',
-    't_psa',
+    'tpsa',
     'rotatable_bonds',
   ]);
 
   ranges: { [key in ValueTypes]: number[] } = {
-    m_w: [
+    mw: [
       0,
       200,
       250,
@@ -95,7 +95,7 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
       5,
       Number.MAX_SAFE_INTEGER,
     ],
-    t_psa: [0, 20, 40, 60, 80, 100, 120, 140, Number.MAX_SAFE_INTEGER],
+    tpsa: [0, 20, 40, 60, 80, 100, 120, 140, Number.MAX_SAFE_INTEGER],
     rotatable_bonds: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
     h_donors: [0, 1, 2, 3, 4, 5, Number.MAX_SAFE_INTEGER],
     h_acc: [0, 1, 3, 5, 7, 9, 10, Number.MAX_SAFE_INTEGER],
@@ -111,9 +111,9 @@ export class SecondLevelComponent implements AfterViewInit, OnInit {
     return accum;
   }, {} as { [key in ValueTypes]: { min: number; max: number } });
 
-  MWSliderOptions = this.getSliderOptions('m_w');
+  MWSliderOptions = this.getSliderOptions('mw');
   SlogpSliderOptions = this.getSliderOptions('c_log_p');
-  TPSASliderOptions = this.getSliderOptions('t_psa');
+  TPSASliderOptions = this.getSliderOptions('tpsa');
   HBASliderOptions = this.getSliderOptions('h_acc');
   HBDSliderOptions = this.getSliderOptions('h_donors');
   rotBSliderOptions = this.getSliderOptions('rotatable_bonds');
