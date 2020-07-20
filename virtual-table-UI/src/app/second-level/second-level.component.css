@@ -143,7 +143,7 @@ h1 {
 
 .protein-summary span {
   display: block;
-  margin-bottom: 5px;;
+  margin-bottom: 5px;
 }
 
 .protein-summary {
@@ -171,4 +171,11 @@ h1 {
   justify-content: center;
   flex-direction: column;
   font-size: 17px;
+}
+
+#level-2-viewer {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  z-index: 5;
 }
